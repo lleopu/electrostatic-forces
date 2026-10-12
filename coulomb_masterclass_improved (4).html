@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An interactive A-Level Physics resource covering Coulomb’s law, electrostatic forces, simulations, and exam practice.">
+<script>
+    // Restore the user's preferred theme before the page is rendered.
+    (function () {
+        try {
+            const savedTheme = localStorage.getItem('coulomb-masterclass-theme');
+            if (savedTheme === 'dark') { document.documentElement.classList.add('dark'); document.documentElement.classList.remove('light'); document.documentElement.dataset.theme = 'dark'; }
+            else { document.documentElement.classList.remove('dark'); document.documentElement.classList.add('light'); document.documentElement.dataset.theme = 'light'; }
+        } catch (error) {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.documentElement.dataset.theme = 'light';
+        }
+    })();
+</script>
+<title>Coulomb’s Law Masterclass | A-Level Physics</title>
+<!-- Tailwind configuration must be defined before the CDN script loads. -->
+<script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: {
+                    cream: {
+                        50: '#FAF6F0',
+                        100: '#F3ECE1',
+                        200: '#E8DFD1',
+                        300: '#D6C8B4',
+                        800: '#3D352E',
+                        900: '#211B16'
+                    },
+                    maroon: {
+                        500: '#A01B3E',
+                        600: '#800020',
+                        700: '#5B0017',
+                        800: '#420010',
+                        900: '#2B000A'
+                    },
+                    gold: {
+                        400: '#F59E0B',
+                        500: '#D97706',
+                        600: '#B45309'
+                    }
+                }
+            }
+        }
+    }
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<!-- MathJax renders LaTeX in both static content and dynamically generated questions. -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+    startup: { typeset: false }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<!-- Google Fonts & FontAwesome Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    body { font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 1.75; }
+
+    /* Explicit cream-and-maroon light theme. These rules intentionally use
+       !important so the palette remains consistent with Tailwind CDN utilities. */
+    html.light body, html:not(.dark) body {
+        background-color: #FAF6F0 !important;
+        color: #211B16 !important;
+        color-scheme: light;
+    }
+    html.light #tab-introduction, html:not(.dark) #tab-introduction {
+        background-color: #FAF6F0 !important;
+        color: #211B16 !important;
+        border-color: #E8DFD1 !important;
+    }
+    html.light #main-workspace, html:not(.dark) #main-workspace {
+        background-color: rgba(250, 246, 240, .96) !important;
+        color: #211B16 !important;
+        border-color: #E8DFD1 !important;
+    }
+    html.light .bg-white, html:not(.dark) .bg-white { background-color: #FFFDF9 !important; }
+    html.light .bg-cream-50, html:not(.dark) .bg-cream-50 { background-color: #FAF6F0 !important; }
+    html.light .bg-cream-100, html:not(.dark) .bg-cream-100 { background-color: #F3ECE1 !important; }
+    html.light .bg-cream-200, html:not(.dark) .bg-cream-200 { background-color: #E8DFD1 !important; }
+    html.light .bg-cream-300, html:not(.dark) .bg-cream-300 { background-color: #D6C8B4 !important; }
+    html.light .text-cream-700, html:not(.dark) .text-cream-700 { color: #5B4A40 !important; }
+    html.light .text-cream-800, html:not(.dark) .text-cream-800 { color: #3D352E !important; }
+    html.light .text-cream-900, html:not(.dark) .text-cream-900 { color: #211B16 !important; }
+    html.light .text-maroon-700, html:not(.dark) .text-maroon-700 { color: #5B0017 !important; }
+    html.light .text-maroon-800, html:not(.dark) .text-maroon-800 { color: #420010 !important; }
+    html.light .text-maroon-900, html:not(.dark) .text-maroon-900 { color: #2B000A !important; }
+    html.light .border-cream-200, html:not(.dark) .border-cream-200 { border-color: #E8DFD1 !important; }
+    html.light .border-cream-300, html:not(.dark) .border-cream-300 { border-color: #D6C8B4 !important; }
+    html.light .bg-maroon-600, html:not(.dark) .bg-maroon-600 { background-color: #800020 !important; }
+    html.light .hover\:bg-maroon-700:hover, html:not(.dark) .hover\:bg-maroon-700:hover { background-color: #5B0017 !important; }
+    html.light .code-font { color: inherit; }
+
+    /* Replace blue/indigo utility backgrounds with the site's cream-and-maroon palette in light mode. */
+    html.light .bg-indigo-500, html:not(.dark) .bg-indigo-500,
+    html.light .bg-indigo-600, html:not(.dark) .bg-indigo-600,
+    html.light .bg-indigo-700, html:not(.dark) .bg-indigo-700,
+    html.light .bg-blue-500, html:not(.dark) .bg-blue-500,
+    html.light .bg-blue-600, html:not(.dark) .bg-blue-600,
+    html.light .bg-blue-700, html:not(.dark) .bg-blue-700,
+    html.light .bg-sky-500, html:not(.dark) .bg-sky-500,
+    html.light .bg-sky-600, html:not(.dark) .bg-sky-600,
+    html.light .bg-sky-700, html:not(.dark) .bg-sky-700 {
+        background-color: #800020 !important;
+        border-color: #5B0017 !important;
+        color: #FFFDF9 !important;
+    }
+    html.light .hover\:bg-indigo-700:hover, html:not(.dark) .hover\:bg-indigo-700:hover,
+    html.light .hover\:bg-blue-700:hover, html:not(.dark) .hover\:bg-blue-700:hover,
+    html.light .hover\:bg-sky-700:hover, html:not(.dark) .hover\:bg-sky-700:hover {
+        background-color: #5B0017 !important;
+        color: #FFFDF9 !important;
+    }
+
+    /* High-contrast introduction hero: cream and maroon in light mode. */
+    html.light #tab-introduction .intro-hero,
+    html:not(.dark) #tab-introduction .intro-hero {
+        background: linear-gradient(135deg, #FAF6F0 0%, #F3ECE1 58%, #FFFDF9 100%) !important;
+        color: #211B16 !important;
+        border-color: #D6C8B4 !important;
+    }
+    html.light #tab-introduction .intro-hero h1,
+    html:not(.dark) #tab-introduction .intro-hero h1 { color: #420010 !important; }
+    html.light #tab-introduction .intro-hero h1 span,
+    html:not(.dark) #tab-introduction .intro-hero h1 span { color: #800020 !important; }
+    html.light #tab-introduction .intro-hero p,
+    html:not(.dark) #tab-introduction .intro-hero p { color: #3D352E !important; }
+    html.light #tab-introduction .intro-hero .intro-kicker,
+    html:not(.dark) #tab-introduction .intro-hero .intro-kicker {
+        background: #FFFDF9 !important; color: #5B0017 !important; border-color: #D6C8B4 !important;
+    }
+    html.dark #tab-introduction .intro-hero { color: #F8FAFC; }
+    html.dark #tab-introduction .intro-hero h1 { color: #FFFFFF !important; }
+    html.dark #tab-introduction .intro-hero h1 span { color: #FDA4AF !important; }
+    html.dark #tab-introduction .intro-hero p { color: #E2E8F0 !important; }
+    html.dark #tab-introduction .intro-hero .intro-kicker { color: #FECDD3 !important; }
+
+    /* Light-mode readability pass: replace pale utility text colours with
+       dark, high-contrast neutrals while retaining maroon as the accent. */
+    html.light .text-slate-100, html:not(.dark) .text-slate-100,
+    html.light .text-slate-200, html:not(.dark) .text-slate-200,
+    html.light .text-slate-300, html:not(.dark) .text-slate-300,
+    html.light .text-slate-400, html:not(.dark) .text-slate-400,
+    html.light .text-slate-500, html:not(.dark) .text-slate-500,
+    html.light .text-gray-300, html:not(.dark) .text-gray-300,
+    html.light .text-gray-400, html:not(.dark) .text-gray-400,
+    html.light .text-gray-500, html:not(.dark) .text-gray-500,
+    html.light .text-stone-300, html:not(.dark) .text-stone-300,
+    html.light .text-stone-400, html:not(.dark) .text-stone-400,
+    html.light .text-stone-500, html:not(.dark) .text-stone-500 {
+        color: #45372F !important;
+    }
+    html.light .text-amber-400, html:not(.dark) .text-amber-400,
+    html.light .text-yellow-400, html:not(.dark) .text-yellow-400,
+    html.light .text-orange-400, html:not(.dark) .text-orange-400 {
+        color: #854D0E !important;
+    }
+    html.light .text-rose-300, html:not(.dark) .text-rose-300,
+    html.light .text-rose-400, html:not(.dark) .text-rose-400,
+    html.light .text-pink-300, html:not(.dark) .text-pink-300,
+    html.light .text-pink-400, html:not(.dark) .text-pink-400 {
+        color: #8A1538 !important;
+    }
+    html.light input, html.light select, html.light textarea,
+    html:not(.dark) input, html:not(.dark) select, html:not(.dark) textarea {
+        color: #211B16;
+        background-color: #FFFDF9;
+        border-color: #BFAF9B;
+    }
+    html.light input::placeholder, html.light textarea::placeholder,
+    html:not(.dark) input::placeholder, html:not(.dark) textarea::placeholder {
+        color: #6B5B50 !important;
+        opacity: 1;
+    }
+    /* Additional contrast fixes for utility colours used throughout cards,
+       navigation, feedback messages, and dynamically generated exercises. */
+    html.light [class*="dark:text-slate-"], html:not(.dark) [class*="dark:text-slate-"] { color: #45372F !important; }
+    html.light .text-indigo-400, html:not(.dark) .text-indigo-400,
+    html.light .text-indigo-600, html:not(.dark) .text-indigo-600,
+    html.light .text-indigo-700, html:not(.dark) .text-indigo-700 { color: #3730A3 !important; }
+    html.light .text-emerald-300, html:not(.dark) .text-emerald-300,
+    html.light .text-emerald-400, html:not(.dark) .text-emerald-400,
+    html.light .text-emerald-600, html:not(.dark) .text-emerald-600,
+    html.light .text-emerald-700, html:not(.dark) .text-emerald-700 { color: #166534 !important; }
+    html.light .text-emerald-800, html:not(.dark) .text-emerald-800 { color: #14532D !important; }
+    html.light .text-amber-600, html:not(.dark) .text-amber-600,
+    html.light .text-amber-700, html:not(.dark) .text-amber-700 { color: #78350F !important; }
+    html.light .text-rose-600, html:not(.dark) .text-rose-600,
+    html.light .text-rose-700, html:not(.dark) .text-rose-700,
+    html.light .text-rose-800, html:not(.dark) .text-rose-800 { color: #881337 !important; }
+    html.light .text-cyan-400, html:not(.dark) .text-cyan-400,
+    html.light .text-cyan-500, html:not(.dark) .text-cyan-500,
+    html.light .text-blue-400, html:not(.dark) .text-blue-400,
+    html.light .text-blue-500, html:not(.dark) .text-blue-500 { color: #075985 !important; }
+    html.light .text-purple-400, html:not(.dark) .text-purple-400,
+    html.light .text-violet-400, html:not(.dark) .text-violet-400 { color: #6B21A8 !important; }
+
+    /* Introductory page readability: apply high-contrast colours to every
+       text element in the feature cards, Quick Start Guide, and Helpful Notes. */
+    html.light #tab-introduction, html:not(.dark) #tab-introduction { color: #211B16 !important; }
+    html.light #tab-introduction h1, html.light #tab-introduction h2,
+    html.light #tab-introduction h3, html.light #tab-introduction h4,
+    html:not(.dark) #tab-introduction h1, html:not(.dark) #tab-introduction h2,
+    html:not(.dark) #tab-introduction h3, html:not(.dark) #tab-introduction h4 {
+        color: #420010 !important;
+    }
+    html.light #tab-introduction p, html.light #tab-introduction li,
+    html.light #tab-introduction ol, html.light #tab-introduction ul,
+    html.light #tab-introduction strong, html.light #tab-introduction small,
+    html:not(.dark) #tab-introduction p, html:not(.dark) #tab-introduction li,
+    html:not(.dark) #tab-introduction ol, html:not(.dark) #tab-introduction ul,
+    html:not(.dark) #tab-introduction strong, html:not(.dark) #tab-introduction small {
+        color: #3D352E !important;
+    }
+    html.light #tab-introduction i, html:not(.dark) #tab-introduction i { color: #800020; }
+    html.light #tab-introduction .intro-hero h1,
+    html:not(.dark) #tab-introduction .intro-hero h1 { color: #420010 !important; }
+    html.light #tab-introduction .intro-hero h1 span,
+    html:not(.dark) #tab-introduction .intro-hero h1 span { color: #800020 !important; }
+    html.light #tab-introduction .intro-hero .intro-kicker,
+    html:not(.dark) #tab-introduction .intro-hero .intro-kicker { color: #5B0017 !important; }
+    html.light #tab-introduction a:not(.bg-maroon-600),
+    html:not(.dark) #tab-introduction a:not(.bg-maroon-600) { color: #5B0017 !important; }
+
+    /* White text is reserved for controls with a sufficiently dark background.
+       On pale surfaces, use the normal dark foreground for readability. */
+    html.light .text-white:not(.bg-maroon-600):not(.bg-maroon-700):not(.bg-indigo-600):not(.bg-indigo-700):not(.bg-emerald-600):not(.bg-emerald-700):not(.bg-rose-600):not(.bg-rose-700):not(.bg-amber-600):not(.bg-amber-700),
+    html:not(.dark) .text-white:not(.bg-maroon-600):not(.bg-maroon-700):not(.bg-indigo-600):not(.bg-indigo-700):not(.bg-emerald-600):not(.bg-emerald-700):not(.bg-rose-600):not(.bg-rose-700):not(.bg-amber-600):not(.bg-amber-700) {
+        color: #211B16 !important;
+    }
+    html.light .text-white.bg-maroon-600, html:not(.dark) .text-white.bg-maroon-600,
+    html.light .text-white.bg-maroon-700, html:not(.dark) .text-white.bg-maroon-700,
+    html.light .text-white.bg-indigo-600, html:not(.dark) .text-white.bg-indigo-600,
+    html.light .text-white.bg-indigo-700, html:not(.dark) .text-white.bg-indigo-700,
+    html.light .text-white.bg-emerald-600, html:not(.dark) .text-white.bg-emerald-600,
+    html.light .text-white.bg-emerald-700, html:not(.dark) .text-white.bg-emerald-700,
+    html.light .text-white.bg-rose-600, html:not(.dark) .text-white.bg-rose-600,
+    html.light .text-white.bg-rose-700, html:not(.dark) .text-white.bg-rose-700,
+    html.light .text-white.bg-amber-600, html:not(.dark) .text-white.bg-amber-600,
+    html.light .text-white.bg-amber-700, html:not(.dark) .text-white.bg-amber-700 {
+        color: #FFFFFF !important;
+    }
+    .code-font { font-family: 'Fira Code', monospace; }
+    
+    /* Stacked Vertical Fraction CSS (Strictly No Slashes) */
+    .math-frac {
+        display: inline-flex;
+        flex-direction: column;
+        vertical-align: middle;
+        text-align: center;
+        padding: 0 0.35em;
+        line-height: 1.2;
+    }
+    .math-num {
+        border-bottom: 2px solid currentColor;
+        padding-bottom: 2px;
+        display: block;
+    }
+    .math-den {
+        padding-top: 2px;
+        display: block;
+    }
+
+    /* Print styles for Summary Generator */
+    @media print {
+        body * { visibility: hidden; }
+        #printable-summary, #printable-summary * { visibility: visible; }
+        #printable-summary { display: block !important; position: absolute; left: 0; top: 0; width: 100%; color: #000; background: #fff; }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #F3ECE1; }
+    .dark ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #800020; border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: #5B0017; }
+
+
+    /* Final light-mode palette harmonisation: cream, warm brown, and maroon. */
+    html.light, html:not(.dark) { color-scheme: light; background: #FAF6F0 !important; }
+    html.light body, html:not(.dark) body { background: #FAF6F0 !important; color: #211B16 !important; }
+    html.light main, html.light section, html.light article,
+    html:not(.dark) main, html:not(.dark) section, html:not(.dark) article {
+        border-color: #E3D6C5;
+    }
+    html.light .bg-slate-950, html.light .bg-slate-900, html.light .bg-slate-800,
+    html.light .bg-gray-950, html.light .bg-gray-900, html.light .bg-gray-800,
+    html.light .bg-zinc-950, html.light .bg-zinc-900, html.light .bg-stone-900,
+    html:not(.dark) .bg-slate-950, html:not(.dark) .bg-slate-900, html:not(.dark) .bg-slate-800,
+    html:not(.dark) .bg-gray-950, html:not(.dark) .bg-gray-900, html:not(.dark) .bg-gray-800,
+    html:not(.dark) .bg-zinc-950, html:not(.dark) .bg-zinc-900, html:not(.dark) .bg-stone-900 {
+        background-color: #F3ECE1 !important; color: #211B16 !important; border-color: #D6C8B4 !important;
+    }
+    html.light [class*="bg-indigo-"], html.light [class*="bg-blue-"], html.light [class*="bg-sky-"],
+    html:not(.dark) [class*="bg-indigo-"], html:not(.dark) [class*="bg-blue-"], html:not(.dark) [class*="bg-sky-"] {
+        background-color: #800020 !important; color: #FFFDF9 !important; border-color: #5B0017 !important;
+    }
+    html.light [class*="hover:bg-indigo-"]:hover, html.light [class*="hover:bg-blue-"]:hover,
+    html.light [class*="hover:bg-sky-"]:hover, html.light [class*="hover:bg-maroon-700"]:hover,
+    html:not(.dark) [class*="hover:bg-indigo-"]:hover, html:not(.dark) [class*="hover:bg-blue-"]:hover,
+    html:not(.dark) [class*="hover:bg-sky-"]:hover, html:not(.dark) [class*="hover:bg-maroon-700"]:hover {
+        background-color: #5B0017 !important; color: #FFFDF9 !important;
+    }
+    html.light [class*="bg-indigo-"] *, html.light [class*="bg-blue-"] *, html.light [class*="bg-sky-"],
+    html:not(.dark) [class*="bg-indigo-"] *, html:not(.dark) [class*="bg-blue-"] *, html:not(.dark) [class*="bg-sky-"] * { color: inherit; }
+    html.light [class*="text-indigo-"], html.light [class*="text-blue-"], html.light [class*="text-sky-"],
+    html:not(.dark) [class*="text-indigo-"], html:not(.dark) [class*="text-blue-"], html:not(.dark) [class*="text-sky-"] { color: #800020 !important; }
+    html.light [class*="text-emerald-"], html.light [class*="text-green-"],
+    html:not(.dark) [class*="text-emerald-"], html:not(.dark) [class*="text-green-"] { color: #356044 !important; }
+    html.light [class*="text-rose-"], html.light [class*="text-pink-"],
+    html:not(.dark) [class*="text-rose-"], html:not(.dark) [class*="text-pink-"] { color: #800020 !important; }
+    html.light [class*="text-amber-"], html.light [class*="text-yellow-"], html.light [class*="text-orange-"],
+    html:not(.dark) [class*="text-amber-"], html:not(.dark) [class*="text-yellow-"], html:not(.dark) [class*="text-orange-"] { color: #81511B !important; }
+    html.light [class*="border-indigo-"], html.light [class*="border-blue-"], html.light [class*="border-sky-"],
+    html:not(.dark) [class*="border-indigo-"], html:not(.dark) [class*="border-blue-"], html:not(.dark) [class*="border-sky-"] { border-color: #D6C8B4 !important; }
+    html.light [class*="from-indigo-"], html.light [class*="to-indigo-"], html.light [class*="via-indigo-"],
+    html.light [class*="from-blue-"], html.light [class*="to-blue-"], html.light [class*="via-blue-"],
+    html:not(.dark) [class*="from-indigo-"], html:not(.dark) [class*="to-indigo-"], html:not(.dark) [class*="via-indigo-"],
+    html:not(.dark) [class*="from-blue-"], html:not(.dark) [class*="to-blue-"], html:not(.dark) [class*="via-blue-"] { --tw-gradient-from: #F3ECE1 var(--tw-gradient-from-position) !important; --tw-gradient-to: rgb(243 236 225 / 0) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+    html.light .border-slate-700, html.light .border-slate-800, html.light .border-gray-700,
+    html:not(.dark) .border-slate-700, html:not(.dark) .border-slate-800, html:not(.dark) .border-gray-700 { border-color: #D6C8B4 !important; }
+    html.light .shadow, html.light .shadow-md, html.light .shadow-lg, html.light .shadow-xl,
+    html:not(.dark) .shadow, html:not(.dark) .shadow-md, html:not(.dark) .shadow-lg, html:not(.dark) .shadow-xl { --tw-shadow-color: 61 53 46 / 0.10; }
+    html.light .text-white:not(button):not(a), html:not(.dark) .text-white:not(button):not(a) { color: #211B16 !important; }
+    html.light button.text-white, html.light a.text-white, html:not(.dark) button.text-white, html:not(.dark) a.text-white { color: #FFFDF9 !important; }
+
+
+
+    /* Final light-mode consistency pass: introductory guide and theory hero. */
+    html.light #tab-introduction .grid.rounded-2xl.border,
+    html:not(.dark) #tab-introduction .grid.rounded-2xl.border {
+        background: #F3ECE1 !important;
+        border-color: #D6C8B4 !important;
+        color: #211B16 !important;
+        box-shadow: 0 8px 24px rgba(66, 0, 16, .06) !important;
+    }
+    html.light #tab-introduction .grid.rounded-2xl.border > div,
+    html:not(.dark) #tab-introduction .grid.rounded-2xl.border > div {
+        background: #FFFDF9 !important;
+        border: 1px solid #E8DFD1 !important;
+        border-radius: 1rem !important;
+        padding: 1.1rem !important;
+    }
+    html.light #tab-introduction .grid.rounded-2xl.border h2,
+    html:not(.dark) #tab-introduction .grid.rounded-2xl.border h2 {
+        color: #5B0017 !important;
+    }
+    html.light #tab-introduction .grid.rounded-2xl.border p,
+    html.light #tab-introduction .grid.rounded-2xl.border li,
+    html.light #tab-introduction .grid.rounded-2xl.border strong,
+    html:not(.dark) #tab-introduction .grid.rounded-2xl.border p,
+    html:not(.dark) #tab-introduction .grid.rounded-2xl.border li,
+    html:not(.dark) #tab-introduction .grid.rounded-2xl.border strong {
+        color: #3D352E !important;
+    }
+    html.light #tab-introduction .grid.rounded-2xl.border i,
+    html:not(.dark) #tab-introduction .grid.rounded-2xl.border i {
+        color: #800020 !important;
+    }
+
+    /* The theory banner uses the same cream surfaces, maroon headings and readable body text. */
+    html.light #tab-theory > div:first-child,
+    html:not(.dark) #tab-theory > div:first-child {
+        background: linear-gradient(135deg, #F3ECE1 0%, #FAF6F0 62%, #E8DFD1 100%) !important;
+        border-color: #D6C8B4 !important;
+        color: #211B16 !important;
+        box-shadow: 0 12px 30px rgba(66, 0, 16, .08) !important;
+    }
+    html.light #tab-theory > div:first-child h1,
+    html:not(.dark) #tab-theory > div:first-child h1 { color: #420010 !important; }
+    html.light #tab-theory > div:first-child p,
+    html:not(.dark) #tab-theory > div:first-child p { color: #3D352E !important; }
+    html.light #tab-theory > div:first-child strong,
+    html:not(.dark) #tab-theory > div:first-child strong { color: #5B0017 !important; }
+    html.light #tab-theory > div:first-child span:not(.text-white),
+    html:not(.dark) #tab-theory > div:first-child span:not(.text-white) {
+        color: #5B0017 !important;
+    }
+    html.light #tab-theory > div:first-child .bg-cream-200,
+    html:not(.dark) #tab-theory > div:first-child .bg-cream-200 {
+        background: #E8DFD1 !important;
+        color: #420010 !important;
+        border-color: #D6C8B4 !important;
+    }
+
+    /* Harmonise translucent Tailwind surfaces and remaining blue/purple accents in light mode. */
+    html.light .bg-cream-50\/70, html:not(.dark) .bg-cream-50\/70 { background-color: rgba(250,246,240,.88) !important; }
+    html.light .bg-cream-100\/70, html:not(.dark) .bg-cream-100\/70 { background-color: rgba(243,236,225,.92) !important; }
+    html.light .bg-white\/70, html:not(.dark) .bg-white\/70 { background-color: rgba(255,253,249,.92) !important; }
+    html.light .bg-slate-50, html:not(.dark) .bg-slate-50,
+    html.light .bg-slate-100, html:not(.dark) .bg-slate-100,
+    html.light .bg-gray-50, html:not(.dark) .bg-gray-50,
+    html.light .bg-gray-100, html:not(.dark) .bg-gray-100,
+    html.light .bg-zinc-50, html:not(.dark) .bg-zinc-50,
+    html.light .bg-zinc-100, html:not(.dark) .bg-zinc-100 {
+        background-color: #F3ECE1 !important;
+    }
+    html.light .border-slate-200, html:not(.dark) .border-slate-200,
+    html.light .border-slate-300, html:not(.dark) .border-slate-300,
+    html.light .border-gray-200, html:not(.dark) .border-gray-200,
+    html.light .border-gray-300, html:not(.dark) .border-gray-300,
+    html.light .border-zinc-200, html:not(.dark) .border-zinc-200 {
+        border-color: #E8DFD1 !important;
+    }
+    html.light .text-indigo-700, html:not(.dark) .text-indigo-700,
+    html.light .text-indigo-800, html:not(.dark) .text-indigo-800,
+    html.light .text-blue-700, html:not(.dark) .text-blue-700,
+    html.light .text-blue-800, html:not(.dark) .text-blue-800,
+    html.light .text-violet-700, html:not(.dark) .text-violet-700,
+    html.light .text-purple-700, html:not(.dark) .text-purple-700 {
+        color: #5B0017 !important;
+    }
+    html.light .shadow-blue-500\/20, html:not(.dark) .shadow-blue-500\/20,
+    html.light .shadow-indigo-500\/20, html:not(.dark) .shadow-indigo-500\/20 {
+        --tw-shadow-color: rgba(128, 0, 32, .12) !important;
+    }
+
+
+    /* Selected-charge inspector: cohesive cream-and-maroon light palette. */
+    .charge-inspector {
+        background: rgba(250, 246, 240, 0.97);
+        border-color: #d8c7b7;
+        border-top: 3px solid #800020;
+        color: #211b16;
+        box-shadow: 0 14px 34px rgba(69, 35, 28, 0.16);
+        min-width: min(270px, calc(100% - 2.5rem));
+    }
+    .charge-inspector-title { color: #800020; }
+    .charge-inspector-icon {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 1.75rem; height: 1.75rem; border-radius: .6rem;
+        background: #efe1d7; color: #800020; flex: 0 0 auto;
+    }
+    .charge-inspector-data { color: #35271f; }
+    .charge-info-row {
+        display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+        gap: .25rem .75rem; padding: .45rem .6rem; border-radius: .55rem;
+        background: #f3ece3; border: 1px solid #e5d8cb;
+    }
+    .charge-info-row span { color: #765e50; font-family: Inter, sans-serif; font-size: .72rem; font-weight: 700; }
+    .charge-info-row strong { color: #541326; font-weight: 800; text-align: right; }
+    html.dark .charge-inspector {
+        background: rgba(15, 23, 42, 0.96); border-color: #334155; border-top-color: #fb7185;
+        color: #e2e8f0; box-shadow: 0 14px 34px rgba(0, 0, 0, .3);
+    }
+    html.dark .charge-inspector-title { color: #fda4af; }
+    html.dark .charge-inspector-icon { background: #3b1f2b; color: #fda4af; }
+    html.dark .charge-inspector-data { color: #e2e8f0; }
+    html.dark .charge-info-row { background: #1e293b; border-color: #334155; }
+    html.dark .charge-info-row span { color: #cbd5e1; }
+    html.dark .charge-info-row strong { color: #fda4af; }
+    @media (max-width: 640px) {
+        .charge-inspector { top: .75rem; left: .75rem; padding: .75rem; max-width: calc(100% - 1.5rem); }
+        .charge-info-row { gap: .15rem .5rem; }
+    }
+
+
+
+/* UI/UX polish: clearer focus, calmer motion, consistent controls and navigation */
+html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
+body { line-height: 1.65; }
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #A01B3E !important;
+  outline-offset: 3px;
+}
+html.dark :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline-color: #FDA4AF !important;
+}
+:where(button, a) { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
+main section[id] { scroll-margin-top: 7.5rem; }
+main :where(input, select, textarea) {
+  max-width: 100%;
+}
+main :where(input, select, textarea):not([type="checkbox"]):not([type="radio"]) {
+  border-radius: .8rem;
+}
+main :where(button, a) { transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+main :where(button, a):active { transform: translateY(1px); }
+main :where(article, .rounded-3xl.border, .rounded-2xl.border) { scroll-margin-top: 7rem; }
+html.light :where(input, select, textarea) { color-scheme: light; }
+html.dark :where(input, select, textarea) { color-scheme: dark; }
+#skip-to-content {
+  position: fixed; z-index: 100; top: .75rem; left: .75rem;
+  transform: translateY(-160%); padding: .75rem 1rem; border-radius: .75rem;
+  background: #800020; color: #fff; font-weight: 800; box-shadow: 0 8px 24px #0002;
+}
+#skip-to-content:focus { transform: translateY(0); }
+#back-to-top {
+  position: fixed; z-index: 45; right: 1.25rem; bottom: 1.25rem;
+  width: 3rem; height: 3rem; display: grid; place-items: center;
+  border: 1px solid #D6C8B4; border-radius: 999px;
+  background: #800020; color: #fff; box-shadow: 0 8px 24px #211B1625;
+  opacity: 0; pointer-events: none; transform: translateY(.5rem);
+  transition: opacity .2s ease, transform .2s ease, background-color .2s ease;
+}
+#back-to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+#back-to-top:hover { background: #64172D; }
+html.dark #back-to-top { border-color: #475569; background: #9f1239; }
+@media (max-width: 640px) {
+  html { scroll-padding-top: 5.5rem; }
+  main section[id] { scroll-margin-top: 5.75rem; }
+  #back-to-top { right: .85rem; bottom: .85rem; width: 2.85rem; height: 2.85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+
+/* Dark-mode selected-page navigation state: clear maroon selection box */
+html.dark nav button[aria-current="page"],
+html.dark #mobile-menu button[aria-current="page"] {
+    background: linear-gradient(135deg, #70233a 0%, #4d1729 100%) !important;
+    color: #fffaf5 !important;
+    border: 1px solid #d6a0ad !important;
+    box-shadow: 0 0 0 1px rgba(214, 160, 173, 0.18), 0 5px 14px rgba(0, 0, 0, 0.24), inset 3px 0 0 #e8c0c8 !important;
+    position: relative;
+}
+html.dark nav button[aria-current="page"]:hover,
+html.dark #mobile-menu button[aria-current="page"]:hover {
+    background: linear-gradient(135deg, #823047 0%, #5b1b30 100%) !important;
+}
+html.dark nav button[aria-current="page"]:focus-visible,
+html.dark #mobile-menu button[aria-current="page"]:focus-visible {
+    outline: 2px solid #f0cbd3 !important;
+    outline-offset: 3px;
+}
+html:not(.dark) nav button[aria-current="page"],
+html:not(.dark) #mobile-menu button[aria-current="page"] {
+    border: 1px solid #a65b70;
+}
+
+
+/* ===== UX refinement layer ===== */
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;letter-spacing:-.015em;font-optical-sizing:auto}
+h1{line-height:1.08}
+body{font-size:1.0625rem}
+main p,main li{max-width:72ch}
+main table, main .overflow-x-auto{font-variant-numeric:tabular-nums}
+
+/* Header: one compact brand row, tabs on their own row */
+#main-workspace{box-shadow:0 1px 0 rgba(33,27,22,.06)!important}
+html.dark #main-workspace{box-shadow:0 1px 0 rgba(255,255,255,.05)!important}
+#main-workspace>div.max-w-7xl{height:auto!important;flex-wrap:wrap;row-gap:.5rem;padding-top:.6rem;padding-bottom:.6rem;transition:padding .2s ease}
+#main-workspace>div.max-w-7xl>.flex.items-center.space-x-3{display:contents}
+#main-workspace>div.max-w-7xl>div:first-child{margin-right:auto}
+#main-workspace>div:first-child>div:first-child>div:first-child{width:2.5rem;height:2.5rem;border-radius:.8rem}
+#main-workspace>div:first-child>div:first-child>div:first-child i{font-size:1.25rem}
+#main-workspace span.font-extrabold.text-xl{font-family:'Fraunces',Georgia,serif;font-size:1.3rem}
+#main-workspace .text-sm.font-semibold{font-size:.78rem;font-weight:500;opacity:.85}
+#theme-toggle,#main-workspace button[onclick*="cheat-sheet"]{padding:.5rem .85rem!important;border-radius:.8rem!important;order:2;margin-left:.5rem}
+#main-workspace nav{order:3;flex:1 0 100%;overflow-x:auto;scrollbar-width:none;border-radius:.9rem!important;padding:.3rem!important}
+#main-workspace nav::-webkit-scrollbar{display:none}
+#main-workspace nav button{flex:1 1 auto;white-space:nowrap;padding:.5rem .9rem!important}
+#main-workspace nav button[aria-current="page"]{box-shadow:0 1px 3px rgba(0,0,0,.18)}
+@media(max-width:640px){#main-workspace .text-sm.font-semibold{display:none}#theme-label{display:none}}
+#read-progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:60;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#800020,#F59E0B)}
+
+/* Intro: drop duplicated brand row, make hero the single focal moment */
+#tab-introduction .flex.items-center.justify-between.gap-4{display:none}
+#tab-introduction>div{padding-top:.5rem}
+.intro-hero{min-height:25rem;display:flex;align-items:center}
+.hero-field{position:absolute;inset:0;width:100%;height:100%;opacity:.4;touch-action:pan-y;cursor:grab}
+.hero-field:active{cursor:grabbing}
+.hero-readout{position:absolute;right:1.25rem;bottom:1rem;margin:0;font:500 .78rem/1.3 'Fira Code',monospace;color:#5B4A40;pointer-events:none}
+html.dark .hero-readout{color:#cbd5e1}
+@media(min-width:1024px){.hero-field{opacity:1}.intro-hero .relative.max-w-3xl{max-width:34rem}}
+@media(max-width:1023px){.hero-readout{display:none}}
+
+/* Cards, tables, controls */
+main article{transition:box-shadow .2s ease,border-color .2s ease}
+main article:hover{border-color:rgba(128,0,32,.35)}
+main table{border-collapse:separate;border-spacing:0}
+main thead th{position:sticky;top:0}
+main input[type=range]{accent-color:#800020}
+html.dark main input[type=range]{accent-color:#fb7185}
+main ::selection{background:#80002033}
+html.dark main ::selection{background:#fb718555}
+
+a.tool-card{display:block;position:relative;text-decoration:none;color:inherit;cursor:pointer}
+a.tool-card:hover{transform:translateY(-3px);border-color:#800020!important;box-shadow:0 10px 24px -12px rgba(128,0,32,.45)}
+a.tool-card::after{content:'Open section \203A';display:block;margin-top:.75rem;font-size:.8rem;font-weight:700;color:#800020}
+html.dark a.tool-card::after{color:#fda4af}
+.ref-tabs{display:flex;gap:.25rem;border-bottom:1px solid #E8DFD1;overflow-x:auto}
+html.dark .ref-tabs{border-color:#1e293b}
+.ref-tabs button{padding:.6rem .9rem;font-weight:700;font-size:.9rem;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px;color:#5B4A40}
+html.dark .ref-tabs button{color:#94a3b8}
+.ref-tabs button[aria-selected=true]{color:#800020;border-color:#800020}
+html.dark .ref-tabs button[aria-selected=true]{color:#fda4af;border-color:#fda4af}
+.ref-card{background:#FFFDF9;border:1px solid #E8DFD1;border-radius:1rem;padding:1rem 1.1rem}
+html.dark .ref-card{background:#0f172a;border-color:#1e293b}
+.ref-name{font-weight:700;font-size:.9rem;color:#5B0017;margin-bottom:.35rem}
+html.dark .ref-name{color:#fda4af}
+.ref-expr{font:700 1.15rem/1.4 'Fira Code',monospace;color:#211B16}
+html.dark .ref-expr{color:#f8fafc}
+.ref-note{font-size:.85rem;line-height:1.5;color:#5B4A40;margin-top:.35rem}
+html.dark .ref-note{color:#94a3b8}
+.const-chip{display:flex;flex-direction:column;text-align:left;gap:.15rem;background:#FFFDF9;border:1px solid #E8DFD1;border-radius:1rem;padding:.85rem 1rem}
+html.dark .const-chip{background:#0f172a;border-color:#1e293b}
+.const-chip:hover{border-color:#800020}
+.const-name{font-size:.8rem;font-weight:600;color:#5B4A40}html.dark .const-name{color:#94a3b8}
+.const-val{font:700 1.05rem 'Fira Code',monospace}
+.const-val small{font-weight:500;font-size:.75rem;opacity:.75}
+.const-hint{font-size:.72rem;color:#800020;font-weight:700}html.dark .const-hint{color:#fda4af}
+.unit-row{display:grid;grid-template-columns:7.5rem 1fr 6rem;gap:.75rem;align-items:center;padding:.4rem 0;font-size:.9rem}
+.unit-bar{height:.5rem;border-radius:9px;background:#E8DFD1;overflow:hidden}html.dark .unit-bar{background:#1e293b}
+.unit-bar i{display:block;height:100%;background:linear-gradient(90deg,#800020,#F59E0B)}
+.unit-row b{font-family:'Fira Code',monospace;text-align:right}
+.isl{display:flex;align-items:flex-end;gap:1rem;height:7rem;margin:.5rem 0}
+.isl div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative;font-size:.8rem}
+.isl i{display:block;width:100%;border-radius:.4rem .4rem 0 0;background:linear-gradient(#800020,#a01b3e);min-height:3px}
+.isl b{font-family:'Fira Code',monospace;margin-top:.2rem}.isl span{position:absolute;top:0;font-weight:700;opacity:.8}
+.calc-f{display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;font-weight:700}
+.calc-f input{padding:.6rem .75rem;border:1px solid #D6C8B4;border-radius:.8rem;background:#fff;color:#211B16;font:600 1rem 'Fira Code',monospace}
+html.dark .calc-f input{background:#020617;color:#f8fafc;border-color:#334155}
+.ref-modal [hidden]{display:none!important}
+
+.sol-box,.ms-box{border-radius:1.1rem;padding:1.1rem;background:#F3ECE1;border:1px solid #E8DFD1}
+html.dark .sol-box,html.dark .ms-box{background:#0f172a;border-color:#1e293b}
+.ans-banner{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding:.8rem 1rem;border-radius:.9rem;background:#ecfdf5;border:1px solid #6ee7b7;color:#064e3b}
+html.dark .ans-banner{background:rgba(6,78,59,.35);border-color:#047857;color:#d1fae5}
+.ans-label{font-size:.78rem;font-weight:800;padding:.2rem .6rem;border-radius:999px;background:#059669;color:#fff;white-space:nowrap}
+.ans-text{font-size:1.05rem}
+.sol-title,.ms-head{font-weight:800;color:#5B0017;margin:1rem 0 .6rem}
+html.dark .sol-title,html.dark .ms-head{color:#fda4af}
+.ms-head{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-top:0}
+.sol-steps{counter-reset:s;list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.sol-steps li{counter-increment:s;position:relative;padding:.1rem 0 .1rem 2.3rem;line-height:1.65;font-size:1rem}
+.sol-steps li::before{content:counter(s);position:absolute;left:0;top:.2rem;width:1.55rem;height:1.55rem;border-radius:50%;display:grid;place-items:center;background:#800020;color:#fff;font-size:.75rem;font-weight:800}
+html.dark .sol-steps li::before{background:#be123c}
+.sol-steps li.has-eq{background:rgba(217,119,6,.09);border-left:3px solid #D97706;border-radius:.5rem;padding:.45rem .7rem .45rem 2.6rem}
+.sol-steps li.has-eq::before{left:.55rem;top:.55rem}
+.ms-part{display:grid;grid-template-columns:2.2rem 1fr;gap:.9rem;padding:.9rem;margin-top:.65rem;border-radius:1rem;background:#FFFDF9;border:1px solid #E8DFD1}
+html.dark .ms-part{background:#020617;border-color:#1e293b}
+.ms-badge{width:2.1rem;height:2.1rem;border-radius:.65rem;display:grid;place-items:center;background:#800020;color:#fff;font-weight:800;text-transform:lowercase}
+.mark-chip{display:inline-block;margin-left:.4rem;padding:.05rem .55rem;border-radius:999px;background:rgba(245,158,11,.18);border:1px solid #D97706;color:#92400e;font-size:.72rem;font-weight:800;white-space:nowrap;vertical-align:.1em}
+html.dark .mark-chip{color:#fcd34d}
+.mark-chip.total{margin:0}
+.ms-hint{font-size:.8rem;margin-top:.75rem;color:#6b5a4c}html.dark .ms-hint{color:#94a3b8}
+
+.ref-expr .math-frac{font-size:1em;padding:0 .3em}
+.isl span .math-frac{font-size:.8rem}
+.sol-steps .math-frac{font-size:.95em}
+
+/* Nav and level buttons: clear, readable hover/selected blocks in both themes */
+html:not(.dark) #main-workspace nav button:not([aria-current="page"]){background-color:transparent!important;color:#3D352E!important}
+html:not(.dark) #main-workspace nav button:not([aria-current="page"]):hover,
+html:not(.dark) [class*="dark:hover:bg-slate-"]:hover{background-color:rgba(128,0,32,.13)!important;color:#5B0017!important;box-shadow:inset 0 0 0 1.5px rgba(128,0,32,.45)}
+html.dark #main-workspace nav button:not([aria-current="page"]){background-color:transparent!important;color:#cbd5e1!important}
+html.dark #main-workspace nav button:not([aria-current="page"]):hover{background-color:rgba(253,164,175,.16)!important;color:#fff!important;box-shadow:inset 0 0 0 1.5px rgba(253,164,175,.5)}
+html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:rgba(253,164,175,.16)!important;color:#fff!important}
+#simCanvas2D{touch-action:none}
+#app-toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,1rem);z-index:70;max-width:min(92vw,28rem);padding:.8rem 1.1rem;border-radius:.9rem;background:#800020;color:#fff;font-weight:700;font-size:.95rem;box-shadow:0 12px 30px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+#app-toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+
+</head>
+<body class="min-h-screen flex flex-col bg-cream-50 text-cream-900 dark:bg-slate-950 dark:text-slate-100">
+
+
+
+<div id="read-progress" aria-hidden="true"></div>
+<a id="skip-to-content" href="#main-content">Skip to main content</a>
+<header id="main-workspace" class="scroll-mt-4 sticky top-0 z-40 backdrop-blur-md bg-cream-50/90 dark:bg-slate-900/90 border-b border-cream-200 dark:border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+        <!-- Title & Authors -->
+        <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-maroon-600 via-maroon-500 to-rose-700 flex items-center justify-center shadow-lg shadow-maroon-600/30 text-white">
+                <i class="fa-solid fa-atom text-2xl animate-spin-slow"></i>
+            </div>
+            <div>
+                <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-maroon-700 dark:text-rose-400">
+                    Coulomb’s Law Masterclass
+                </span>
+                <div class="text-sm text-cream-800 dark:text-slate-300 font-semibold flex items-center gap-2 mt-0.5">
+                    <i class="fa-solid fa-user-graduate text-maroon-600 dark:text-rose-400"></i>
+                    <span>By <strong class="text-maroon-800 dark:text-white">Leonardus Lintang Panji Utama</strong> & <strong class="text-maroon-800 dark:text-white">Ahmad Syafiq</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Controls -->
+        <div class="flex items-center space-x-3">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" type="button" onclick="toggleTheme()" class="inline-flex items-center gap-2 p-3 rounded-2xl bg-cream-100 dark:bg-slate-800 text-maroon-700 dark:text-amber-400 border border-cream-200 dark:border-slate-700 hover:scale-105 transition-all shadow" title="Switch to dark mode" aria-label="Switch to dark mode" aria-pressed="false">
+                <i id="theme-icon" class="fa-solid fa-moon text-xl" aria-hidden="true"></i><span id="theme-label" class="text-sm font-bold">Dark mode</span>
+            </button>
+
+            <!-- Floating Formula Reference Button -->
+            <button onclick="toggleModal('cheat-sheet-modal')" class="hidden sm:flex items-center space-x-2 px-4 py-3 rounded-2xl bg-maroon-600 hover:bg-maroon-700 text-white font-bold text-sm shadow-md transition-all">
+                <i class="fa-solid fa-book-bookmark"></i>
+                <span>Formula Reference</span>
+            </button>
+
+            <!-- Navigation Tabs (Desktop) -->
+            <nav class="hidden lg:flex space-x-1 bg-cream-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-cream-200 dark:border-slate-700">
+                <button onclick="switchTab('introduction')" id="nav-introduction" aria-current="page" class="px-4 py-2 text-sm font-bold rounded-xl transition-all bg-maroon-600 text-white shadow-sm">Introduction</button>
+                <button onclick="switchTab('theory')" id="nav-theory" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Theory</button>
+                <button onclick="switchTab('simulator')" id="nav-simulator" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">2D Simulator</button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Question Bank</button>
+                <button onclick="switchTab('pastpapers')" id="nav-pastpapers" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Past-Paper-Style Practice</button>
+                <button onclick="switchTab('pitfalls')" id="nav-pitfalls" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Pitfalls</button>
+                <button onclick="switchTab('videos')" id="nav-videos" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Videos</button>
+            </nav>
+
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-maroon-700 dark:text-slate-200 p-3 rounded-2xl bg-cream-100 dark:bg-slate-800 border border-cream-200 dark:border-slate-700">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden px-4 pt-2 pb-6 space-y-2 bg-cream-100 dark:bg-slate-900 border-b border-cream-200 dark:border-slate-800">
+        <button onclick="switchTab('introduction'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Introduction and User Guide</button>
+        <button onclick="switchTab('theory'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Theory and Formulae</button>
+        <button onclick="switchTab('simulator'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">2D Simulator</button>
+        <button onclick="switchTab('quiz'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Question Bank (30 Questions)</button>
+        <button onclick="switchTab('pastpapers'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Past-Paper Practice (30 Questions)</button>
+        <button onclick="switchTab('pitfalls'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Common Errors</button>
+        <button onclick="switchTab('videos'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Video Tutorials</button>
+        <button onclick="toggleModal('cheat-sheet-modal'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-maroon-600 dark:text-rose-400 hover:bg-cream-200">Formula Reference</button>
+    </div>
+</header>
+
+<main id="main-content" tabindex="-1" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+    <!-- WELCOME / INTRODUCTION SCREEN -->
+<section id="tab-introduction" class="space-y-10" aria-labelledby="welcome-title">
+    <div class="flex items-center justify-center px-4 py-10 sm:px-8">
+        <div class="w-full max-w-5xl space-y-8">
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-maroon-600 text-white shadow-lg"><i class="fa-solid fa-atom text-2xl" aria-hidden="true"></i></div>
+                    <div>
+                        <p class="text-sm font-bold uppercase tracking-[0.18em] text-maroon-700 dark:text-rose-400">Interactive Physics Resource</p>
+                        <p class="font-extrabold">Coulomb’s Law Masterclass</p>
+                    </div>
+                </div>
+                <button id="intro-theme-toggle" type="button" onclick="toggleTheme()" class="flex items-center gap-2 rounded-xl border border-cream-300 bg-white px-3 py-2 text-sm font-bold text-maroon-800 shadow-sm transition hover:bg-cream-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800" title="Switch to dark mode" aria-label="Switch to dark mode" aria-pressed="false">
+                    <i id="intro-theme-icon" class="fa-solid fa-moon" aria-hidden="true"></i><span id="intro-theme-label">Dark mode</span>
+                </button>
+            </div>
+
+            <div class="intro-hero relative overflow-hidden rounded-[2rem] border border-maroon-600/20 bg-gradient-to-br from-cream-100 via-cream-200 to-white p-7 shadow-2xl dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 sm:p-12">
+                <canvas id="hero-field" class="hero-field" aria-hidden="true"></canvas><p id="hero-readout" class="hero-readout" aria-hidden="true"></p>
+                <div class="relative max-w-3xl space-y-5">
+                    <span class="intro-kicker inline-flex items-center gap-2 rounded-full border border-maroon-600/20 bg-white/70 px-4 py-1.5 text-sm font-bold text-maroon-700 dark:bg-slate-950/60 dark:text-rose-300"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Grade 12 · A-Level Physics</span>
+                    <h1 id="welcome-title" class="text-4xl font-extrabold leading-tight tracking-tight text-maroon-900 dark:text-white sm:text-6xl">Understand electrostatic forces. <span class="text-maroon-600 dark:text-rose-400">Practise with purpose.</span></h1>
+                    <p class="max-w-2xl text-lg leading-relaxed text-cream-800 dark:text-slate-300 sm:text-xl">A structured learning resource for studying Coulomb’s law, exploring how electric charges interact, and preparing for examination-style questions through guided practice.</p>
+                    <p class="text-sm font-semibold text-cream-800 dark:text-slate-400">Created by Leonardus Lintang Panji Utama and Ahmad Syafiq.</p>
+                    <button type="button" onclick="startLearning()" class="inline-flex items-center gap-3 rounded-2xl bg-maroon-600 px-7 py-4 font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-maroon-700 focus:outline-none focus:ring-4 focus:ring-maroon-600/30"><span>Begin Learning</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-maroon-900 dark:text-white">Explore the learning tools</h2>
+                    <p class="mt-1 text-cream-800 dark:text-slate-400">Choose a section based on what you need to learn or practise.</p>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <a href="#tab-theory" onclick="event.preventDefault();switchTab('theory')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div><h3 class="font-extrabold">Theory and Formulae</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Review the principles, equations, constants, and key properties of electrostatic forces.</p></a>
+                    <a href="#tab-simulator" onclick="event.preventDefault();switchTab('simulator')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-atom" aria-hidden="true"></i></div><h3 class="font-extrabold">2D Simulator</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Add and move charges to explore attraction, repulsion, and the resulting force vectors.</p></a>
+                    <a href="#tab-quiz" onclick="event.preventDefault();switchTab('quiz')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div><h3 class="font-extrabold">Question Bank</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Test your understanding with questions arranged by difficulty and review your progress.</p></a>
+                    <a href="#tab-pastpapers" onclick="event.preventDefault();switchTab('pastpapers')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-file-circle-check" aria-hidden="true"></i></div><h3 class="font-extrabold">Past-Paper Practice</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Attempt examination-style problems and reveal model answers or marking guidance when ready.</p></a>
+                    <a href="#tab-pitfalls" onclick="event.preventDefault();switchTab('pitfalls')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></div><h3 class="font-extrabold">Common Errors</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Identify frequent misconceptions and check the reasoning behind correct solutions.</p></a>
+                    <a href="#tab-videos" onclick="event.preventDefault();switchTab('videos')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-circle-play" aria-hidden="true"></i></div><h3 class="font-extrabold">Video Tutorials</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Use selected video resources to reinforce concepts and visualise charge interactions.</p></a>
+                </div>
+            </div>
+
+            <div class="grid gap-5 rounded-2xl border border-cream-200 bg-cream-100/70 p-6 dark:border-slate-800 dark:bg-slate-900/70 md:grid-cols-2">
+                <div><h2 class="flex items-center gap-2 font-extrabold"><i class="fa-solid fa-compass text-maroon-600 dark:text-rose-400" aria-hidden="true"></i> Quick start guide</h2><ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-cream-800 dark:text-slate-300"><li>Begin with <strong>Theory</strong> to review the core concepts and equations.</li><li>Open the <strong>2D Simulator</strong> and change the charges or their positions.</li><li>Complete the <strong>Question Bank</strong>, then review the explanations.</li><li>Finish with examination-style practice and the common-errors guide.</li></ol></div>
+                <div><h2 class="flex items-center gap-2 font-extrabold"><i class="fa-solid fa-lightbulb text-maroon-600 dark:text-rose-400" aria-hidden="true"></i> Helpful notes</h2><ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-cream-800 dark:text-slate-300"><li>Use the formula reference whenever you need to check constants or units.</li><li>Your quiz progress may be stored locally in this browser; it is not automatically synchronised across devices.</li><li>Use the theme control to switch between light and dark display modes.</li><li>For the best experience, open the site in a modern browser with an internet connection so its external libraries can load.</li></ul></div>
+            </div>
+            <p class="pb-2 text-center text-xs text-cream-700 dark:text-slate-500">Coulomb’s Law Masterclass · Grade 12 A-Level Physics</p>
+        </div>
+    </div>
+</section>
+
+
+    <!-- TAB 1: THEORY & OVERVIEW -->
+    <section id="tab-theory" class="hidden space-y-10">
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-cream-100 via-cream-200 to-cream-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-maroon-600/20 dark:border-slate-700 p-8 sm:p-12 shadow-xl">
+            <div class="relative z-10 max-w-4xl space-y-6">
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-maroon-600/10 text-maroon-700 dark:bg-rose-500/20 dark:text-rose-300 border border-maroon-600/20">
+                    <i class="fa-solid fa-graduation-cap mr-2"></i> Grade 12 A-Level Physics Masterclass
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-maroon-800 dark:text-white leading-tight">
+                    Coulomb's Law & Electrostatic Interaction
+                </h1>
+                <p class="text-cream-800 dark:text-slate-300 text-lg sm:text-xl leading-relaxed">
+                    An intuitive physics learning portal built by <strong class="text-maroon-700 dark:text-rose-400">Leonardus Lintang Panji Utama</strong> and <strong class="text-maroon-700 dark:text-rose-400">Ahmad Syafiq</strong> featuring interactive 2D simulations, practice problems with step-by-step solutions, and exam tips.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <button onclick="switchTab('simulator')" class="px-6 py-3.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-2xl shadow-lg shadow-maroon-600/30 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-play"></i><span>Open 2D Simulator</span>
+                    </button>
+                    <button onclick="switchTab('quiz')" class="px-6 py-3.5 bg-cream-200 dark:bg-slate-800 hover:bg-cream-300 text-maroon-800 dark:text-white font-bold rounded-2xl border border-cream-300 dark:border-slate-700 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-pen-to-square"></i><span>Begin the 30-Question Quiz</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mathematical Formula Box -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-8 shadow-lg">
+                <h2 class="text-2xl font-bold text-maroon-800 dark:text-white flex items-center">
+                    <i class="fa-solid fa-square-root-variable text-maroon-600 dark:text-rose-400 mr-3 text-2xl"></i> Standard Formula & Constants
+                </h2>
+                
+                <!-- Vertical Stacked Equation Box -->
+                <div class="bg-cream-50 dark:bg-slate-950 rounded-2xl p-8 border border-maroon-600/30 text-center overflow-x-auto shadow-inner">
+                    <div class="text-2xl sm:text-4xl font-bold code-font text-maroon-800 dark:text-white py-4 inline-flex items-center justify-center gap-3">
+                        <span>F =</span>
+                        <div class="math-frac text-maroon-600 dark:text-rose-400">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4πε₀</span>
+                        </div>
+                        <span>&middot;</span>
+                        <div class="math-frac text-indigo-700 dark:text-indigo-400">
+                            <span class="math-num">|q₁ q₂|</span>
+                            <span class="math-den text-amber-600 dark:text-amber-400">r²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-base">
+                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
+                        <div class="font-bold text-maroon-600 dark:text-rose-400 text-lg mb-1">F = Electrostatic Force</div>
+                        <div class="text-cream-800 dark:text-slate-300">Measured in Newtons (N). Vector quantity pointing along the straight line joining charges.</div>
+                    </div>
+                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
+                        <div class="font-bold text-amber-600 dark:text-amber-400 text-lg mb-1">ε₀ = Vacuum Permittivity</div>
+                        <div class="text-cream-800 dark:text-slate-300">
+                            &approx; 8.85 &times; 10⁻¹² F m⁻¹<br>
+                            (<div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">4πε₀</span></div> &approx; 8.99 &times; 10⁹ N m² C⁻²)
+                        </div>
+                    </div>
+                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
+                        <div class="font-bold text-indigo-700 dark:text-indigo-400 text-lg mb-1">q₁, q₂ = Point Charges</div>
+                        <div class="text-cream-800 dark:text-slate-300">Magnitudes in Coulombs (C). Opposite signs attract (+/-), identical signs repel (+/+ or -/-).</div>
+                    </div>
+                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
+                        <div class="font-bold text-emerald-700 dark:text-emerald-400 text-lg mb-1">r = Center Separation</div>
+                        <div class="text-cream-800 dark:text-slate-300">Distance between centers of spherical charges measured in meters (m).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Laws Card -->
+            <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-6 shadow-lg">
+                <h2 class="text-2xl font-bold text-maroon-800 dark:text-white flex items-center">
+                    <i class="fa-solid fa-shield-halved text-maroon-600 dark:text-rose-400 mr-3 text-2xl"></i> Key Characteristics
+                </h2>
+                <ul class="space-y-5 text-base text-cream-800 dark:text-slate-300">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-circle-check text-maroon-600 dark:text-rose-400 mt-1 mr-3 text-lg flex-shrink-0"></i>
+                        <span><strong class="text-maroon-900 dark:text-white">Inverse-Square Law:</strong> Force is inversely proportional to r². Doubling distance reduces force to 
+                            <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">4</span></div>.
+                        </span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-circle-check text-maroon-600 dark:text-rose-400 mt-1 mr-3 text-lg flex-shrink-0"></i>
+                        <span><strong class="text-maroon-900 dark:text-white">Newton's Third Law:</strong> F₁₂ = -F₂₁. Force exerted on q₁ by q₂ is equal and opposite to force exerted on q₂ by q₁.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-circle-check text-maroon-600 dark:text-rose-400 mt-1 mr-3 text-lg flex-shrink-0"></i>
+                        <span><strong class="text-maroon-900 dark:text-white">Superposition Principle:</strong> Net force on any single charge is the vector sum of forces from all surrounding charges.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-6 shadow-lg">
+            <h2 class="text-2xl font-bold text-maroon-800 dark:text-white flex items-center">
+                <i class="fa-solid fa-scale-balanced text-maroon-600 dark:text-rose-400 mr-3 text-2xl"></i> Coulomb's Law vs Newton's Gravitation
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-base">
+                    <thead>
+                        <tr class="border-b border-cream-300 dark:border-slate-800 text-maroon-700 dark:text-rose-400 font-bold">
+                            <th class="py-4 px-6">Feature</th>
+                            <th class="py-4 px-6">Coulomb's Law (Electric Force)</th>
+                            <th class="py-4 px-6">Newton's Law (Gravitational Force)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-cream-200 dark:divide-slate-800 text-cream-800 dark:text-slate-300">
+                        <tr>
+                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Equation</td>
+                            <td class="py-4 px-6 code-font">
+                                F = 
+                                <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">4πε₀</span></div>
+                                <div class="math-frac inline-flex text-xs"><span class="math-num">q₁q₂</span><span class="math-den">r²</span></div>
+                            </td>
+                            <td class="py-4 px-6 code-font">
+                                F = G
+                                <div class="math-frac inline-flex text-xs"><span class="math-num">m₁m₂</span><span class="math-den">r²</span></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Nature</td>
+                            <td class="py-4 px-6 font-semibold text-maroon-600 dark:text-rose-400">Attractive OR Repulsive</td>
+                            <td class="py-4 px-6 font-semibold text-amber-600 dark:text-amber-400">Always Attractive</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Medium Dependence</td>
+                            <td class="py-4 px-6">Depends on dielectric permittivity (ε)</td>
+                            <td class="py-4 px-6">Independent of intervening medium</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Relative Magnitude</td>
+                            <td class="py-4 px-6 font-bold text-emerald-700 dark:text-emerald-400">Far stronger (≈ 10³⁶ × for two protons)</td>
+                            <td class="py-4 px-6 text-cream-700 dark:text-slate-400">Extremely Weak on atomic scale</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 2: 2D PHYSICS SIMULATOR -->
+    <section id="tab-simulator" class="hidden space-y-8">
+        <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-8 shadow-lg">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-maroon-800 dark:text-white flex items-center">
+                        <i class="fa-solid fa-arrows-spin text-maroon-600 dark:text-rose-400 mr-3 text-2xl"></i> Interactive 2D Charge & Electric Field Playground
+                    </h2>
+                    <p class="text-cream-800 dark:text-slate-300 text-base mt-1">
+                        Drag charges around the grid to observe real-time 2D vector force components (F<sub>x</sub>, F<sub>y</sub>, F<sub>net</sub>) and superposition.
+                    </p>
+                </div>
+
+                <!-- Simulator Controls -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="addCharge()" class="px-4 py-2.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-xl text-sm transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-plus"></i><span>Add Charge</span>
+                    </button>
+                    <button onclick="removeCharge()" class="px-4 py-2.5 bg-cream-200 dark:bg-slate-800 hover:bg-cream-300 text-maroon-800 dark:text-slate-200 font-bold rounded-xl text-sm transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-minus"></i><span>Remove</span>
+                    </button>
+                    <button onclick="toggleFieldLines()" id="field-line-btn" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-lines-leaning"></i><span>Display Electric-Field Direction Vectors</span>
+                    </button>
+                    <button onclick="reset2DSimulator()" class="px-4 py-2.5 bg-cream-300 dark:bg-slate-700 text-cream-900 dark:text-white font-bold rounded-xl text-sm transition-all">
+                        <i class="fa-solid fa-rotate-right mr-1"></i>Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2D Canvas Container -->
+            <div class="relative bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-300 dark:border-slate-800 overflow-hidden shadow-inner">
+                <canvas id="simCanvas2D" class="w-full h-[520px] block cursor-grab active:cursor-grabbing"></canvas>
+
+                <!-- Active Charge Inspector Badge -->
+                <div class="charge-inspector absolute top-5 left-5 backdrop-blur border p-4 sm:p-5 rounded-2xl shadow-xl max-w-sm space-y-3">
+                    <div class="charge-inspector-title text-xs font-extrabold uppercase tracking-wider flex items-center gap-2">
+                        <span class="charge-inspector-icon"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></span>
+                        Selected Charge Info
+                    </div>
+                    <div id="selected-charge-info" class="charge-inspector-data text-sm font-semibold space-y-2 code-font">
+                        Select or drag a charge on canvas...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Charge Adjustment Sliders -->
+            <div id="charge-control-panel" class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-cream-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <div class="flex justify-between font-bold text-sm">
+                        <span class="text-maroon-700 dark:text-rose-400">Charge Magnitude (q)</span>
+                        <span id="slider-q-val" class="code-font text-maroon-800 dark:text-white">+3.0 µC</span>
+                    </div>
+                    <input type="range" id="slider-q" min="-10" max="10" step="0.5" value="3" class="w-full accent-maroon-600 cursor-pointer" oninput="updateSelectedCharge()">
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between font-bold text-sm">
+                        <span class="text-maroon-700 dark:text-rose-400">Position X (meters)</span>
+                        <span id="slider-x-val" class="code-font text-maroon-800 dark:text-white">0.20 m</span>
+                    </div>
+                    <input type="range" id="slider-x" min="-1" max="1" step="0.05" value="0.2" class="w-full accent-maroon-600 cursor-pointer" oninput="updateSelectedCharge()">
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between font-bold text-sm">
+                        <span class="text-maroon-700 dark:text-rose-400">Position Y (meters)</span>
+                        <span id="slider-y-val" class="code-font text-maroon-800 dark:text-white">0.00 m</span>
+                    </div>
+                    <input type="range" id="slider-y" min="-1" max="1" step="0.05" value="0" class="w-full accent-maroon-600 cursor-pointer" oninput="updateSelectedCharge()">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 3: QUESTION BANK -->
+    <section id="tab-quiz" class="hidden space-y-8">
+        <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-8 shadow-lg">
+            <!-- Header & Progress Tracker Bar -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-cream-200 dark:border-slate-800 pb-8">
+                <div>
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-maroon-600/10 text-maroon-700 dark:text-rose-300 border border-maroon-600/20 mb-3">
+                        <i class="fa-solid fa-clipboard-check mr-2"></i> 30 Grade 12 Practice Questions
+                    </span>
+                    <h2 class="text-3xl font-extrabold text-maroon-800 dark:text-white">Interactive Question Bank</h2>
+                    <p class="text-cream-800 dark:text-slate-300 text-base mt-1">Select a difficulty level, assess your understanding, and review step-by-step mathematical solutions.</p>
+                </div>
+
+                <!-- Progress & Scoreboard Card -->
+                <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800 min-w-[280px] space-y-3">
+                    <div class="flex justify-between items-center font-bold text-sm">
+                        <span class="text-cream-800 dark:text-slate-300">Overall Progress</span>
+                        <span id="quiz-score-num" class="code-font text-maroon-600 dark:text-rose-400 text-base">0 / 30 (0%)</span>
+                    </div>
+                    <div class="w-full h-3 bg-cream-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div id="quiz-progress-bar" class="h-full bg-maroon-600 transition-all duration-300 w-0"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-cream-700 dark:text-slate-400 font-bold pt-1">
+                        <span>Progress Saved in This Browser</span>
+                        <button onclick="resetQuizProgress()" class="text-rose-600 hover:underline">Reset Progress</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level Buttons & Mode Select -->
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="switchLevel('easy')" id="lvl-btn-easy" class="px-6 py-3 font-bold rounded-2xl transition-all bg-maroon-600 text-white shadow-md">
+                        Easy Level (10 Questions)
+                    </button>
+                    <button onclick="switchLevel('medium')" id="lvl-btn-medium" class="px-6 py-3 font-bold rounded-2xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-800">
+                        Intermediate Level (10 Questions)
+                    </button>
+                    <button onclick="switchLevel('hard')" id="lvl-btn-hard" class="px-6 py-3 font-bold rounded-2xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-800">
+                        Advanced Level (10 Questions)
+                    </button>
+                </div>
+
+                <button onclick="toggleEndlessRandomizer()" id="randomize-btn" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-sm transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-dice"></i>
+                    <span>Shuffle Question Order</span>
+                </button>
+            </div>
+
+            <!-- Questions Container -->
+            <div id="questions-container" class="space-y-8"></div>
+        </div>
+    </section>
+
+    <!-- TAB 4: PAST PAPERS -->
+    <section id="tab-pastpapers" class="hidden space-y-8">
+        <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-8 shadow-lg">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-cream-200 dark:border-slate-800 pb-8">
+                <div>
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30 mb-3">
+                        <i class="fa-solid fa-file-pen mr-2"></i> Structured Examination Questions (30 Questions)
+                    </span>
+                    <h2 class="text-3xl font-extrabold text-maroon-800 dark:text-white">A-Level Examination Practice</h2>
+                    <p class="text-cream-800 dark:text-slate-300 text-base mt-1">Practise multi-part examination-style questions across three difficulty levels, with mark allocations and expandable model solutions.</p>
+                </div>
+            </div>
+
+            <!-- Past Paper Tier Buttons -->
+            <div class="flex flex-wrap gap-3">
+                <button onclick="switchPastPaperLevel('easy')" id="pp-btn-easy" class="px-6 py-3 font-bold rounded-2xl transition-all bg-maroon-600 text-white shadow-md">
+                    Easy Level (10 Questions)
+                </button>
+                <button onclick="switchPastPaperLevel('medium')" id="pp-btn-medium" class="px-6 py-3 font-bold rounded-2xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-800">
+                    Intermediate Level (10 Questions)
+                </button>
+                <button onclick="switchPastPaperLevel('hard')" id="pp-btn-hard" class="px-6 py-3 font-bold rounded-2xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-800">
+                    Advanced Level (10 Questions)
+                </button>
+            </div>
+
+            <!-- Past-Paper-Style Practice Container -->
+            <div id="pastpapers-container" class="space-y-8"></div>
+        </div>
+    </section>
+
+    <!-- TAB 5: COMMON PITFALLS -->
+    <section id="tab-pitfalls" class="hidden space-y-8">
+        <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-8 shadow-lg">
+            <div>
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30 mb-3">
+                    <i class="fa-solid fa-triangle-exclamation mr-2"></i> Essential Exam Advice
+                </span>
+                <h2 class="text-3xl font-extrabold text-maroon-800 dark:text-white">Common Student Misconceptions & Pitfalls</h2>
+                <p class="text-cream-800 dark:text-slate-300 text-base mt-1">Avoid losing marks on A-Level exams by recognizing these frequent mistakes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-rose-500/30 space-y-3 shadow-md">
+                    <div class="flex items-center space-x-3 text-rose-600 dark:text-rose-400 font-bold text-lg">
+                        <i class="fa-solid fa-xmark-circle text-2xl"></i>
+                        <span>1. Forgetting Distance Unit Conversions</span>
+                    </div>
+                    <p class="text-cream-800 dark:text-slate-300 text-base">
+                        Distance in Coulomb's Law must <strong>always</strong> be in meters (m). Exam questions often give separation in centimeters (cm) or millimeters (mm).
+                        <br><span class="text-maroon-600 dark:text-rose-400 font-bold">Fix:</span> Convert cm &rArr; &times; 10⁻² m and mm &rArr; &times; 10⁻³ m before squaring!
+                    </p>
+                </div>
+
+                <div class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-rose-500/30 space-y-3 shadow-md">
+                    <div class="flex items-center space-x-3 text-rose-600 dark:text-rose-400 font-bold text-lg">
+                        <i class="fa-solid fa-xmark-circle text-2xl"></i>
+                        <span>2. Omitting the Square on Distance (r²)</span>
+                    </div>
+                    <p class="text-cream-800 dark:text-slate-300 text-base">
+                        A common error is to omit the square on $r$ when evaluating the expression, using $\frac{k q_1 q_2}{r}$ instead of $\frac{k q_1 q_2}{r^2}$.
+                        <br><span class="text-maroon-600 dark:text-rose-400 font-bold">Fix:</span> Double check your calculator parenthesis: <code>/(r^2)</code>.
+                    </p>
+                </div>
+
+                <div class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-rose-500/30 space-y-3 shadow-md">
+                    <div class="flex items-center space-x-3 text-rose-600 dark:text-rose-400 font-bold text-lg">
+                        <i class="fa-solid fa-xmark-circle text-2xl"></i>
+                        <span>3. Misinterpreting Negative Sign in Vectors</span>
+                    </div>
+                    <p class="text-cream-800 dark:text-slate-300 text-base">
+                        Plugging negative charge signs into the force formula can lead to incorrect vector directions in 2D problems.
+                        <br><span class="text-maroon-600 dark:text-rose-400 font-bold">Fix:</span> Use the absolute value $|q_1 q_2|$ to calculate the force magnitude, then indicate the force direction on a vector diagram.
+                    </p>
+                </div>
+
+                <div class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-rose-500/30 space-y-3 shadow-md">
+                    <div class="flex items-center space-x-3 text-rose-600 dark:text-rose-400 font-bold text-lg">
+                        <i class="fa-solid fa-xmark-circle text-2xl"></i>
+                        <span>4. Confusing Electric Force (F) and Electric Field (E)</span>
+                    </div>
+                    <p class="text-cream-800 dark:text-slate-300 text-base">
+                        Force $F$ requires <strong>two</strong> charges ($F = \frac{k q_1 q_2}{r^2}$ in Newtons), whereas Electric Field Strength $E$ requires <strong>one</strong> source charge ($E = \frac{k Q}{r^2}$ in N C⁻¹).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 6: VIDEOS -->
+    <section id="tab-videos" class="hidden space-y-8">
+        <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-8 shadow-lg">
+            <div>
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-maroon-600/10 text-maroon-700 dark:text-rose-400 border border-maroon-600/20 mb-3">
+                    <i class="fa-solid fa-play mr-2"></i> Visual Learning
+                </span>
+                <h2 class="text-3xl font-extrabold text-maroon-800 dark:text-white">Curated YouTube Video Lessons</h2>
+                <p class="text-cream-800 dark:text-slate-300 text-base mt-1">Recommended channels for simple explanations and problem walkthroughs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-200 dark:border-slate-800 p-8 flex flex-col justify-between hover:border-maroon-600/50 transition-all shadow-md">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-maroon-600/15 text-maroon-700 dark:text-rose-400 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-brands fa-youtube"></i>
+                        </div>
+                        <h3 class="font-bold text-maroon-800 dark:text-white text-xl">Up and Atom</h3>
+                        <p class="text-cream-800 dark:text-slate-300 text-base leading-relaxed">Visual intuition and clear step-by-step Coulomb calculation example.</p>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=1JdgxF84mSY" target="_blank" rel="noopener noreferrer" class="mt-8 w-full py-3.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-2xl text-base text-center transition-all flex items-center justify-center space-x-2">
+                        <span>Watch Lesson</span><i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-200 dark:border-slate-800 p-8 flex flex-col justify-between hover:border-maroon-600/50 transition-all shadow-md">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-brands fa-youtube"></i>
+                        </div>
+                        <h3 class="font-bold text-maroon-800 dark:text-white text-xl">Flipping Physics</h3>
+                        <p class="text-cream-800 dark:text-slate-300 text-base leading-relaxed">Detailed classroom explanation of variables, inverse-square law, and force vectors.</p>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=4ubqby1Id4g" target="_blank" rel="noopener noreferrer" class="mt-8 w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-base text-center transition-all flex items-center justify-center space-x-2">
+                        <span>Watch Lesson</span><i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-200 dark:border-slate-800 p-8 flex flex-col justify-between hover:border-maroon-600/50 transition-all shadow-md">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-brands fa-youtube"></i>
+                        </div>
+                        <h3 class="font-bold text-maroon-800 dark:text-white text-xl">Tadashi Science</h3>
+                        <p class="text-cream-800 dark:text-slate-300 text-base leading-relaxed">Short, highly focused video on charge attraction and repulsion mechanics.</p>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=zekdaPf3YLQ" target="_blank" rel="noopener noreferrer" class="mt-8 w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-base text-center transition-all flex items-center justify-center space-x-2">
+                        <span>Watch Lesson</span><i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FLOATING MODAL: CHEAT SHEET & CONSTANTS -->
+<div id="cheat-sheet-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="ref-title" onclick="if(event.target===this)toggleModal('cheat-sheet-modal')">
+  <div class="ref-modal bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl max-w-3xl w-full shadow-2xl max-h-[92vh] flex flex-col overflow-hidden">
+    <div class="flex justify-between items-center px-6 pt-5 pb-3">
+      <h3 id="ref-title" class="text-2xl font-bold text-maroon-800 dark:text-white">Formula reference</h3>
+      <button type="button" aria-label="Close formula reference" onclick="toggleModal('cheat-sheet-modal')" class="h-10 w-10 rounded-xl text-cream-800 dark:text-slate-400 hover:bg-cream-200 dark:hover:bg-slate-800 text-xl"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="ref-tabs px-6" role="tablist">
+      <button type="button" role="tab" data-ref="formulas" aria-selected="true">Formulas</button>
+      <button type="button" role="tab" data-ref="constants" aria-selected="false">Constants</button>
+      <button type="button" role="tab" data-ref="units" aria-selected="false">Prefixes</button>
+      <button type="button" role="tab" data-ref="calc" aria-selected="false">Quick calculator</button>
+    </div>
+    <div class="overflow-y-auto px-6 py-5 flex-1">
+      <div data-panel="formulas">
+        <div class="grid gap-3 sm:grid-cols-2"><div class="ref-card"><div class="ref-name">Coulomb’s law</div><div class="ref-expr">F = k <span class=math-frac><span class=math-num>|q₁q₂|</span><span class=math-den>r²</span></span></div><div class="ref-note">Force between two point charges, in N. Use r in metres.</div></div><div class="ref-card"><div class="ref-name">Field of a point charge</div><div class="ref-expr">E = <span class=math-frac><span class=math-num>kQ</span><span class=math-den>r²</span></span></div><div class="ref-note">N C⁻¹. Points away from +Q, towards −Q.</div></div><div class="ref-card"><div class="ref-name">Force in a field</div><div class="ref-expr">F = qE</div><div class="ref-note">A charge q in a field E. Reverses direction for negative q.</div></div><div class="ref-card"><div class="ref-name">Inside a medium</div><div class="ref-expr">F = <span class=math-frac><span class=math-num>F₀</span><span class=math-den>εᵣ</span></span></div><div class="ref-note">Relative permittivity εᵣ weakens the force compared with vacuum.</div></div><div class="ref-card"><div class="ref-name">Superposition</div><div class="ref-expr">F_net = F₁ + F₂ + …</div><div class="ref-note">Add as vectors. Resolve into x and y first for 2D problems.</div></div><div class="ref-card"><div class="ref-name">Touching spheres</div><div class="ref-expr">q′ = <span class=math-frac><span class=math-num>q₁ + q₂</span><span class=math-den>2</span></span></div><div class="ref-note">Identical conductors share total charge equally, then separate.</div></div></div>
+        <div class="ref-card mt-4"><div class="ref-name">Inverse-square law at a glance</div>
+          <div class="isl"><div><i style="height:100%"></i><b>r</b><span>F</span></div><div><i style="height:25%"></i><b>2r</b><span><span class=math-frac><span class=math-num>F</span><span class=math-den>4</span></span></span></div><div><i style="height:11.1%"></i><b>3r</b><span><span class=math-frac><span class=math-num>F</span><span class=math-den>9</span></span></span></div><div><i style="height:6.25%"></i><b>4r</b><span><span class=math-frac><span class=math-num>F</span><span class=math-den>16</span></span></span></div></div>
+          <div class="ref-note">Double the distance and the force falls to a quarter. Double one charge and the force doubles.</div></div>
+      </div>
+      <div data-panel="constants" hidden><div class="grid gap-3 sm:grid-cols-2"><button type="button" class="const-chip" data-copy="8.99 × 10⁹ N m² C⁻²"><span class="const-name">Coulomb constant, k</span><span class="const-val">8.99 × 10⁹ <small>N m² C⁻²</small></span><span class="const-hint">Click to copy</span></button><button type="button" class="const-chip" data-copy="8.85 × 10⁻¹² F m⁻¹"><span class="const-name">Vacuum permittivity, ε₀</span><span class="const-val">8.85 × 10⁻¹² <small>F m⁻¹</small></span><span class="const-hint">Click to copy</span></button><button type="button" class="const-chip" data-copy="1.602 × 10⁻¹⁹ C"><span class="const-name">Elementary charge, e</span><span class="const-val">1.602 × 10⁻¹⁹ <small>C</small></span><span class="const-hint">Click to copy</span></button><button type="button" class="const-chip" data-copy="9.11 × 10⁻³¹ kg"><span class="const-name">Electron mass, mₑ</span><span class="const-val">9.11 × 10⁻³¹ <small>kg</small></span><span class="const-hint">Click to copy</span></button><button type="button" class="const-chip" data-copy="1.67 × 10⁻²⁷ kg"><span class="const-name">Proton mass, mₚ</span><span class="const-val">1.67 × 10⁻²⁷ <small>kg</small></span><span class="const-hint">Click to copy</span></button><button type="button" class="const-chip" data-copy="9.81 m s⁻²"><span class="const-name">Gravitational acceleration, g</span><span class="const-val">9.81 <small>m s⁻²</small></span><span class="const-hint">Click to copy</span></button></div><p class="ref-note mt-3">Use these values unless a question gives its own.</p></div>
+      <div data-panel="units" hidden>
+        <div class="ref-card"><div class="ref-name">Charge prefixes</div><div class="unit-row"><span>milli (mC)</span><span class="unit-bar"><i style="width:100%"></i></span><b>10⁻³ C</b></div><div class="unit-row"><span>micro (µC)</span><span class="unit-bar"><i style="width:73%"></i></span><b>10⁻⁶ C</b></div><div class="unit-row"><span>nano (nC)</span><span class="unit-bar"><i style="width:46%"></i></span><b>10⁻⁹ C</b></div><div class="unit-row"><span>pico (pC)</span><span class="unit-bar"><i style="width:19%"></i></span><b>10⁻¹² C</b></div></div>
+        <div class="ref-card mt-3"><div class="ref-name">Length conversions before squaring</div><div class="ref-expr">cm × 10⁻² = m &nbsp;&nbsp; mm × 10⁻³ = m</div></div>
+      </div>
+      <div data-panel="calc" hidden>
+        <div class="grid gap-3 sm:grid-cols-3">
+          <label class="calc-f">Charge q₁ (µC)<input id="rc-q1" type="number" step="any" value="3"></label>
+          <label class="calc-f">Charge q₂ (µC)<input id="rc-q2" type="number" step="any" value="-5"></label>
+          <label class="calc-f">Separation r (cm)<input id="rc-r" type="number" step="any" min="0" value="50"></label>
+        </div>
+        <div class="ref-card mt-4" aria-live="polite"><div class="ref-name">Result</div><div id="rc-out" class="ref-expr"></div><div id="rc-note" class="ref-note"></div></div>
+      </div>
+    </div>
+    <div class="flex justify-between items-center gap-3 px-6 py-4 border-t border-cream-200 dark:border-slate-800">
+      <button type="button" onclick="printSummarySheet()" class="px-5 py-2.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-xl text-sm"><i class="fa-solid fa-print mr-2" aria-hidden="true"></i>Print summary</button>
+      <button type="button" onclick="toggleModal('cheat-sheet-modal')" class="px-5 py-2.5 bg-cream-300 dark:bg-slate-800 text-cream-900 dark:text-white font-bold rounded-xl text-sm">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRINTABLE SUMMARY CONTAINER (HIDDEN UNLESS PRINTING) -->
+<div id="printable-summary" class="hidden p-8 space-y-6 text-black bg-white">
+    <h1 class="text-3xl font-bold">Coulomb's Law Summary Guide</h1>
+    <p><strong>Authors:</strong> Leonardus Lintang Panji Utama & Ahmad Syafiq</p>
+    <hr>
+    <h2>Formula: F = <span class=math-frac><span class=math-num>1</span><span class=math-den>4πε₀</span></span> &middot; <span class=math-frac><span class=math-num>|q₁ q₂|</span><span class=math-den>r²</span></span></h2>
+    <p>Constants: k = 8.99 × 10⁹ N m² C⁻², ε₀ = 8.85 × 10⁻¹² F m⁻¹</p>
+</div>
+
+<!-- Application Footer -->
+<footer class="border-t border-cream-200 dark:border-slate-800 bg-cream-100 dark:bg-slate-900 py-8 text-center text-base text-cream-800 dark:text-slate-400 space-y-2 mt-auto">
+    <p>&copy; 2026 Coulomb’s Law Masterclass &middot; Grade 12 A-Level Physics</p>
+    <p class="font-bold text-cream-900 dark:text-white">Authors: <span class="text-maroon-700 dark:text-rose-400">Leonardus Lintang Panji Utama</span> & <span class="text-maroon-700 dark:text-rose-400">Ahmad Syafiq</span></p>
+</footer>
+
+<script>
+    // Theme handling: keep the root class, data attribute, icons, labels, and
+    // saved preference synchronised. Light mode is the default when no setting exists.
+    function updateThemeControls() {
+        const isDark = document.documentElement.classList.contains('dark');
+        document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+        const headerIcon = document.getElementById('theme-icon');
+        const introIcon = document.getElementById('intro-theme-icon');
+        const headerButton = document.getElementById('theme-toggle');
+        const introButton = document.getElementById('intro-theme-toggle');
+        const headerLabel = document.getElementById('theme-label');
+        const introLabel = document.getElementById('intro-theme-label');
+        const nextLabel = isDark ? 'Light mode' : 'Dark mode';
+        [headerIcon, introIcon].forEach(icon => {
+            if (icon) icon.className = (isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon') + (icon.id === 'theme-icon' ? ' text-xl' : '');
+        });
+        [headerLabel, introLabel].forEach(label => { if (label) label.textContent = nextLabel; });
+        [headerButton, introButton].forEach(button => {
+            if (!button) return;
+            button.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+            button.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            button.setAttribute('aria-pressed', String(isDark));
+        });
+    }
+
+    function toggleTheme() {
+        const root = document.documentElement;
+        const isDark = !root.classList.contains('dark');
+        root.classList.toggle('dark', isDark);
+        root.classList.toggle('light', !isDark);
+        root.dataset.theme = isDark ? 'dark' : 'light';
+        try {
+            localStorage.setItem('coulomb-masterclass-theme', isDark ? 'dark' : 'light');
+        } catch (error) {
+            // Theme switching remains available for the current page session.
+        }
+        updateThemeControls();
+        if (typeof draw2DSimulation === 'function') draw2DSimulation();
+    }
+
+    function startLearning() {
+        // Keep the introduction within the same navigation system and open the theory tab.
+        switchTab('theory');
+        const workspace = document.getElementById('main-workspace');
+        if (workspace) workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        updateThemeControls();
+    }
+
+    updateThemeControls();
+    switchTab('introduction');
+
+    // Tab Switcher Logic
+    function switchTab(tabId) {
+        const tabs = ['introduction', 'theory', 'simulator', 'quiz', 'pastpapers', 'pitfalls', 'videos'];
+        tabs.forEach(t => {
+            const sec = document.getElementById(`tab-${t}`);
+            const btn = document.getElementById(`nav-${t}`);
+            if (t === tabId) {
+                sec.classList.remove('hidden');
+                if (btn) {
+                    btn.className = "px-4 py-2 text-sm font-bold rounded-xl transition-all bg-maroon-600 text-white shadow-sm";
+                    btn.setAttribute('aria-current', 'page');
+                }
+            } else {
+                sec.classList.add('hidden');
+                if (btn) {
+                    btn.className = "px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700";
+                    btn.removeAttribute('aria-current');
+                }
+            }
+            const mobileButtons = document.querySelectorAll('#mobile-menu button[onclick]');
+            mobileButtons.forEach(mobileBtn => {
+                const action = mobileBtn.getAttribute('onclick') || '';
+                if (action.includes(`switchTab('${t}')`)) {
+                    if (t === tabId) mobileBtn.setAttribute('aria-current', 'page');
+                    else mobileBtn.removeAttribute('aria-current');
+                }
+            });
+        });
+
+        if (tabId === 'simulator') setTimeout(draw2DSimulation, 50);
+        if (tabId === 'quiz' && currentQuizLevel === '') switchLevel('easy');
+        if (tabId === 'pastpapers' && currentPastPaperLevel === '') switchPastPaperLevel('easy');
+    }
+
+    function toggleMobileMenu() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function toggleModal(modalId) {
+        document.getElementById(modalId).classList.toggle('hidden');
+    }
+
+    function toggleMarkScheme(msId) {
+        document.getElementById(msId).classList.toggle('hidden');
+    }
+
+    function printSummarySheet() {
+        typesetMath(document.getElementById('printable-summary'));
+        window.setTimeout(() => window.print(), 100);
+    }
+
+    function typesetMath(target) {
+        if (window.MathJax && window.MathJax.typesetPromise && target) {
+            window.MathJax.typesetPromise([target]).catch(error => console.error('MathJax rendering error:', error));
+        }
+    }
+
+    // ================= 2D PHYSICS SIMULATOR ENGINE =================
+    let charges = [
+        { id: 1, q: 3.0, x: -0.25, y: 0.0, color: '#06b6d4' },
+        { id: 2, q: -5.0, x: 0.25, y: 0.0, color: '#ec4899' }
+    ];
+    let selectedChargeIdx = 0;
+    let showFieldLines = false;
+    let isDragging = false;
+    let dragChargeIdx = -1;
+
+    function toggleFieldLines() {
+        showFieldLines = !showFieldLines;
+        const btn = document.getElementById('field-line-btn');
+        if (showFieldLines) {
+            btn.className = "px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition-all flex items-center space-x-2";
+        } else {
+            btn.className = "px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-all flex items-center space-x-2";
+        }
+        draw2DSimulation();
+    }
+
+    function addCharge() {
+        if (charges.length >= 4) {
+            showToast("A maximum of four charges is supported by this superposition simulation.");
+            return;
+        }
+        const newId = charges.length + 1;
+        charges.push({ id: newId, q: 2.0, x: 0.0, y: 0.3, color: '#8b5cf6' });
+        selectedChargeIdx = charges.length - 1;
+        draw2DSimulation();
+    }
+
+    function removeCharge() {
+        if (charges.length <= 2) {
+            showToast("At least two charges are required to calculate Coulomb forces.");
+            return;
+        }
+        charges.pop();
+        selectedChargeIdx = Math.min(selectedChargeIdx, charges.length - 1);
+        draw2DSimulation();
+    }
+
+    function reset2DSimulator() {
+        charges = [
+            { id: 1, q: 3.0, x: -0.25, y: 0.0, color: '#06b6d4' },
+            { id: 2, q: -5.0, x: 0.25, y: 0.0, color: '#ec4899' }
+        ];
+        selectedChargeIdx = 0;
+        showFieldLines = false;
+        const fieldButton = document.getElementById('field-line-btn');
+        if (fieldButton) fieldButton.className = "px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-all flex items-center space-x-2";
+        draw2DSimulation();
+    }
+
+    function updateSelectedCharge() {
+        if (selectedChargeIdx < 0 || selectedChargeIdx >= charges.length) return;
+        const qVal = parseFloat(document.getElementById('slider-q').value);
+        const xVal = parseFloat(document.getElementById('slider-x').value);
+        const yVal = parseFloat(document.getElementById('slider-y').value);
+
+        charges[selectedChargeIdx].q = qVal;
+        charges[selectedChargeIdx].x = xVal;
+        charges[selectedChargeIdx].y = yVal;
+
+        draw2DSimulation();
+    }
+
+    function draw2DSimulation() {
+        const canvas = document.getElementById('simCanvas2D');
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        const ctx = canvas.getContext('2d');
+
+        const isDark = document.documentElement.classList.contains('dark');
+        const k = 8.99e9;
+
+        // Clear Background
+        ctx.fillStyle = isDark ? '#020617' : '#FAF6F0';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Coordinate Grid Lines
+        const cX = canvas.width / 2;
+        const cY = canvas.height / 2;
+        const scale = 220; // 1 meter = 220 pixels
+
+        ctx.strokeStyle = isDark ? '#1e293b' : '#E8DFD1';
+        ctx.lineWidth = 1;
+        for (let x = cX % (scale * 0.2); x < canvas.width; x += scale * 0.2) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+        }
+        for (let y = cY % (scale * 0.2); y < canvas.height; y += scale * 0.2) {
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+        }
+
+        // Draw Main Axes
+        ctx.strokeStyle = isDark ? '#475569' : '#B45309';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(cX, 0); ctx.lineTo(cX, canvas.height); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, cY); ctx.lineTo(canvas.width, cY); ctx.stroke();
+
+        // Length indicators: one grid square = 0.2 m, heavier line every 1 m
+        ctx.strokeStyle = isDark ? '#334155' : '#D6C8B4'; ctx.lineWidth = 1.5;
+        for (let n = -8; n <= 8; n++) {
+            if (!n) continue;
+            const gx = cX + n * scale, gy = cY - n * scale;
+            ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, canvas.height); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke();
+        }
+        ctx.font = '600 11px "Fira Code", monospace';
+        ctx.fillStyle = isDark ? '#94a3b8' : '#6b5a4c';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        for (let n = -12; n <= 12; n++) {
+            if (!n) continue;
+            const lx = cX + n * scale * 0.2;
+            if (lx > 14 && lx < canvas.width - 14) ctx.fillText((n * 0.2).toFixed(1), lx, cY + 5);
+        }
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        for (let n = -8; n <= 8; n++) {
+            if (!n) continue;
+            const ly = cY - n * scale * 0.2;
+            if (ly > 10 && ly < canvas.height - 10) ctx.fillText((n * 0.2).toFixed(1), cX + 6, ly);
+        }
+        ctx.textAlign = 'right'; ctx.textBaseline = 'top'; ctx.fillText('x (m)', canvas.width - 8, cY + 20);
+        ctx.textAlign = 'left'; ctx.fillText('y (m)', cX + 28, 8);
+        const barLen = scale * 0.5, bx = 18, by = canvas.height - 34;
+        ctx.strokeStyle = isDark ? '#e2e8f0' : '#3D352E'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx + barLen, by);
+        ctx.moveTo(bx, by - 5); ctx.lineTo(bx, by + 5); ctx.moveTo(bx + barLen, by - 5); ctx.lineTo(bx + barLen, by + 5); ctx.stroke();
+        ctx.fillStyle = isDark ? '#e2e8f0' : '#3D352E'; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+        ctx.fillText('0.5 m', bx, by - 8);
+        ctx.textBaseline = 'top'; ctx.fillText('1 square = 0.2 m  \u00B7  arrows show direction only', bx, by + 8);
+
+        // Render sampled electric-field direction vectors when enabled
+        if (showFieldLines) {
+            ctx.strokeStyle = isDark ? 'rgba(139, 92, 246, 0.18)' : 'rgba(128, 0, 32, 0.12)';
+            ctx.lineWidth = 1;
+            for (let x = 20; x < canvas.width; x += 35) {
+                for (let y = 20; y < canvas.height; y += 35) {
+                    const mX = (x - cX) / scale;
+                    const mY = -(y - cY) / scale;
+                    let Ex = 0, Ey = 0;
+
+                    charges.forEach(ch => {
+                        const dx = mX - ch.x;
+                        const dy = mY - ch.y;
+                        const r2 = dx * dx + dy * dy;
+                        const r = Math.sqrt(r2);
+                        if (r > 0.05) {
+                            const E = (k * Math.abs(ch.q) * 1e-6) / r2;
+                            const sign = ch.q > 0 ? 1 : -1;
+                            Ex += E * (dx / r) * sign;
+                            Ey += E * (dy / r) * sign;
+                        }
+                    });
+
+                    const Emag = Math.sqrt(Ex * Ex + Ey * Ey);
+                    if (Emag > 0) {
+                        const len = 12;
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x + (Ex / Emag) * len, y - (Ey / Emag) * len);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Calculate Forces on Each Charge via Superposition
+        let infoText = '';
+        charges.forEach((targetCh, i) => {
+            let Fx = 0, Fy = 0;
+            charges.forEach((srcCh, j) => {
+                if (i === j) return;
+                const dx = targetCh.x - srcCh.x;
+                const dy = targetCh.y - srcCh.y;
+                const r2 = dx * dx + dy * dy;
+                const r = Math.sqrt(r2);
+                if (r > 0.001) {
+                    const Fmag = (k * Math.abs(targetCh.q) * 1e-6 * Math.abs(srcCh.q) * 1e-6) / r2;
+                    const isRepulsion = (targetCh.q * srcCh.q) > 0;
+                    const sign = isRepulsion ? 1 : -1;
+                    Fx += Fmag * (dx / r) * sign;
+                    Fy += Fmag * (dy / r) * sign;
+                }
+            });
+
+            const Fnet = Math.sqrt(Fx * Fx + Fy * Fy);
+            const px = cX + targetCh.x * scale;
+            const py = cY - targetCh.y * scale;
+
+            // Draw Resultant Vector Arrows
+            if (Fnet > 0.0001) {
+                const arrowLen = Math.min(Math.max(Fnet * 12, 30), 90);
+                const vecColor = isDark ? '#38bdf8' : '#800020';
+                drawVectorArrow(ctx, px, py, px + (Fx / Fnet) * arrowLen, py - (Fy / Fnet) * arrowLen, vecColor);
+            }
+
+            // Draw Charge Spheres
+            const isSelected = (i === selectedChargeIdx);
+            const radius = isSelected ? 30 : 25;
+            ctx.beginPath();
+            ctx.arc(px, py, radius, 0, Math.PI * 2);
+
+            if (targetCh.q > 0) {
+                ctx.fillStyle = isSelected ? 'rgba(6, 182, 212, 0.4)' : 'rgba(6, 182, 212, 0.2)';
+                ctx.strokeStyle = '#06b6d4';
+            } else {
+                ctx.fillStyle = isSelected ? 'rgba(236, 72, 153, 0.4)' : 'rgba(236, 72, 153, 0.2)';
+                ctx.strokeStyle = '#ec4899';
+            }
+
+            ctx.lineWidth = isSelected ? 4 : 2.5;
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = isDark ? '#ffffff' : '#211B16';
+            ctx.font = 'bold 15px Inter';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText((targetCh.q > 0 ? '+' : '') + targetCh.q.toFixed(1) + 'µC', px, py);
+
+            if (isSelected) {
+                infoText = `<div class="charge-info-row"><span>Charge</span><strong>q${targetCh.id} = ${targetCh.q > 0 ? '+' : ''}${targetCh.q} µC</strong></div><div class="charge-info-row"><span>Position</span><strong>(${targetCh.x.toFixed(2)} m, ${targetCh.y.toFixed(2)} m)</strong></div><div class="charge-info-row"><span>Net force</span><strong>${Fnet.toFixed(2)} N</strong></div>`;
+            }
+        });
+
+        // Update Control Inputs
+        const activeCh = charges[selectedChargeIdx];
+        if (activeCh) {
+            document.getElementById('slider-q').value = activeCh.q;
+            document.getElementById('slider-x').value = activeCh.x;
+            document.getElementById('slider-y').value = activeCh.y;
+            document.getElementById('slider-q-val').innerText = (activeCh.q > 0 ? '+' : '') + activeCh.q.toFixed(1) + ' µC';
+            document.getElementById('slider-x-val').innerText = activeCh.x.toFixed(2) + ' m';
+            document.getElementById('slider-y-val').innerText = activeCh.y.toFixed(2) + ' m';
+            document.getElementById('selected-charge-info').innerHTML = infoText;
+        }
+    }
+
+    function drawVectorArrow(ctx, fromX, fromY, toX, toY, color) {
+        const headLen = 10;
+        const dx = toX - fromX;
+        const dy = toY - fromY;
+        const angle = Math.atan2(dy, dx);
+
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.lineWidth = 3;
+        ctx.moveTo(fromX, fromY);
+        ctx.lineTo(toX, toY);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(toX, toY);
+        ctx.lineTo(toX - headLen * Math.cos(angle - Math.PI / 6), toY - headLen * Math.sin(angle - Math.PI / 6));
+        ctx.lineTo(toX - headLen * Math.cos(angle + Math.PI / 6), toY - headLen * Math.sin(angle + Math.PI / 6));
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    // Canvas Mouse Dragging Interactions
+    const canvas2D = document.getElementById('simCanvas2D');
+    canvas2D.addEventListener('mousedown', (e) => {
+        const rect = canvas2D.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const cX = canvas2D.width / 2;
+        const cY = canvas2D.height / 2;
+        const scale = 220;
+
+        charges.forEach((ch, idx) => {
+            const px = cX + ch.x * scale;
+            const py = cY - ch.y * scale;
+            const dist = Math.sqrt((mouseX - px) ** 2 + (mouseY - py) ** 2);
+            if (dist <= 30) {
+                isDragging = true;
+                dragChargeIdx = idx;
+                selectedChargeIdx = idx;
+            }
+        });
+        draw2DSimulation();
+    });
+
+    canvas2D.addEventListener('mousemove', (e) => {
+        if (!isDragging || dragChargeIdx === -1) return;
+        const rect = canvas2D.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const cX = canvas2D.width / 2;
+        const cY = canvas2D.height / 2;
+        const scale = 220;
+
+        charges[dragChargeIdx].x = parseFloat(((mouseX - cX) / scale).toFixed(2));
+        charges[dragChargeIdx].y = parseFloat(((cY - mouseY) / scale).toFixed(2));
+        draw2DSimulation();
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        dragChargeIdx = -1;
+    });
+
+    // ================= QUESTION BANK DATABASE (30 QUESTIONS) =================
+    const fullQuizDatabase = {
+        easy: [
+            { id: 'e1', q: "What is the SI unit for electric force (F)?", options: ["Newton (N)", "Coulomb (C)", "Volt (V)", "Farad (F)"], correct: 0, sol: "Electric force is a force measured in Newtons (N)." },
+            { id: 'e2', q: "Two negative charges (-q and -q) are placed near each other. What force do they experience?", options: ["Repulsive force", "Attractive force", "Zero force", "Gravitational pulling"], correct: 0, sol: "Charges of the same sign repel one another." },
+            { id: 'e3', q: "If the separation distance r between two charges is doubled, electrostatic force becomes:", options: ["<span class=math-frac><span class=math-num>1</span><span class=math-den>4</span></span> of original", "<span class=math-frac><span class=math-num>1</span><span class=math-den>2</span></span> of original", "2 times greater", "4 times greater"], correct: 0, sol: "Inverse-square law: F ∝ <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">r²</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">2²</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">4</span></div>." },
+            { id: 'e4', q: "What is the value of Coulomb's constant k = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">4πε₀</span></div> in free space?", options: ["8.99 × 10⁹ N m² C⁻²", "8.85 × 10⁻¹² F m⁻¹", "1.60 × 10⁻¹⁹ C", "6.67 × 10⁻¹¹ N m² kg⁻²"], correct: 0, sol: "Coulomb's constant in vacuum k ≈ 8.99 × 10⁹ N m² C⁻²." },
+            { id: 'e5', q: "Calculate the force between +2.0 µC and +3.0 µC separated by 1.0 m.", options: ["0.054 N", "0.108 N", "54.0 N", "0.027 N"], correct: 0, sol: "F = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">(8.99 × 10⁹)(2 × 10⁻⁶)(3 × 10⁻⁶)</span><span class=\"math-den\">(1.0)²</span></div> = 0.05394 N ≈ 0.054 N." },
+            { id: 'e6', q: "If charge magnitude q₁ is doubled while q₂ and r remain constant, what happens to F?", options: ["Doubles (2x)", "Quadruples (4x)", "Halves (<span class=math-frac><span class=math-num>1</span><span class=math-den>2</span></span>)", "Unchanged"], correct: 0, sol: "F is directly proportional to product of charges (F ∝ q₁ q₂)." },
+            { id: 'e7', q: "Coulomb's Law is valid strictly for:", options: ["Static point charges", "High-speed moving currents", "Irregular macroscopic conductors", "Uncharged magnetic dipoles"], correct: 0, sol: "Coulomb’s law applies directly to stationary point charges." },
+            { id: 'e8', q: "What is the magnitude of elementary charge e on a proton?", options: ["1.60 × 10⁻¹⁹ C", "9.11 × 10⁻³¹ C", "8.85 × 10⁻¹² C", "1.00 C"], correct: 0, sol: "Elementary charge e ≈ 1.602 × 10⁻¹⁹ C." },
+            { id: 'e9', q: "If two charges exert +15 N force on each other, what is the force exerted by charge 2 on charge 1?", options: ["-15 N", "+15 N", "0 N", "+30 N"], correct: 0, sol: "By Newton's Third Law (F₁₂ = -F₂₁), force is equal in magnitude and opposite in direction." },
+            { id: 'e10', q: "Permittivity of free space ε₀ has SI unit of:", options: ["F m⁻¹ (or C² N⁻¹ m⁻²)", "N m² C⁻²", "Joules", "Volts per meter"], correct: 0, sol: "Vacuum permittivity ε₀ is measured in F m⁻¹." }
+        ],
+        medium: [
+            { id: 'm1', q: "Two identical conducting spheres carrying charges of +6 µC and −2 µC are brought into contact and then separated by 0.20 m. Determine the resulting electrostatic force.", options: ["0.225 N, repulsive", "0.900 N, repulsive", "2.70 N, attractive", "0.450 N, repulsive"], correct: 1, sol: "The total charge is +4 µC. Because the spheres are identical, each receives +2 µC. F = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">(8.99 × 10⁹)(2 × 10⁻⁶)²</span><span class=\"math-den\">(0.20)²</span></div> = 0.899 N ≈ 0.900 N. The force is repulsive because both spheres are positively charged." },
+            { id: 'm2', q: "Two point charges, each +3.0 µC, experience a repulsive force of 2.70 N. Determine their separation distance.", options: ["0.173 m", "0.150 m", "0.090 m", "0.300 m"], correct: 0, sol: "Using Coulomb’s law, r² = <span class=math-frac><span class=math-num>kq₁q₂</span><span class=math-den>F</span></span> = <span class=math-frac><span class=math-num>(8.99 × 10⁹)(3.0 × 10⁻⁶)²</span><span class=math-den>2.70</span></span> = 2.997 × 10⁻² m². Therefore, r ≈ 0.173 m." },
+            { id: 'm3', q: "Three point charges are positioned along a straight line: +2µC at 0m, -3µC at 0.10m, +4µC at 0.25m. Net force on -3µC is:", options: ["0.60 N Left", "0.60 N Right", "10.2 N Left", "4.8 N Right"], correct: 0, sol: "F₁₂ = 5.39 N (Left), F₃₂ = 4.80 N (Right). Net ≈ 0.60 N Left (0.599 N unrounded)." },
+            { id: 'm4', q: "If relative permittivity of medium εᵣ = 4, force between charges compared to vacuum is:", options: ["<span class=math-frac><span class=math-num>1</span><span class=math-den>4</span></span> of vacuum force", "4 times greater", "16 times greater", "Unchanged"], correct: 0, sol: "F_medium = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">F_vacuum</span><span class=\"math-den\">εᵣ</span></div>." },
+            { id: 'm5', q: "Two charges q and 4q are fixed at distance d. Where is net force on test charge zero?", options: ["<span class=math-frac><span class=math-num>d</span><span class=math-den>3</span></span> from q", "<span class=math-frac><span class=math-num>d</span><span class=math-den>2</span></span> from q", "<span class=math-frac><span class=math-num>2d</span><span class=math-den>3</span></span> from q", "<span class=math-frac><span class=math-num>d</span><span class=math-den>4</span></span> from q"], correct: 0, sol: "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">x²</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">4</span><span class=\"math-den\">(d - x)²</span></div> &rArr; 2x = d - x &rArr; x = <span class=math-frac><span class=math-num>d</span><span class=math-den>3</span></span> from q." },
+            { id: 'm6', q: "Ratio of force at distance r to force at distance 3r is:", options: ["9 : 1", "3 : 1", "1 : 9", "1 : 3"], correct: 0, sol: "<span class=math-frac><span class=math-num>F₁</span><span class=math-den>F₂</span></span> = <span class=math-frac><span class=math-num>(3r)²</span><span class=math-den>r²</span></span> = <span class=math-frac><span class=math-num>9</span><span class=math-den>1</span></span>." },
+            { id: 'm7', q: "Equal charges q separated by 0.10 m repel with 0.90 N force. Determine the magnitude of q.", options: ["1.0 µC", "3.0 µC", "10.0 µC", "0.5 µC"], correct: 0, sol: "q² = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">(0.90)(0.10)²</span><span class=\"math-den\">8.99 × 10⁹</span></div> = 1 × 10⁻¹² C² &rArr; q = 1.0 µC." },
+            { id: 'm8', q: "Force between two charges in air is 12 N. In oil with εᵣ = 2.5, force is:", options: ["4.8 N", "30 N", "12 N", "2.4 N"], correct: 0, sol: "F = <span class=math-frac><span class=math-num>12</span><span class=math-den>2.5</span></span> = 4.8 N." },
+            { id: 'm9', q: "Compare electrostatic force Fe and gravitational force Fg between two protons:", options: ["Fe is ~10³⁶ times stronger", "Fg is ~10³⁶ times stronger", "They are equal", "Fe is 2x stronger"], correct: 0, sol: "<span class=math-frac><span class=math-num>Fe</span><span class=math-den>Fg</span></span> ≈ 10³⁶." },
+            { id: 'm10', q: "What is net force on charge at origin due to +q at (0, 0.2m) and +q at (0, -0.2m)?", options: ["0 N", "2 N Upward", "2 N Downward", "4 N Right"], correct: 0, sol: "The forces have equal magnitudes and opposite directions; therefore, their vector sum is zero." }
+        ],
+        hard: [
+            { id: 'h1', q: "Two identical spheres, each of mass 0.10 g, hang from strings of length 0.50 m. Each string makes an angle of 5° with the vertical, so the angle between the strings is 10°. If each sphere carries an equal charge Q, determine Q.", options: ["8.5 × 10⁻⁹ C", "1.1 × 10⁻⁸ C", "5.2 × 10⁻⁹ C", "8.9 × 10⁻⁷ C"], correct: 0, sol: "At equilibrium, Fₑ = mg tan 5° ≈ 8.58 × 10⁻⁵ N. The separation is r = 2(0.50) sin 5° ≈ 0.0872 m. From Fₑ = <span class=math-frac><span class=math-num>kQ²</span><span class=math-den>r²</span></span>, Q = √(<span class=math-frac><span class=math-num>Fₑr²</span><span class=math-den>k</span></span>) ≈ 8.5 × 10⁻⁹ C." },
+            { id: 'h2', q: "Three point charges Charges +Q, +Q, and −q are positioned at the vertices of equilateral triangle of side a. Net force magnitude on -q is:", options: ["<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k Q q √3</span><span class=\"math-den\">a²</span></div>", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">2 k Q q</span><span class=\"math-den\">a²</span></div>", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k Q q</span><span class=\"math-den\">a²</span></div>", "0"], correct: 0, sol: "Vector sum of forces at 60° angle: F_net = 2 F cos(30°) = √3 F." },
+            { id: 'h3', q: "Four identical charges +q at corners of square of side L. Net force on one charge is:", options: ["(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)(√2 + <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">2</span></div>)", "2√2 (<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)", "√2 (<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)", "0"], correct: 0, sol: "F_net = √2 F_side + F_diagonal = (<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)(√2 + <span class=math-frac><span class=math-num>1</span><span class=math-den>2</span></span>)." },
+            { id: 'h4', q: "Electron orbits proton in circle of radius r. Orbital velocity v is:", options: ["√(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ m r</span></div>)", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ m r</span></div>", "√(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">4πε₀ m r</span><span class=\"math-den\">e²</span></div>)", "0"], correct: 0, sol: "Centripetal force <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">m v²</span><span class=\"math-den\">r</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ r²</span></div> &rArr; v = √(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ m r</span></div>)." },
+            { id: 'h5', q: "Zero electric field position for +16 µC at 0cm and -9 µC at 8cm is at:", options: ["24 cm from -9 µC charge", "12 cm from -9 µC charge", "4 cm between charges", "16 cm from +16 µC"], correct: 0, sol: "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">4</span><span class=\"math-den\">8 + x</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">3</span><span class=\"math-den\">x</span></div> &rArr; 4x = 24 + 3x &rArr; x = 24 cm." },
+            { id: 'h6', q: "How much work must an external force do to bring a +2.0 nC charge from infinity to a point 0.10 m from a fixed +5.0 µC charge?", options: ["9.0 × 10⁻⁴ J", "9.0 × 10⁻⁵ J", "9.0 × 10⁻³ J", "0 J"], correct: 0, sol: "Work done = gain in electric potential energy = <span class=math-frac><span class=math-num>kQq</span><span class=math-den>r</span></span>. W = <span class=math-frac><span class=math-num>(8.99 × 10⁹)(5.0 × 10⁻⁶)(2.0 × 10⁻⁹)</span><span class=math-den>0.10</span></span> = 9.0 × 10⁻⁴ J. The work is positive because the two charges repel, so the external force must act against the field." },
+            { id: 'h7', q: "Closest approach of alpha particle (+2e, mass 6.64 × 10⁻²⁷ kg, v = 2 × 10⁷ m s⁻¹) to gold nucleus (+79e) is:", options: ["2.7 × 10⁻¹⁴ m", "1.4 × 10⁻¹³ m", "5.2 × 10⁻¹⁵ m", "9.1 × 10⁻¹² m"], correct: 0, sol: "Energy conservation <span class=math-frac><span class=math-num>1</span><span class=math-den>2</span></span> m v² = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k (2e)(79e)</span><span class=\"math-den\">r_min</span></div> &rArr; r_min ≈ 2.74 × 10⁻¹⁴ m." },
+            { id: 'h8', q: "Charge at centroid of equilateral triangle for equilibrium of three vertex charges +Q must be:", options: ["- <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">Q</span><span class=\"math-den\">√3</span></div>", "- <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">Q</span><span class=\"math-den\">3</span></div>", "- Q", "+ <span class=math-frac><span class=math-num>Q</span><span class=math-den>√3</span></span>"], correct: 0, sol: "Balancing forces gives q = − <span class=math-frac><span class=math-num>Q</span><span class=math-den>√3</span></span>." },
+            { id: 'h9', q: "Two parallel plates 2.0 cm apart have a potential difference of 500 V across them. What is the electric field strength between the plates?", options: ["2.5 × 10⁴ V m⁻¹", "1.0 × 10⁴ V m⁻¹", "2.5 × 10² V m⁻¹", "1.0 × 10⁶ V m⁻¹"], correct: 0, sol: "The field between parallel plates is uniform, so E = <span class=math-frac><span class=math-num>V</span><span class=math-den>d</span></span>. Convert 2.0 cm to 0.020 m. E = <span class=math-frac><span class=math-num>500</span><span class=math-den>0.020</span></span> = 2.5 × 10⁴ V m⁻¹ (equivalent to N C⁻¹)." },
+            { id: 'h10', q: "Charge +q at (0, a) and -q at (0, -a). Force on test charge +q₀ at (x, 0) points along:", options: ["-y direction", "+y direction", "+x direction", "-x direction"], correct: 0, sol: "X-components of attractive and repulsive forces cancel, net force along -y direction." }
+        ]
+    };
+
+    let currentQuizLevel = 'easy';
+    let isEndlessRandomized = false;
+    let scoreData;
+    try {
+        const savedScore = JSON.parse(localStorage.getItem('coulomb_quiz_score'));
+        scoreData = savedScore && Array.isArray(savedScore.answeredIds) && Array.isArray(savedScore.correctIds)
+            ? savedScore
+            : { answeredIds: [], correctIds: [] };
+    } catch (error) {
+        scoreData = { answeredIds: [], correctIds: [] };
+    }
+
+    function saveQuizProgress() {
+        try { localStorage.setItem('coulomb_quiz_score', JSON.stringify(scoreData)); }
+        catch (error) { console.warn('Quiz progress could not be saved in this browser.', error); }
+    }
+
+    function shuffleArray(items) {
+        const shuffled = [...items];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+
+    function updateScoreDisplay() {
+        const numEl = document.getElementById('quiz-score-num');
+        const barEl = document.getElementById('quiz-progress-bar');
+        if (numEl && barEl) {
+            const answered = Math.min(30, scoreData.answeredIds.length);
+            const correct = Math.min(answered, scoreData.correctIds.length);
+            const pct = Math.round((answered / 30) * 100);
+            numEl.innerText = `${correct} / 30 correct (${pct}% completed)`;
+            barEl.style.width = `${pct}%`;
+        }
+    }
+
+    function resetQuizProgress() {
+        scoreData = { answeredIds: [], correctIds: [] };
+        saveQuizProgress();
+        updateScoreDisplay();
+        renderQuizQuestions();
+    }
+
+    function switchLevel(lvl) {
+        currentQuizLevel = lvl;
+        const levels = ['easy', 'medium', 'hard'];
+        levels.forEach(l => {
+            const btn = document.getElementById(`lvl-btn-${l}`);
+            if (l === lvl) {
+                btn.className = "px-6 py-3 font-bold rounded-2xl transition-all bg-maroon-600 text-white shadow-md";
+            } else {
+                btn.className = "px-6 py-3 font-bold rounded-2xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-800";
+            }
+        });
+        renderQuizQuestions();
+    }
+
+    function toggleEndlessRandomizer() {
+        isEndlessRandomized = !isEndlessRandomized;
+        const btn = document.getElementById('randomize-btn');
+        if (isEndlessRandomized) {
+            btn.className = "px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-sm transition-all flex items-center space-x-2";
+            btn.querySelector('span').textContent = 'Disable Shuffled Order';
+        } else {
+            btn.className = "px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-sm transition-all flex items-center space-x-2";
+            btn.querySelector('span').textContent = 'Shuffle Question Order';
+        }
+        renderQuizQuestions();
+    }
+
+    function fmtSteps(html) {
+        return html.replace(/([.!?])\s+(?=[A-Z\u221A(])/g, '$1\u0001').split('\u0001').map(t => t.trim()).filter(Boolean)
+            .map(t => `<li class="${/[=\u21D2\u2248]/.test(t) ? 'has-eq' : ''}">${t}</li>`).join('');
+    }
+    function formatSolution(q) {
+        const L = String.fromCharCode(65 + q.correct);
+        return `<div class="ans-banner"><span class="ans-label"><i class="fa-solid fa-key" aria-hidden="true"></i> Answer key</span><span class="ans-text"><b>${L}.</b> ${q.options[q.correct]}</span></div>
+            <div class="sol-title">Worked solution</div><ol class="sol-steps">${fmtSteps(q.sol)}</ol>`;
+    }
+    function fmtScheme(item) {
+        const chip = t => t.replace(/\[(\d+) marks?\]/g, (m, n) => `<span class="mark-chip">${n} mark${n > 1 ? 's' : ''}</span>`);
+        const parts = item.scheme.split(/<br\s*\/?>/).map(x => x.trim()).filter(Boolean).map(l => {
+            const m = l.match(/^<strong>\(([a-z])\)<\/strong>\s*([\s\S]*)$/);
+            return `<div class="ms-part"><span class="ms-badge">${m ? m[1] : '\u2713'}</span><ol class="sol-steps">${fmtSteps(chip(m ? m[2] : l))}</ol></div>`;
+        }).join('');
+        return `<div class="ms-head"><span><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Mark scheme and model answer</span><span class="mark-chip total">${item.marks} marks total</span></div>${parts}<p class="ms-hint">Each gold label shows the marks earned by the step before it.</p>`;
+    }
+
+    function renderQuizQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = '';
+        const list = isEndlessRandomized
+            ? shuffleArray(fullQuizDatabase[currentQuizLevel])
+            : fullQuizDatabase[currentQuizLevel];
+
+        list.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = "bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-200 dark:border-slate-800 p-8 space-y-6 shadow-md";
+
+            let optionsHTML = '';
+            q.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <label class="flex items-center p-4 rounded-2xl bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 cursor-pointer hover:bg-cream-200 dark:hover:bg-slate-800 transition-all text-base text-cream-900 dark:text-slate-200">
+                        <input type="radio" name="q_${q.id}" value="${optIdx}" class="w-5 h-5 accent-maroon-600 mr-4 cursor-pointer">
+                        <span>${String.fromCharCode(65 + optIdx)}. ${opt}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="space-y-2">
+                    <span class="text-xs font-bold text-maroon-600 dark:text-rose-400 uppercase tracking-wider">Question ${idx + 1} of 10</span>
+                    <h3 class="text-xl font-bold text-maroon-800 dark:text-white">${q.q}</h3>
+                </div>
+                <div class="space-y-3">${optionsHTML}</div>
+                <button onclick="submitQuizAnswer('${q.id}')" class="px-6 py-3 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-2xl text-sm transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-paper-plane"></i><span>Submit Response</span>
+                </button>
+                <div id="res_${q.id}" class="hidden p-6 rounded-2xl border space-y-3">
+                    <div id="status_${q.id}" class="font-bold text-lg"></div>
+                    <div class="sol-box">${formatSolution(q)}</div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        updateScoreDisplay();
+        typesetMath(container);
+    }
+
+    function submitQuizAnswer(qId) {
+        const selectedOpt = document.querySelector(`input[name="q_${qId}"]:checked`);
+        const resBox = document.getElementById(`res_${qId}`);
+        const statusBox = document.getElementById(`status_${qId}`);
+
+        if (!selectedOpt) {
+            showToast("Please select an option before submitting your response.");
+            return;
+        }
+
+        const userAns = parseInt(selectedOpt.value);
+        const questionObj = fullQuizDatabase[currentQuizLevel].find(q => q.id === qId);
+        if (!questionObj) return;
+        const submitButton = document.querySelector(`#res_${qId}`)?.previousElementSibling;
+        const alreadyAnswered = scoreData.answeredIds.includes(qId);
+
+        resBox.classList.remove('hidden');
+
+        if (userAns === questionObj.correct) {
+            resBox.className = "p-6 rounded-2xl border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/20 space-y-3 shadow-md";
+            statusBox.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-2xl mr-2"></i> <span class="text-emerald-800 dark:text-emerald-300">Correct. Well done.</span>`;
+            if (!scoreData.correctIds.includes(qId)) scoreData.correctIds.push(qId);
+        } else {
+            resBox.className = "p-6 rounded-2xl border border-rose-500/40 bg-rose-50 dark:bg-rose-950/20 space-y-3 shadow-md";
+            statusBox.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-2xl mr-2"></i> <span class="text-rose-800 dark:text-rose-300">Incorrect. Review the solution below.</span>`;
+            scoreData.correctIds = scoreData.correctIds.filter(id => id !== qId);
+        }
+
+        if (!alreadyAnswered) scoreData.answeredIds.push(qId);
+        saveQuizProgress();
+        updateScoreDisplay();
+        if (submitButton) {
+            submitButton.innerHTML = '<i class="fa-solid fa-rotate-right"></i><span>Update Response</span>';
+        }
+        typesetMath(resBox);
+    }
+
+    // ================= PAST PAPERS DATABASE (30 QUESTIONS: 10 EASY, 10 MEDIUM, 10 HARD) =================
+    const fullPastPapersDatabase = {
+        easy: [
+            {
+                id: 'pp_e1',
+                title: 'Question 1: Basic Force Calculation',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'Two point charges of +3.0 µC and +5.0 µC are separated by a distance of 0.40 m in a vacuum.<br><br><strong>(a)</strong> State Coulomb\'s Law in words. [2 marks]<br><strong>(b)</strong> Calculate the electrostatic force between the two charges. [2 marks]',
+                scheme: '<strong>(a)</strong> Force is directly proportional to the product of charges [1 mark] and inversely proportional to square of distance [1 mark].<br><strong>(b)</strong> F = <div class="math-frac inline-flex text-xs"><span class="math-num">(8.99 × 10⁹)(3.0 × 10⁻⁶)(5.0 × 10⁻⁶)</span><span class="math-den">(0.40)²</span></div> = 0.84 N [2 marks]'
+            },
+            {
+                id: 'pp_e2',
+                title: 'Question 2: Distance Scaling',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'Two charges exert an electrostatic force F on each other when placed at distance r.<br><br><strong>(a)</strong> State how the force changes if the distance is increased to 3r. [2 marks]<br><strong>(b)</strong> State how the force changes if one charge is doubled and distance is halved. [2 marks]',
+                scheme: '<strong>(a)</strong> Force becomes <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">9</span></div>F due to inverse-square law [2 marks].<br><strong>(b)</strong> Force becomes 8F (doubling charge gives 2x, halving distance quadruples force 4x) [2 marks].'
+            },
+            {
+                id: 'pp_e3',
+                title: 'Question 3: Nature of Force',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'A sphere with charge -4.0 µC is placed 0.20 m away from another sphere with charge +2.0 µC.<br><br><strong>(a)</strong> State whether the electrostatic force is attractive or repulsive. [1 mark]<br><strong>(b)</strong> Calculate the magnitude of this force. [3 marks]',
+                scheme: '<strong>(a)</strong> Attractive (opposite signs) [1 mark].<br><strong>(b)</strong> F = <div class="math-frac inline-flex text-xs"><span class="math-num">(8.99 × 10⁹)(4.0 × 10⁻⁶)(2.0 × 10⁻⁶)</span><span class="math-den">(0.20)²</span></div> = 1.80 N [3 marks]'
+            },
+            {
+                id: 'pp_e4',
+                title: 'Question 4: Unit Conversion Check',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'Two charges of +1.2 nC and +3.4 nC are separated by 50 mm.<br><br><strong>(a)</strong> Convert 50 mm into meters and nC into Coulombs. [2 marks]<br><strong>(b)</strong> Calculate the force between them. [2 marks]',
+                scheme: '<strong>(a)</strong> 50 mm = 0.050 m [1 mark]; nC = 10⁻⁹ C [1 mark].<br><strong>(b)</strong> F = <div class="math-frac inline-flex text-xs"><span class="math-num">(8.99 × 10⁹)(1.2 × 10⁻⁹)(3.4 × 10⁻⁹)</span><span class="math-den">(0.050)²</span></div> = 1.47 × 10⁻⁵ N [2 marks].'
+            },
+            {
+                id: 'pp_e5',
+                title: 'Question 5: Newton\'s Third Law Application',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'Charge A (+6.0 µC) exerts a repulsive force of 12 N on charge B (+2.0 µC).<br><br><strong>(a)</strong> State the magnitude of the force exerted by charge B on charge A. [2 marks]<br><strong>(b)</strong> State the direction of the force experienced by charge A. [2 marks]',
+                scheme: '<strong>(a)</strong> 12 N (Newton\'s Third Law) [2 marks].<br><strong>(b)</strong> Directly away from charge B (repulsive) [2 marks].'
+            },
+            {
+                id: 'pp_e6',
+                title: 'Question 6: Permittivity Definition',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: '<strong>(a)</strong> Define permittivity of free space $\\varepsilon_0$. [2 marks]<br><strong>(b)</strong> State its SI unit. [2 marks]',
+                scheme: '<strong>(a)</strong> Measure of resistance encountered when forming electric field in vacuum [2 marks].<br><strong>(b)</strong> F m⁻¹ or C² N⁻¹ m⁻² [2 marks].'
+            },
+            {
+                id: 'pp_e7',
+                title: 'Question 7: Gravitational vs Electric Comparison',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: '<strong>(a)</strong> State one similarity between Coulomb\'s Law and Newton\'s Law of Gravitation. [2 marks]<br><strong>(b)</strong> State one major difference between them. [2 marks]',
+                scheme: '<strong>(a)</strong> Both follow inverse-square law with distance $r^2$ [2 marks].<br><strong>(b)</strong> Electrostatic can be repulsive or attractive, whereas gravitation is strictly attractive [2 marks].'
+            },
+            {
+                id: 'pp_e8',
+                title: 'Question 8: Finding Charge Magnitude',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'Two identical charges q separated by 0.10 m experience a repulsive force of 0.90 N. Calculate q.',
+                scheme: 'q² = <div class="math-frac inline-flex text-xs"><span class="math-num">(0.90)(0.10)²</span><span class="math-den">8.99 × 10⁹</span></div> = 1.0 × 10⁻¹² [2 marks] &rArr; q = 1.0 µC [2 marks].'
+            },
+            {
+                id: 'pp_e9',
+                title: 'Question 9: Finding Separation Distance',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'Two charges +4.0 µC and +4.0 µC experience 1.00 N force. Determine the separation between their centres, r.',
+                scheme: 'r² = <div class="math-frac inline-flex text-xs"><span class="math-num">(8.99 × 10⁹)(4.0 × 10⁻⁶)(4.0 × 10⁻⁶)</span><span class="math-den">1.00</span></div> = 0.1438 m² [2 marks] &rArr; r = 0.38 m [2 marks].'
+            },
+            {
+                id: 'pp_e10',
+                title: 'Question 10: Medium Effect',
+                marks: 4,
+                paper: 'A-Level Physics · Core skills',
+                prompt: 'The force between two charges in air is 20 N. When immersed in transformer oil ($\\varepsilon_r = 2.5$), calculate the new force.',
+                scheme: 'F_medium = <div class="math-frac inline-flex text-xs"><span class="math-num">F_air</span><span class="math-den">\\varepsilon_r</span></div> [2 marks] = <div class="math-frac inline-flex text-xs"><span class="math-num">20</span><span class="math-den">2.5</span></div> = 8.0 N [2 marks].'
+            }
+        ],
+        medium: [
+            {
+                id: 'pp_m1',
+                title: 'Question 1: Equilibrium Position in 1D',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'Fixed point charges A (+4.0 µC) and B (+9.0 µC) are separated by 0.50 m. Determine the position at which +q experiences zero net force.',
+                scheme: 'Let distance from A be x. <div class="math-frac inline-flex text-xs"><span class="math-num">4</span><span class="math-den">x²</span></div> = <div class="math-frac inline-flex text-xs"><span class="math-num">9</span><span class="math-den">(0.50 - x)²</span></div> [2 marks]. Taking square roots: <div class="math-frac inline-flex text-xs"><span class="math-num">2</span><span class="math-den">x</span></div> = <div class="math-frac inline-flex text-xs"><span class="math-num">3</span><span class="math-den">0.50 - x</span></div> [2 marks] &rArr; x = 0.20 m from A [1 mark].'
+            },
+            {
+                id: 'pp_m2',
+                title: 'Question 2: Sphere Touch and Re-separation',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'Two identical spheres with +8.0 µC and -2.0 µC touch, then separate to 0.30 m. Determine the resulting force.',
+                scheme: 'Total charge = +6.0 µC &rArr; each has +3.0 µC [2 marks]. F = <div class="math-frac inline-flex text-xs"><span class="math-num">(8.99 × 10⁹)(3.0 × 10⁻⁶)²</span><span class="math-den">(0.30)²</span></div> [2 marks] = 0.90 N Repulsive [1 mark].'
+            },
+            {
+                id: 'pp_m3',
+                title: 'Question 3: Three Charges in a Straight Line',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: '+2 µC at x=0, -3 µC at x=0.10m, +4 µC at x=0.25m. Calculate net force on -3 µC charge.',
+                scheme: 'F₁₂ = <div class="math-frac inline-flex text-xs"><span class="math-num">k(2)(3)</span><span class="math-den">0.10²</span></div> = 5.39 N Left [2 marks]. F₃₂ = <div class="math-frac inline-flex text-xs"><span class="math-num">k(3)(4)</span><span class="math-den">0.15²</span></div> = 4.80 N Right [2 marks]. Net ≈ 0.60 N Left (0.599 N unrounded) [1 mark].'
+            },
+            {
+                id: 'pp_m4',
+                title: 'Question 4: Electric Field vs Force',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: '<strong>(a)</strong> Define Electric Field Strength E at a point. [2 marks]<br><strong>(b)</strong> Calculate force on an electron in uniform field E = 5.0 × 10⁴ N C⁻¹. [3 marks]',
+                scheme: '<strong>(a)</strong> Force per unit positive charge [2 marks].<br><strong>(b)</strong> F = qE = (1.602 × 10⁻¹⁹)(5.0 × 10⁴) = 8.01 × 10⁻¹⁵ N [3 marks].'
+            },
+            {
+                id: 'pp_m5',
+                title: 'Question 5: Perpendicular 2D Force Components',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'Charge +q at origin and +q at (0, 0.30m). Determine the net force on a test charge +q at (0.40 m, 0).',
+                scheme: 'Calculate individual force magnitudes and resolve x and y vector components using right triangles [3 marks]. Sum components to find resultant magnitude and angle [2 marks].'
+            },
+            {
+                id: 'pp_m6',
+                title: 'Question 6: Inverse Square Law Graph Analysis',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'A student plots F against <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">r²</span></div>. Explain what the straight line gradient represents.',
+                scheme: 'Gradient represents k q₁q₂ [3 marks]. Explain how to extract product of charges from gradient [2 marks].'
+            },
+            {
+                id: 'pp_m7',
+                title: 'Question 7: Dielectric Constant Medium Calculation',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'Two charges in vacuum experience 45 N. In liquid medium, force drops to 15 N. Calculate liquid relative permittivity $\\varepsilon_r$.',
+                scheme: '$\\varepsilon_r$ = <div class="math-frac inline-flex text-xs"><span class="math-num">F_vacuum</span><span class="math-den">F_medium</span></div> [3 marks] = <div class="math-frac inline-flex text-xs"><span class="math-num">45</span><span class="math-den">15</span></div> = 3.0 [2 marks].'
+            },
+            {
+                id: 'pp_m8',
+                title: 'Question 8: Accelerated Electron Calculation',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'An electron starts from rest in uniform electric field E = 2.0 × 10³ N C⁻¹ over distance 0.05 m. Determine the final speed, v.',
+                scheme: 'Acceleration a = <div class="math-frac inline-flex text-xs"><span class="math-num">qE</span><span class="math-den">m</span></div> [2 marks]. Use kinematic equation v² = u² + 2as [2 marks] &rArr; v = 5.93 × 10⁶ m s⁻¹ [1 mark].'
+            },
+            {
+                id: 'pp_m9',
+                title: 'Question 9: Symmetric Charge Cancellation',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'Explain why the net electric force at the exact center of a square with identical charges at all four corners is zero.',
+                scheme: 'Opposing forces from diagonally opposite identical charges are equal in magnitude and directly opposite in direction, perfectly canceling out [5 marks].'
+            },
+            {
+                id: 'pp_m10',
+                title: 'Question 10: Millikan-style Oil Drop Balance',
+                marks: 5,
+                paper: 'A-Level Physics · Structured',
+                prompt: 'A tiny charged oil droplet of mass 3.2 × 10⁻¹⁵ kg is held stationary between parallel plates with electric field E = 1.96 × 10⁴ N C⁻¹. Determine the charge, q.',
+                scheme: 'Balance forces: Eq = mg [3 marks]. q = <div class="math-frac inline-flex text-xs"><span class="math-num">(3.2 × 10⁻¹⁵)(9.81)</span><span class="math-den">1.96 × 10⁴</span></div> = 1.60 × 10⁻¹⁸ C (10 elementary charges) [2 marks].'
+            }
+        ],
+        hard: [
+            {
+                id: 'pp_h1',
+                title: 'Question 1: Pendulum Thread Equilibrium',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Two identical spheres, each of mass 0.10 g, hang from strings of length 0.50 m. Each string makes an angle of 5° with the vertical, so the angle between the strings is 10°. Each sphere carries an equal charge Q. Determine Q.',
+                scheme: 'At equilibrium, Fₑ = mg tan 5° ≈ 8.58 × 10⁻⁵ N [2 marks]. The separation is r = 2(0.50) sin 5° ≈ 0.0872 m [2 marks]. Using Fₑ = <span class=math-frac><span class=math-num>kQ²</span><span class=math-den>r²</span></span> gives Q = √(<span class=math-frac><span class=math-num>Fₑr²</span><span class=math-den>k</span></span>) ≈ 8.5 × 10⁻⁹ C [2 marks].'
+            },
+            {
+                id: 'pp_h2',
+                title: 'Question 2: Equilateral Triangle Superposition',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Charges +Q, +Q, and −q are positioned at the vertices of equilateral triangle of side a. Find net force on -q.',
+                scheme: 'Calculate force from each +Q: F = <div class="math-frac inline-flex text-xs"><span class="math-num">k Q q</span><span class="math-den">a²</span></div> [2 marks]. Vector angle is 60° [2 marks]. Resultant F_net = 2F cos(30°) = <div class="math-frac inline-flex text-xs"><span class="math-num">k Q q √3</span><span class="math-den">a²</span></div> [2 marks].'
+            },
+            {
+                id: 'pp_h3',
+                title: 'Question 3: Alpha Particle Closest Approach',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Alpha particle (+2e, mass 6.64 × 10⁻²⁷ kg, v = 2 × 10⁷ m s⁻¹) fired directly at gold nucleus (+79e). Determine the distance of closest approach, $r_{\min}$.',
+                scheme: 'Kinetic energy converted to electric potential energy: <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">2</span></div>mv² = <div class="math-frac inline-flex text-xs"><span class="math-num">k (2e)(79e)</span><span class="math-den">r_min</span></div> [3 marks]. Substitute the relevant constants ($m_\\alpha = 6.64 \\times 10^{-27}$ kg) [2 marks] &rArr; $r_{min} \\approx 2.74 \\times 10^{-14}$ m [1 mark].'
+            },
+            {
+                id: 'pp_h4',
+                title: 'Question 4: Bohr Model Orbital Velocity',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Derive an expression for orbital velocity v of an electron circling a proton at radius r.',
+                scheme: 'Centripetal force equals electrostatic attraction: <div class="math-frac inline-flex text-xs"><span class="math-num">m v²</span><span class="math-den">r</span></div> = <div class="math-frac inline-flex text-xs"><span class="math-num">e²</span><span class="math-den">4\\pi\\varepsilon_0 r²</span></div> [3 marks]. Rearrange for v = $\\sqrt{\\frac{e^2}{4\\pi\\varepsilon_0 m r}}$ [3 marks].'
+            },
+            {
+                id: 'pp_h5',
+                title: 'Question 5: Zero Field Position with Unlike Charges',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: '+16 µC at origin and -9 µC at x=8cm. Determine the position at which the net electric field is zero, giving your answer as a distance from the −9 µC charge.',
+                scheme: 'Set up field equation for outside region: <div class="math-frac inline-flex text-xs"><span class="math-num">16</span><span class="math-den">(8 + x)²</span></div> = <div class="math-frac inline-flex text-xs"><span class="math-num">9</span><span class="math-den">x²</span></div> [3 marks]. Take square roots: <div class="math-frac inline-flex text-xs"><span class="math-num">4</span><span class="math-den">8 + x</span></div> = <div class="math-frac inline-flex text-xs"><span class="math-num">3</span><span class="math-den">x</span></div> [2 marks] &rArr; x = 24 cm from -9 µC [1 mark].'
+            },
+            {
+                id: 'pp_h6',
+                title: 'Question 6: Energy of Two Released Protons',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Two protons are held at rest 1.0 nm (1.0 × 10⁻⁹ m) apart in a vacuum and then released.<br><br><strong>(a)</strong> Calculate the electric potential energy of the pair at the moment of release. [2 marks]<br><strong>(b)</strong> Explain why the two protons gain equal speeds. [2 marks]<br><strong>(c)</strong> Calculate the speed of each proton when they are very far apart. [2 marks]',
+                scheme: '<strong>(a)</strong> E = <span class=math-frac><span class=math-num>kq²</span><span class=math-den>r</span></span> = <span class=math-frac><span class=math-num>(8.99 × 10⁹)(1.602 × 10⁻¹⁹)²</span><span class=math-den>1.0 × 10⁻⁹</span></span> [1 mark] = 2.3 × 10⁻¹⁹ J [1 mark].<br><strong>(b)</strong> The forces on the protons are equal and opposite (Newton’s third law) and the masses are equal [1 mark]. So the accelerations, and therefore the speeds at every moment, are equal [1 mark].<br><strong>(c)</strong> All the potential energy becomes kinetic energy of two protons: 2 × ½mv² = 2.3 × 10⁻¹⁹ J [1 mark]. v = √(<span class=math-frac><span class=math-num>2.3 × 10⁻¹⁹</span><span class=math-den>1.67 × 10⁻²⁷</span></span>) = 1.2 × 10⁴ m s⁻¹ [1 mark].'
+            },
+            {
+                id: 'pp_h7',
+                title: 'Question 7: Centroid Equilibrium Charge',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Three identical charges +Q at vertices of equilateral triangle. Determine the magnitude and sign of charge q that must be placed at the centroid for the system to be in equilibrium.',
+                scheme: 'Calculate repulsive force components from all three vertices [3 marks]. Balance forces along median lines to prove q = $-\\frac{Q}{\\sqrt{3}}$ [3 marks].'
+            },
+            {
+                id: 'pp_h8',
+                title: 'Question 8: Uniform Field Between Parallel Plates',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Two horizontal parallel plates are 4.0 cm apart in a vacuum, with a potential difference of 800 V across them. A proton is placed between the plates.<br><br><strong>(a)</strong> Calculate the electric field strength between the plates. [2 marks]<br><strong>(b)</strong> Calculate the force on the proton. [2 marks]<br><strong>(c)</strong> Calculate the acceleration of the proton. [2 marks]',
+                scheme: '<strong>(a)</strong> E = <span class=math-frac><span class=math-num>V</span><span class=math-den>d</span></span> = <span class=math-frac><span class=math-num>800</span><span class=math-den>0.040</span></span> [1 mark] = 2.0 × 10⁴ V m⁻¹ [1 mark].<br><strong>(b)</strong> F = eE = (1.602 × 10⁻¹⁹)(2.0 × 10⁴) [1 mark] = 3.2 × 10⁻¹⁵ N [1 mark].<br><strong>(c)</strong> a = <span class=math-frac><span class=math-num>F</span><span class=math-den>m</span></span> = <span class=math-frac><span class=math-num>3.2 × 10⁻¹⁵</span><span class=math-den>1.67 × 10⁻²⁷</span></span> [1 mark] = 1.9 × 10¹² m s⁻² [1 mark].'
+            },
+            {
+                id: 'pp_h9',
+                title: 'Question 9: Square Corner Force Vector Sum',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'Four identical charges +q sit at corners of square of side L. Derive net force on one corner charge.',
+                scheme: 'Sum forces from two adjacent sides (at 90°) and one diagonal corner [3 marks]. Resultant magnitude = <div class="math-frac inline-flex text-xs"><span class="math-num">k q²</span><span class="math-den">L²</span></div> ($\\sqrt{2} + \\frac{1}{2}$) [3 marks].'
+            },
+            {
+                id: 'pp_h10',
+                title: 'Question 10: Potential and Field Between Two Charges',
+                marks: 6,
+                paper: 'A-Level Physics · Extended structured',
+                prompt: 'A +6.0 µC charge and a −2.0 µC charge are fixed 0.30 m apart in a vacuum. Point P lies on the line joining them, 0.10 m from the +6.0 µC charge.<br><br><strong>(a)</strong> Calculate the electric potential at P. [3 marks]<br><strong>(b)</strong> Calculate the magnitude of the electric field strength at P and state its direction. [3 marks]',
+                scheme: '<strong>(a)</strong> Potential is a scalar, so add the contributions with their signs [1 mark]. V = (8.99 × 10⁹) <span class=math-frac><span class=math-num>6.0 × 10⁻⁶</span><span class=math-den>0.10</span></span> + (8.99 × 10⁹) <span class=math-frac><span class=math-num>−2.0 × 10⁻⁶</span><span class=math-den>0.20</span></span> [1 mark] = 5.39 × 10⁵ − 0.90 × 10⁵ = 4.5 × 10⁵ V [1 mark].<br><strong>(b)</strong> E = <span class=math-frac><span class=math-num>kQ</span><span class=math-den>r²</span></span> for each charge: 5.39 × 10⁶ N C⁻¹ from the +6.0 µC and 4.5 × 10⁵ N C⁻¹ from the −2.0 µC [1 mark]. Both fields point towards the −2.0 µC charge, so they add [1 mark]. E = 5.8 × 10⁶ N C⁻¹, directed towards the −2.0 µC charge [1 mark].'
+            }
+        ]
+    };
+
+    let currentPastPaperLevel = 'easy';
+
+    function switchPastPaperLevel(lvl) {
+        currentPastPaperLevel = lvl;
+        const levels = ['easy', 'medium', 'hard'];
+        levels.forEach(l => {
+            const btn = document.getElementById(`pp-btn-${l}`);
+            if (l === lvl) {
+                btn.className = "px-6 py-3 font-bold rounded-2xl transition-all bg-maroon-600 text-white shadow-md";
+            } else {
+                btn.className = "px-6 py-3 font-bold rounded-2xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-800";
+            }
+        });
+        renderPastPapers();
+    }
+
+    function renderPastPapers() {
+        const container = document.getElementById('pastpapers-container');
+        container.innerHTML = '';
+        const list = fullPastPapersDatabase[currentPastPaperLevel];
+
+        list.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = "bg-cream-50 dark:bg-slate-950 p-8 rounded-3xl border border-cream-200 dark:border-slate-800 space-y-6 shadow-md";
+            card.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-maroon-800 dark:text-white">${item.title} [${item.marks} Marks]</h3>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-maroon-600/10 text-maroon-700 dark:text-rose-400 border border-maroon-600/20">${item.paper}</span>
+                </div>
+                <p class="text-cream-800 dark:text-slate-300 leading-relaxed">${item.prompt}</p>
+                <button onclick="toggleMarkScheme('ms_${item.id}')" class="px-5 py-2.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-xl text-sm transition-all">
+                    <i class="fa-solid fa-eye mr-2"></i>Show or hide mark scheme
+                </button>
+                <div id="ms_${item.id}" class="hidden ms-box">${fmtScheme(item)}</div>
+            `;
+            container.appendChild(card);
+        });
+        typesetMath(container);
+    }
+
+    window.addEventListener('load', function() {
+        updateThemeControls();
+        draw2DSimulation();
+        updateScoreDisplay();
+        typesetMath(document.body);
+    });
+    window.addEventListener('resize', draw2DSimulation);
+</script>
+<button id="back-to-top" type="button" aria-label="Back to top" title="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
+<script>
+  (function () {
+    const button = document.getElementById('back-to-top');
+    if (!button) return;
+    const updateVisibility = () => button.classList.toggle('is-visible', window.scrollY > 480);
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+    updateVisibility();
+  })();
+</script>
+
+<script>
+(function(){
+  /* Reading progress + tab switch scroll reset */
+  var bar=document.getElementById('read-progress');
+  function prog(){var h=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(h>0?Math.min(scrollY/h,1):0)+')'}
+  addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);prog();
+  var orig=window.switchTab;
+  window.switchTab=function(id){orig(id);scrollTo({top:0,behavior:'auto'});prog();
+    var b=document.getElementById('nav-'+id);if(b&&b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest'});};
+
+  /* Hero: draggable +1 µC charge near a fixed -1 µC charge, with live field lines */
+  var cv=document.getElementById('hero-field'),out=document.getElementById('hero-readout');if(!cv)return;
+  var ctx=cv.getContext('2d'),W,H,dpr,P={x:0,y:0},N={x:0,y:0},drag=false,t=0;
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){dpr=devicePixelRatio||1;W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    N={x:W*.86,y:H*.5};if(!drag){P={x:W*.64,y:H*.5}}draw()}
+  function E(x,y){var f=[[P,1],[N,-1]],ex=0,ey=0;f.forEach(function(c){var dx=x-c[0].x,dy=y-c[0].y,r2=dx*dx+dy*dy+1,r=Math.sqrt(r2);ex+=c[1]*dx/(r2*r);ey+=c[1]*dy/(r2*r)});return[ex,ey]}
+  function draw(){
+    var dark=document.documentElement.classList.contains('dark');
+    ctx.clearRect(0,0,W,H);ctx.lineWidth=1.2;ctx.strokeStyle=dark?'rgba(253,164,175,.55)':'rgba(128,0,32,.45)';
+    var n=16;for(var i=0;i<n;i++){var a=i/n*Math.PI*2,x=P.x+Math.cos(a)*9,y=P.y+Math.sin(a)*9;ctx.beginPath();ctx.moveTo(x,y);
+      for(var s=0;s<260;s++){var e=E(x,y),m=Math.hypot(e[0],e[1])||1;x+=e[0]/m*5;y+=e[1]/m*5;ctx.lineTo(x,y);
+        if(Math.hypot(x-N.x,y-N.y)<9||x<-20||x>W+20||y<-20||y>H+20)break}
+      ctx.stroke()}
+    [[P,'+',dark?'#fb7185':'#800020'],[N,'\u2212',dark?'#fcd34d':'#B45309']].forEach(function(c){
+      ctx.fillStyle=c[2];ctx.beginPath();ctx.arc(c[0].x,c[0].y,11,0,7);ctx.fill();
+      ctx.fillStyle=dark?'#0f172a':'#fff';ctx.font='700 15px Inter,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c[1],c[0].x,c[0].y+.5)});
+    var r=Math.hypot(P.x-N.x,P.y-N.y),cm=r*.05,F=8.99e9*1e-12/Math.pow(cm/100,2);
+    out.textContent='r = '+cm.toFixed(1)+' cm   F = '+(F<1?(F*1000).toFixed(0)+' mN':F.toFixed(2)+' N')+'   (1 \u00B5C each)';
+  }
+  function at(e){var b=cv.getBoundingClientRect();return{x:e.clientX-b.left,y:e.clientY-b.top}}
+  cv.addEventListener('pointerdown',function(e){var p=at(e);if(Math.hypot(p.x-P.x,p.y-P.y)<28){drag=true;cv.setPointerCapture(e.pointerId)}});
+  cv.addEventListener('pointermove',function(e){if(!drag)return;var p=at(e);P.x=Math.max(20,Math.min(W-20,p.x));P.y=Math.max(20,Math.min(H-20,p.y));
+    if(Math.hypot(P.x-N.x,P.y-N.y)<26){var a=Math.atan2(P.y-N.y,P.x-N.x);P.x=N.x+Math.cos(a)*26;P.y=N.y+Math.sin(a)*26}draw()});
+  ['pointerup','pointercancel'].forEach(function(k){cv.addEventListener(k,function(){drag=false})});
+  new ResizeObserver(size).observe(cv);
+  new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+  (function loop(){if(!still&&!drag&&cv.offsetParent&&!document.hidden&&!matchMedia('(max-width:1023px)').matches){
+      t+=.012;P.x=W*.64+Math.sin(t)*W*.05;P.y=H*.5+Math.cos(t*1.3)*H*.16;draw()}requestAnimationFrame(loop)})();
+})();
+</script>
+
+<script>
+(function(){
+  var m=document.getElementById('cheat-sheet-modal');
+  var sup={'-':'\u207B','0':'\u2070','1':'\u00B9','2':'\u00B2','3':'\u00B3','4':'\u2074','5':'\u2075','6':'\u2076','7':'\u2077','8':'\u2078','9':'\u2079'};
+  function sci(x){var e=Math.floor(Math.log10(x));if(Math.abs(e)<3)return x.toPrecision(3);return (x/Math.pow(10,e)).toFixed(2)+' \u00D7 10'+String(e).split('').map(function(c){return sup[c]}).join('')}
+  function calc(){
+    var q1=parseFloat(document.getElementById('rc-q1').value),q2=parseFloat(document.getElementById('rc-q2').value),r=parseFloat(document.getElementById('rc-r').value)/100;
+    var o=document.getElementById('rc-out'),n=document.getElementById('rc-note');
+    if(!(r>0)||isNaN(q1)||isNaN(q2)){o.textContent='Enter charges and a separation above 0.';n.textContent='';return}
+    if(q1*q2===0){o.textContent='F = 0 N';n.textContent='One charge is zero, so there is no force.';return}
+    var F=8.99e9*Math.abs(q1*q2)*1e-12/(r*r);
+    o.textContent='F = '+sci(F)+' N';
+    n.textContent=(q1*q2>0?'Repulsive: the charges push apart.':'Attractive: the charges pull together.')+' Separation used: '+r+' m.';
+  }
+  m.querySelectorAll('[data-ref]').forEach(function(t){t.addEventListener('click',function(){
+    m.querySelectorAll('[data-ref]').forEach(function(x){x.setAttribute('aria-selected',x===t)});
+    m.querySelectorAll('[data-panel]').forEach(function(p){p.hidden=p.dataset.panel!==t.dataset.ref});
+    if(t.dataset.ref==='calc')calc()})});
+  m.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    var h=b.querySelector('.const-hint'),o='Click to copy';
+    var done=function(t){h.textContent=t;setTimeout(function(){h.textContent=o},1400)};
+    if(navigator.clipboard)navigator.clipboard.writeText(b.dataset.copy).then(function(){done('Copied')},function(){done('Copy not available')});else done('Copy not available')})});
+  ['rc-q1','rc-q2','rc-r'].forEach(function(i){document.getElementById(i).addEventListener('input',calc)});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.classList.contains('hidden'))m.classList.add('hidden')});
+  calc();
+})();
+</script>
+
+<div id="app-toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  /* Inline message instead of blocking alert() */
+  var tt,el=document.getElementById('app-toast');
+  window.showToast=function(msg){el.textContent=msg;el.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){el.classList.remove('show')},3200)};
+
+  /* Touch and pen dragging for the simulator (mouse is handled by the original code) */
+  var cv=document.getElementById('simCanvas2D'),SC=220;
+  function pt(e){var r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='mouse')return;var p=pt(e),cx=cv.width/2,cy=cv.height/2;
+    charges.forEach(function(ch,i){if(Math.hypot(p.x-(cx+ch.x*SC),p.y-(cy-ch.y*SC))<=40){isDragging=true;dragChargeIdx=i;selectedChargeIdx=i;cv.setPointerCapture(e.pointerId)}});
+    draw2DSimulation()});
+  cv.addEventListener('pointermove',function(e){
+    if(e.pointerType==='mouse'||!isDragging||dragChargeIdx<0)return;var p=pt(e),cx=cv.width/2,cy=cv.height/2;
+    charges[dragChargeIdx].x=parseFloat(((p.x-cx)/SC).toFixed(2));charges[dragChargeIdx].y=parseFloat(((cy-p.y)/SC).toFixed(2));draw2DSimulation()});
+  ['pointerup','pointercancel'].forEach(function(k){cv.addEventListener(k,function(e){if(e.pointerType!=='mouse'){isDragging=false;dragChargeIdx=-1}})});
+
+  /* Each section gets its own address, so Back, Refresh and shared links keep the section */
+  var ids=['introduction','theory','simulator','quiz','pastpapers','pitfalls','videos'],prev=window.switchTab;
+  window.switchTab=function(id){prev(id);try{if(location.hash!=='#'+id)history.pushState(null,'','#'+id)}catch(e){}};
+  function fromHash(){var id=location.hash.slice(1);prev(ids.indexOf(id)>-1?id:'introduction')}
+  addEventListener('popstate',fromHash);
+  if(ids.indexOf(location.hash.slice(1))>0)fromHash();
+})();
+</script>
+</body>
+</html>
