@@ -671,6 +671,26 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
 #simCanvas2D{touch-action:none}
 #app-toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,1rem);z-index:70;max-width:min(92vw,28rem);padding:.8rem 1.1rem;border-radius:.9rem;background:#800020;color:#fff;font-weight:700;font-size:.95rem;box-shadow:0 12px 30px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
 #app-toast.show{opacity:1;transform:translate(-50%,0)}
+
+.chip-btn{cursor:pointer}.mark-chip.got{background:#059669;border-color:#047857;color:#fff}
+.ms-box .mark-chip:not(.total){cursor:pointer;user-select:none}
+.ms-score{margin-top:.9rem;padding:.7rem 1rem;border-radius:.8rem;background:rgba(5,150,105,.12);border:1px solid #059669;font-weight:700}
+#preset-bar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:1rem}
+#preset-bar button{padding:.5rem .9rem;border-radius:.8rem;font-weight:700;font-size:.85rem;border:1.5px solid #800020;color:#800020}
+#preset-bar button:hover{background:#80002018}
+html.dark #preset-bar button{border-color:#fda4af;color:#fda4af}
+#force-table{margin-top:1rem;overflow-x:auto}
+#force-table table{width:100%;font-size:.9rem;border-collapse:collapse;font-variant-numeric:tabular-nums}
+#force-table th,#force-table td{padding:.5rem .7rem;text-align:left;border-bottom:1px solid #E8DFD1;white-space:nowrap}
+html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
+
+.yt-preview{position:relative;aspect-ratio:16/9;border-radius:1rem;overflow:hidden;margin-bottom:1rem;cursor:pointer;background:linear-gradient(135deg,#800020,#1e293b);box-shadow:0 8px 20px -10px rgba(0,0,0,.5)}
+.yt-preview img,.yt-preview iframe{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+.yt-preview img{transition:transform .35s ease}.yt-preview:hover img{transform:scale(1.04)}
+.yt-play{position:absolute;inset:0;margin:auto;width:4rem;height:2.9rem;border-radius:.9rem;background:rgba(220,38,38,.95);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.4);transition:transform .2s ease}
+.yt-preview:hover .yt-play{transform:scale(1.1)}
+.yt-play::before{content:'';border-style:solid;border-width:.6rem 0 .6rem 1rem;border-color:transparent transparent transparent #fff;margin-left:.2rem}
+.yt-badge{position:absolute;left:.7rem;bottom:.6rem;padding:.15rem .55rem;border-radius:.5rem;background:rgba(0,0,0,.65);color:#fff;font-size:.72rem;font-weight:700}
 </style>
 
 </head>
@@ -712,7 +732,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
             </button>
 
             <!-- Navigation Tabs (Desktop) -->
-            <nav class="hidden lg:flex space-x-1 bg-cream-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-cream-200 dark:border-slate-700">
+            <nav aria-label="Main sections" class="hidden lg:flex space-x-1 bg-cream-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-cream-200 dark:border-slate-700">
                 <button onclick="switchTab('introduction')" id="nav-introduction" aria-current="page" class="px-4 py-2 text-sm font-bold rounded-xl transition-all bg-maroon-600 text-white shadow-sm">Introduction</button>
                 <button onclick="switchTab('theory')" id="nav-theory" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Theory</button>
                 <button onclick="switchTab('simulator')" id="nav-simulator" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">2D Simulator</button>
@@ -971,7 +991,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
 
             <!-- 2D Canvas Container -->
             <div class="relative bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-300 dark:border-slate-800 overflow-hidden shadow-inner">
-                <canvas id="simCanvas2D" class="w-full h-[520px] block cursor-grab active:cursor-grabbing"></canvas>
+                <canvas id="simCanvas2D" role="img" aria-label="2D plane showing charges, force arrows and a grid where one square is 0.2 metres" class="w-full h-[520px] block cursor-grab active:cursor-grabbing"></canvas>
 
                 <!-- Active Charge Inspector Badge -->
                 <div class="charge-inspector absolute top-5 left-5 backdrop-blur border p-4 sm:p-5 rounded-2xl shadow-xl max-w-sm space-y-3">
@@ -1151,6 +1171,18 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
                         Force $F$ requires <strong>two</strong> charges ($F = \frac{k q_1 q_2}{r^2}$ in Newtons), whereas Electric Field Strength $E$ requires <strong>one</strong> source charge ($E = \frac{k Q}{r^2}$ in N C⁻¹).
                     </p>
                 </div>
+                <div class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-rose-500/30 space-y-3 shadow-md">
+                    <div class="flex items-center space-x-3 text-rose-600 dark:text-rose-400 font-bold text-lg"><i class="fa-solid fa-xmark-circle text-2xl"></i><span>5. Measuring r to the Wrong Point</span></div>
+                    <p class="text-cream-800 dark:text-slate-300 text-base">Coulomb’s law uses the separation between the <strong>centres</strong> of the charges. Using the gap between surfaces gives a force that is too large.<br><span class="text-maroon-600 dark:text-rose-400 font-bold">Fix:</span> Add the radii of spheres to any surface-to-surface gap first.</p>
+                </div>
+                <div class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-rose-500/30 space-y-3 shadow-md">
+                    <div class="flex items-center space-x-3 text-rose-600 dark:text-rose-400 font-bold text-lg"><i class="fa-solid fa-xmark-circle text-2xl"></i><span>6. Mixing Up Direction and Sign</span></div>
+                    <p class="text-cream-800 dark:text-slate-300 text-base">The sign of a charge tells you attract or repel. It does not tell you left or right.<br><span class="text-maroon-600 dark:text-rose-400 font-bold">Fix:</span> Decide attract or repel first, then draw each force along the line joining the charges.</p>
+                </div>
+                <div class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-rose-500/30 space-y-3 shadow-md">
+                    <div class="flex items-center space-x-3 text-rose-600 dark:text-rose-400 font-bold text-lg"><i class="fa-solid fa-xmark-circle text-2xl"></i><span>7. Leaving Charges in µC or nC</span></div>
+                    <p class="text-cream-800 dark:text-slate-300 text-base">Putting 3.0 for a 3.0 µC charge makes the force 10¹² times too large.<br><span class="text-maroon-600 dark:text-rose-400 font-bold">Fix:</span> Write every charge in coulombs (µC × 10⁻⁶, nC × 10⁻⁹) before substituting.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1221,6 +1253,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
       <button type="button" role="tab" data-ref="formulas" aria-selected="true">Formulas</button>
       <button type="button" role="tab" data-ref="constants" aria-selected="false">Constants</button>
       <button type="button" role="tab" data-ref="units" aria-selected="false">Prefixes</button>
+      <button type="button" role="tab" data-ref="glossary" aria-selected="false">Istilah (EN–ID)</button>
       <button type="button" role="tab" data-ref="calc" aria-selected="false">Quick calculator</button>
     </div>
     <div class="overflow-y-auto px-6 py-5 flex-1">
@@ -1235,6 +1268,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
         <div class="ref-card"><div class="ref-name">Charge prefixes</div><div class="unit-row"><span>milli (mC)</span><span class="unit-bar"><i style="width:100%"></i></span><b>10⁻³ C</b></div><div class="unit-row"><span>micro (µC)</span><span class="unit-bar"><i style="width:73%"></i></span><b>10⁻⁶ C</b></div><div class="unit-row"><span>nano (nC)</span><span class="unit-bar"><i style="width:46%"></i></span><b>10⁻⁹ C</b></div><div class="unit-row"><span>pico (pC)</span><span class="unit-bar"><i style="width:19%"></i></span><b>10⁻¹² C</b></div></div>
         <div class="ref-card mt-3"><div class="ref-name">Length conversions before squaring</div><div class="ref-expr">cm × 10⁻² = m &nbsp;&nbsp; mm × 10⁻³ = m</div></div>
       </div>
+      <div data-panel="glossary" hidden><div class="ref-card"><div class="ref-name">English term and Indonesian meaning</div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Electrostatic force</b><span>Gaya elektrostatis</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Point charge</b><span>Muatan titik</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Electric field strength</b><span>Kuat medan listrik</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Potential difference</b><span>Beda potensial</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Separation</b><span>Jarak pisah</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Permittivity</b><span>Permitivitas</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Attract / repel</b><span>Tarik-menarik / tolak-menolak</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Superposition</b><span>Superposisi (penjumlahan vektor)</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Uniform field</b><span>Medan seragam</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Conductor</b><span>Konduktor</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Equilibrium</b><span>Keseimbangan</span></div><div class="unit-row" style="grid-template-columns:1fr 1fr"><b style="text-align:left">Magnitude</b><span>Besar (nilai)</span></div></div></div>
       <div data-panel="calc" hidden>
         <div class="grid gap-3 sm:grid-cols-3">
           <label class="calc-f">Charge q₁ (µC)<input id="rc-q1" type="number" step="any" value="3"></label>
@@ -1723,6 +1757,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
 
     let currentQuizLevel = 'easy';
     let isEndlessRandomized = false;
+    let retryWrongOnly = false;
     let scoreData;
     try {
         const savedScore = JSON.parse(localStorage.getItem('coulomb_quiz_score'));
@@ -1808,7 +1843,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
             const m = l.match(/^<strong>\(([a-z])\)<\/strong>\s*([\s\S]*)$/);
             return `<div class="ms-part"><span class="ms-badge">${m ? m[1] : '\u2713'}</span><ol class="sol-steps">${fmtSteps(chip(m ? m[2] : l))}</ol></div>`;
         }).join('');
-        return `<div class="ms-head"><span><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Mark scheme and model answer</span><span class="mark-chip total">${item.marks} marks total</span></div>${parts}<p class="ms-hint">Each gold label shows the marks earned by the step before it.</p>`;
+        return `<div class="ms-head"><span><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Mark scheme and model answer</span><span class="mark-chip total">${item.marks} marks total</span></div>${parts}<div class="ms-score" data-total="${item.marks}" aria-live="polite">Your score: <b>0</b> / ${item.marks} marks</div><p class="ms-hint">Tap each gold label you earned. Your score updates above.</p>`;
     }
 
     function renderQuizQuestions() {
@@ -1817,8 +1852,9 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
         const list = isEndlessRandomized
             ? shuffleArray(fullQuizDatabase[currentQuizLevel])
             : fullQuizDatabase[currentQuizLevel];
+        const shown = retryWrongOnly ? list.filter(q => scoreData.answeredIds.includes(q.id) && !scoreData.correctIds.includes(q.id)) : list;
 
-        list.forEach((q, idx) => {
+        shown.forEach((q, idx) => {
             const card = document.createElement('div');
             card.className = "bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-200 dark:border-slate-800 p-8 space-y-6 shadow-md";
 
@@ -1834,7 +1870,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
 
             card.innerHTML = `
                 <div class="space-y-2">
-                    <span class="text-xs font-bold text-maroon-600 dark:text-rose-400 uppercase tracking-wider">Question ${idx + 1} of 10</span>
+                    <span class="text-xs font-bold text-maroon-600 dark:text-rose-400 uppercase tracking-wider">Question ${idx + 1} of ${shown.length}</span>
                     <h3 class="text-xl font-bold text-maroon-800 dark:text-white">${q.q}</h3>
                 </div>
                 <div class="space-y-3">${optionsHTML}</div>
@@ -2295,6 +2331,69 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
   function fromHash(){var id=location.hash.slice(1);prev(ids.indexOf(id)>-1?id:'introduction')}
   addEventListener('popstate',fromHash);
   if(ids.indexOf(location.hash.slice(1))>0)fromHash();
+})();
+</script>
+
+<script>
+(function(){
+  /* Past papers: tick the marks you earned */
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('.ms-box .mark-chip:not(.total)');if(!c)return;
+    c.classList.toggle('got');var box=c.closest('.ms-box'),sum=0;
+    box.querySelectorAll('.mark-chip.got').forEach(function(x){sum+=parseInt(x.textContent,10)||0});
+    box.querySelector('.ms-score b').textContent=sum});
+
+  /* Question bank: practise wrong answers only */
+  var bar=document.getElementById('randomize-btn');
+  if(bar){var b=document.createElement('button');b.id='wrong-btn';b.type='button';b.className=bar.className.replace(/bg-indigo-\d+|hover:bg-indigo-\d+|text-white/g,'')+' border-2 border-maroon-600 text-maroon-700 dark:text-rose-300';b.textContent='Review wrong answers';
+    b.onclick=function(){
+      if(!retryWrongOnly&&!scoreData.answeredIds.some(function(id){return scoreData.correctIds.indexOf(id)<0})){showToast('No wrong answers to review yet. Answer some questions first.');return}
+      retryWrongOnly=!retryWrongOnly;b.textContent=retryWrongOnly?'Show all questions':'Review wrong answers';
+      var x=document.getElementById('questions-container');renderQuizQuestions();if(retryWrongOnly&&!x.children.length)showToast('Nothing to review at this level.')};
+    bar.parentNode.insertBefore(b,bar.nextSibling)}
+
+  /* Simulator: presets and a live force table */
+  var panel=document.getElementById('charge-control-panel');
+  if(panel){
+    var P={'Attract pair':[[3,-.25,0],[-5,.25,0]],'Repel pair':[[3,-.25,0],[3,.25,0]],'Dipole':[[4,-.2,0],[-4,.2,0]],'Triangle':[[3,-.3,-.2],[3,.3,-.2],[-3,0,.3]],'Zero-force point':[[4,-.3,0],[1,.3,0],[1,0,0]]};
+    var pb=document.createElement('div');pb.id='preset-bar';pb.innerHTML='<b>Try an example:</b>';
+    Object.keys(P).forEach(function(k){var x=document.createElement('button');x.type='button';x.textContent=k;x.onclick=function(){
+      charges=P[k].map(function(c,i){return{id:i+1,q:c[0],x:c[1],y:c[2],color:['#06b6d4','#ec4899','#f59e0b','#8b5cf6'][i]}});selectedChargeIdx=0;draw2DSimulation()};pb.appendChild(x)});
+    var ft=document.createElement('div');ft.id='force-table';
+    panel.parentNode.insertBefore(pb,panel);panel.parentNode.insertBefore(ft,panel.nextSibling);
+    var base=window.draw2DSimulation;
+    window.draw2DSimulation=function(){base();
+      var r='<table><thead><tr><th>Charge</th><th>Position (m)</th><th>Fx (N)</th><th>Fy (N)</th><th>F net (N)</th><th>Direction</th></tr></thead><tbody>';
+      charges.forEach(function(a,i){var fx=0,fy=0;charges.forEach(function(o,j){if(i===j)return;var dx=a.x-o.x,dy=a.y-o.y,d2=dx*dx+dy*dy,d=Math.sqrt(d2);if(d<.001)return;
+        var f=8.99e9*Math.abs(a.q*o.q)*1e-12/d2,sg=a.q*o.q>0?1:-1;fx+=f*dx/d*sg;fy+=f*dy/d*sg});
+        var fn=Math.hypot(fx,fy),ang=fn>1e-9?(Math.atan2(fy,fx)*180/Math.PI).toFixed(0)+'° from +x':'none';
+        r+='<tr><td>q'+a.id+' = '+(a.q>0?'+':'')+a.q.toFixed(1)+' µC</td><td>('+a.x.toFixed(2)+', '+a.y.toFixed(2)+')</td><td>'+fx.toFixed(3)+'</td><td>'+fy.toFixed(3)+'</td><td><b>'+fn.toFixed(3)+'</b></td><td>'+ang+'</td></tr>'});
+      ft.innerHTML=r+'</tbody></table>'}}
+
+  /* Remember the last section for returning visitors */
+  var cur=window.switchTab,ids=['theory','simulator','quiz','pastpapers','pitfalls','videos'];
+  window.switchTab=function(id){cur(id);try{localStorage.setItem('coulomb-last-tab',id)}catch(e){}};
+  try{var last=localStorage.getItem('coulomb-last-tab');if(!location.hash&&ids.indexOf(last)>-1)cur(last)}catch(e){}
+  if(window.draw2DSimulation)draw2DSimulation();
+})();
+</script>
+
+<script>
+(function(){
+  /* YouTube previews: thumbnail first, click to play inside the card */
+  document.querySelectorAll('#tab-videos a[href*="youtube.com/watch"]').forEach(function(a){
+    var id=(a.href.match(/[?&]v=([\w-]{11})/)||[])[1];if(!id)return;
+    var box=document.createElement('div');box.className='yt-preview';box.tabIndex=0;box.setAttribute('role','button');box.setAttribute('aria-label','Play video preview');
+    var img=new Image();img.alt='';img.loading='lazy';img.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
+    img.onerror=function(){img.remove()};
+    var pl=document.createElement('span');pl.className='yt-play';
+    var bd=document.createElement('span');bd.className='yt-badge';bd.textContent='Click to preview';
+    box.append(img,pl,bd);
+    function play(){box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';box.style.cursor='default'}
+    box.addEventListener('click',play,{once:true});
+    box.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play()}},{once:true});
+    a.parentNode.insertBefore(box,a.parentNode.firstChild);
+  });
 })();
 </script>
 </body>
