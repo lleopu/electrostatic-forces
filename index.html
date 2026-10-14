@@ -673,7 +673,7 @@ html.dark #mobile-menu button:not([aria-current="page"]):hover{background-color:
 #app-toast.show{opacity:1;transform:translate(-50%,0)}
 
 .chip-btn{cursor:pointer}.mark-chip.got{background:#059669;border-color:#047857;color:#fff}
-.ms-box .mark-chip:not(.total){cursor:pointer;user-select:none}
+.ms-box .mark-chip:not(.total){cursor:pointer;user-select:none;font:inherit;font-size:.72rem;font-weight:800;line-height:1.4}
 .ms-score{margin-top:.9rem;padding:.7rem 1rem;border-radius:.8rem;background:rgba(5,150,105,.12);border:1px solid #059669;font-weight:700}
 #preset-bar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:1rem}
 #preset-bar button{padding:.5rem .9rem;border-radius:.8rem;font-weight:700;font-size:.85rem;border:1.5px solid #800020;color:#800020}
@@ -691,6 +691,237 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
 .yt-preview:hover .yt-play{transform:scale(1.1)}
 .yt-play::before{content:'';border-style:solid;border-width:.6rem 0 .6rem 1rem;border-color:transparent transparent transparent #fff;margin-left:.2rem}
 .yt-badge{position:absolute;left:.7rem;bottom:.6rem;padding:.15rem .55rem;border-radius:.5rem;background:rgba(0,0,0,.65);color:#fff;font-size:.72rem;font-weight:700}
+
+/* Notebook Theory Specific Styles matching coulomb_masterclass */
+#tab-theory .nb{max-width:60rem;margin:0 auto;display:grid;gap:1.1rem}
+#tab-theory .nb-title{border-left:6px solid #800020;padding:.3rem 0 .3rem 1.1rem}
+#tab-theory .nb-title h1{font-size:clamp(1.8rem,4vw,2.8rem);color:#420010;font-family:'Fraunces',Georgia,serif}
+#tab-theory .nb-title p{margin-top:.4rem;color:#5B4A40}
+html.dark #tab-theory .nb-title h1{color:#fff}
+html.dark #tab-theory .nb-title p{color:#cbd5e1}
+#tab-theory .nb-toc{display:flex;flex-wrap:wrap;gap:.5rem}
+#tab-theory .nb-toc button{padding:.4rem .8rem;border-radius:999px;border:1.5px solid #800020;color:#800020;font-weight:700;font-size:.85rem;cursor:pointer}
+#tab-theory .nb-toc button:hover{background:#80002018}
+html.dark #tab-theory .nb-toc button{border-color:#fda4af;color:#fda4af}
+#tab-theory .nb-cell{display:grid;grid-template-columns:5.2rem 1fr;gap:.8rem;scroll-margin-top:7.5rem}
+#tab-theory .nb-in{font:600 .8rem 'Fira Code',monospace;color:#800020;text-align:right;padding-top:1.1rem}
+html.dark #tab-theory .nb-in{color:#fda4af}
+#tab-theory .nb-body{background:#FFFDF9;border:1px solid #E8DFD1;border-radius:1rem;padding:1.2rem 1.4rem;font-size:1.08rem;line-height:1.75;color:#211B16}
+html.dark #tab-theory .nb-body{background:#0f172a;border-color:#1e293b;color:#f8fafc}
+#tab-theory .nb-body h2{font-size:1.6rem;color:#5B0017;margin-bottom:.6rem;font-family:'Fraunces',Georgia,serif}
+html.dark #tab-theory .nb-body h2{color:#fda4af}
+#tab-theory .nb-code .nb-body{background:#F3ECE1;border-left:5px solid #D97706}
+html.dark #tab-theory .nb-code .nb-body{background:#1a1410}
+#tab-theory .nb-body ul{list-style:disc;padding-left:1.4rem;display:grid;gap:.4rem}
+#tab-theory .nb-body ol.nb-recipe{list-style:decimal;padding-left:1.4rem;display:grid;gap:.4rem}
+#tab-theory .nb-formula{font:700 clamp(1.3rem,3.2vw,2.1rem) 'Fira Code',monospace;text-align:center;color:#5B0017;background:#F3ECE1;border-radius:1rem;padding:1.1rem;margin:.8rem 0;overflow-x:auto}
+html.dark #tab-theory .nb-formula{background:#020617;color:#fda4af}
+#tab-theory .nb-vars{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));margin-top:.6rem}
+#tab-theory .nb-vars div,#tab-theory .nb-note{background:#F3ECE1;border-radius:.8rem;padding:.6rem .9rem;font-size:1rem;color:#3D352E}
+html.dark #tab-theory .nb-vars div,html.dark #tab-theory .nb-note{background:#1e293b;color:#cbd5e1}
+#tab-theory .nb-note{border-left:4px solid #800020;margin-top:.8rem}
+#tab-theory .nb-table{width:100%;border-collapse:collapse;font-size:1rem;margin-top:.6rem}
+#tab-theory .nb-table th,#tab-theory .nb-table td{padding:.5rem .8rem;text-align:left;border-bottom:1px solid #E8DFD1}
+html.dark #tab-theory .nb-table th,html.dark #tab-theory .nb-table td{border-color:#334155}
+#tab-theory .nb-q{background:#F3ECE1;border-radius:.8rem;padding:.8rem 1rem;margin-bottom:.8rem;color:#3D352E}
+html.dark #tab-theory .nb-q{background:#1e293b;color:#cbd5e1}
+#tab-theory details{margin-top:.6rem}
+#tab-theory summary{cursor:pointer;font-weight:800;color:#800020;padding:.5rem 0}
+html.dark #tab-theory summary{color:#fda4af}
+#tab-theory ol.nb-steps{counter-reset:s;list-style:none;padding:0;display:grid;gap:.6rem;margin-top:.6rem}
+#tab-theory ol.nb-steps li{counter-increment:s;position:relative;padding:.6rem .9rem .6rem 3rem;border-radius:.8rem;background:#FFFDF9;border:1px solid #E8DFD1;font-size:1.03rem;line-height:1.65;color:#211B16}
+html.dark #tab-theory ol.nb-steps li{background:#020617;border-color:#1e293b;color:#f8fafc}
+#tab-theory ol.nb-steps li::before{content:counter(s);position:absolute;left:.7rem;top:.65rem;width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;background:#800020;color:#fff;font-size:.8rem;font-weight:800}
+#tab-theory ol.nb-steps li.nb-ans{background:#ecfdf5;border-color:#6ee7b7;color:#064e3b}
+html.dark #tab-theory ol.nb-steps li.nb-ans{background:rgba(6,78,59,.35);border-color:#047857;color:#d1fae5}
+#tab-theory .nb-line{display:flex;align-items:center;gap:.4rem;margin:.6rem 0;font:600 .85rem 'Fira Code',monospace;overflow-x:auto;white-space:nowrap;color:#211B16}
+html.dark #tab-theory .nb-line{color:#f8fafc}
+#tab-theory .nb-line i{flex:0 0 3rem;height:3px;background:#800020}
+#tab-theory .nb-line i.long{flex-basis:6rem}
+@media(max-width:640px){#tab-theory .nb-cell{grid-template-columns:1fr}#tab-theory .nb-in{text-align:left;padding:0}}
+
+    /* Interactive physical-book notebook */
+    #tab-theory .notebook-shell{max-width:68rem;margin:1.2rem auto 0;perspective:1800px}
+    #tab-theory .notebook-toolbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.8rem;color:#765e50;font-size:.82rem;font-weight:700}
+    html.dark #tab-theory .notebook-toolbar{color:#cbd5e1}
+    #tab-theory .book-hint{display:flex;align-items:center;gap:.5rem}
+    #tab-theory .book-counter{font:700 .76rem 'Fira Code',monospace;color:#800020;letter-spacing:.08em}
+    html.dark #tab-theory .book-counter{color:#fda4af}
+    #tab-theory .notebook-book{position:relative;min-height:28rem;background:#d9c8ae;padding:1rem 1rem 1rem 1.25rem;border-radius:1rem 1.3rem 1.3rem 1rem;box-shadow:0 18px 38px rgba(54,31,20,.2),inset 8px 0 0 rgba(91,0,23,.13);transform-style:preserve-3d;touch-action:pan-y;outline:none}
+    #tab-theory .notebook-book:before{content:'';position:absolute;left:.55rem;top:.8rem;bottom:.8rem;width:3px;border-radius:4px;background:repeating-linear-gradient(to bottom,#8d735a 0 5px,#c9b398 5px 9px);opacity:.75}
+    #tab-theory .notebook-page{display:none;grid-template-columns:4.2rem minmax(0,1fr);gap:.8rem;min-height:26rem;position:relative;transform-origin:left center;backface-visibility:hidden;touch-action:pan-y}
+    #tab-theory .notebook-page.is-active{display:grid;animation:bookPageEnter .42s cubic-bezier(.2,.7,.2,1) both}
+    #tab-theory .notebook-page.turn-forward{animation:bookFlipForward .48s ease both}
+    #tab-theory .notebook-page.turn-backward{animation:bookFlipBack .48s ease both}
+    #tab-theory .notebook-page .nb-body{min-height:26rem;border-radius:.25rem .8rem .8rem .25rem;box-shadow:0 3px 10px rgba(50,30,20,.07);background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,rgba(128,0,32,.055) 32px)}
+    #tab-theory .notebook-page .nb-in{padding-top:1.3rem}
+    @keyframes bookPageEnter{from{opacity:.55;transform:rotateY(-7deg) translateX(12px)}to{opacity:1;transform:rotateY(0) translateX(0)}}
+    @keyframes bookFlipForward{0%{transform:rotateY(0);opacity:1}45%{transform:rotateY(-13deg);opacity:.7}100%{transform:rotateY(0);opacity:1}}
+    @keyframes bookFlipBack{0%{transform:rotateY(0);opacity:1}45%{transform:rotateY(13deg);opacity:.7}100%{transform:rotateY(0);opacity:1}}
+    #tab-theory .book-controls{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-top:1rem}
+    #tab-theory .book-controls>button{border:1px solid #800020;color:#800020;background:#fffdf9;border-radius:.8rem;padding:.65rem 1rem;font-weight:800;box-shadow:0 4px 10px rgba(40,20,20,.06)}
+    #tab-theory .book-controls>button:hover:not(:disabled){background:#800020;color:white;transform:translateY(-2px)}
+    #tab-theory .book-controls>button:disabled{opacity:.35;cursor:not-allowed}
+    html.dark #tab-theory .notebook-book{background:#29202a;box-shadow:0 18px 38px rgba(0,0,0,.35),inset 8px 0 0 rgba(253,164,175,.16)}
+    html.dark #tab-theory .notebook-page .nb-body{background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,rgba(253,164,175,.055) 32px)}
+    html.dark #tab-theory .book-controls>button{background:#111827;color:#fda4af;border-color:#fda4af}
+    html.dark #tab-theory .book-controls>button:hover:not(:disabled){background:#9f1239;color:#fff}
+    #tab-theory .book-dots{display:flex;justify-content:center;gap:.38rem;flex-wrap:wrap}
+    #tab-theory .book-dot{width:.62rem;height:.62rem;border:0;border-radius:50%;background:#c8b8a6;padding:0;cursor:pointer;transition:transform .2s,background .2s}
+    #tab-theory .book-dot[aria-current="page"]{background:#800020;transform:scale(1.35)}
+    html.dark #tab-theory .book-dot{background:#64748b}html.dark #tab-theory .book-dot[aria-current="page"]{background:#fda4af}
+    @media(max-width:640px){#tab-theory .notebook-book{padding:.7rem .55rem .7rem .85rem;min-height:0}#tab-theory .notebook-page{grid-template-columns:2.8rem minmax(0,1fr);gap:.45rem;min-height:0}#tab-theory .notebook-page .nb-body{padding:.9rem .8rem;font-size:.98rem;min-height:24rem}#tab-theory .notebook-page .nb-in{font-size:.65rem;overflow-wrap:anywhere}#tab-theory .book-hint{max-width:65%;font-size:.72rem}#tab-theory .book-controls>button{padding:.6rem .7rem;font-size:.8rem}}
+    @media(prefers-reduced-motion:reduce){#tab-theory .notebook-page.is-active,#tab-theory .notebook-page.turn-forward,#tab-theory .notebook-page.turn-backward{animation:none}}
+
+
+    /* Clear, classroom-style unit conversion and fraction presentation */
+    #tab-theory .unit-conversion-grid{display:grid;grid-template-columns:minmax(7rem,1fr) minmax(7rem,.85fr) minmax(8rem,1fr);margin:.8rem 0;border:1px solid #d8c9b7;border-radius:.8rem;overflow:hidden;font-size:.96rem;line-height:1.45;background:#fffdf9}
+    #tab-theory .unit-conversion-grid>div{padding:.65rem .75rem;border-bottom:1px solid #e8dfd1}
+    #tab-theory .unit-conversion-grid>div:nth-last-child(-n+3){border-bottom:0}
+    #tab-theory .unit-conversion-grid .unit-conversion-head{background:#efe4d5;color:#420010;font-size:.82rem;text-transform:uppercase;letter-spacing:.045em;font-weight:800}
+    #tab-theory .unit-conversion-grid .conversion-factor{font-family:'Fira Code',monospace;font-weight:800;color:#800020;white-space:nowrap}
+    #tab-theory .conversion-example{padding:.8rem 1rem;border-left:4px solid #800020;border-radius:.4rem;background:#f3ece1;font-size:.94rem;line-height:1.6}
+    html.dark #tab-theory .unit-conversion-grid{background:#0f172a;border-color:#334155}
+    html.dark #tab-theory .unit-conversion-grid>div{border-color:#334155}
+    html.dark #tab-theory .unit-conversion-grid .unit-conversion-head{background:#263244;color:#fda4af}
+    html.dark #tab-theory .unit-conversion-grid .conversion-factor{color:#fda4af}
+    html.dark #tab-theory .conversion-example{background:#1e293b;color:#e2e8f0}
+    #tab-theory .nb-steps .math-frac,#tab-theory .nb-body .math-frac{font-size:.95em}
+    @media(max-width:520px){#tab-theory .unit-conversion-grid{grid-template-columns:minmax(5.5rem,1fr) minmax(5.5rem,.85fr) minmax(6rem,1fr);font-size:.83rem}#tab-theory .unit-conversion-grid>div{padding:.55rem .4rem}#tab-theory .unit-conversion-grid .unit-conversion-head{font-size:.7rem}#tab-theory .conversion-example{font-size:.88rem}}
+
+</style>
+
+
+<style id="notebook-readability-polish">
+/* Notebook editorial redesign: calm hierarchy, generous spacing, readable type */
+#tab-theory{--nb-ink:#29231f;--nb-muted:#655b55;--nb-paper:#fffefa;--nb-line:#e9dfd3;--nb-accent:#6e1830;--nb-accent-soft:#f4e9ec;}
+#tab-theory .nb-title{max-width:78rem;margin:0 auto 1.25rem;padding:clamp(1.15rem,2.8vw,2rem) clamp(1rem,3vw,2.25rem);background:linear-gradient(125deg,#fffdf8 0%,#f7f0e7 100%);border:1px solid #e8ddd0;border-radius:1.1rem;box-shadow:0 5px 18px rgba(54,37,24,.045)}
+#tab-theory .nb-title h1{font-size:clamp(1.8rem,3.2vw,2.55rem);line-height:1.16;letter-spacing:-.035em;color:#4f1426;margin:0 0 .65rem}
+#tab-theory .nb-title p{font-size:1.05rem;line-height:1.75;color:#5d534d;max-width:68ch;margin:0}
+html.dark #tab-theory .nb-title{background:linear-gradient(125deg,#191923 0%,#211a22 100%);border-color:#40313a}
+html.dark #tab-theory .nb-title h1{color:#f2c6d0}
+html.dark #tab-theory .nb-title p{color:#d0c5c9}
+#tab-theory .nb-toc{display:flex;flex-wrap:wrap;gap:.55rem;padding:.85rem;background:#f5eee5;border:1px solid #e6dacc;border-radius:1rem;margin:0 auto 1.2rem!important}
+#tab-theory .nb-toc button{font-size:.9rem;font-weight:650;line-height:1.35;letter-spacing:.005em;padding:.65rem .9rem;border:1px solid #ddcfc0;border-radius:.7rem;background:#fffdf9;color:#51423d;transition:background .18s,border-color .18s,transform .18s;}
+#tab-theory .nb-toc button:hover{background:#f4e6e9;border-color:#b98291;color:#64182e;transform:translateY(-1px)}
+html.dark #tab-theory .nb-toc{background:#171821;border-color:#37303a}
+html.dark #tab-theory .nb-toc button{background:#22232d;border-color:#49404a;color:#eee5e8}
+html.dark #tab-theory .nb-toc button:hover{background:#432531;border-color:#a96c7e;color:#fff5f7}
+#tab-theory .notebook-shell{max-width:78rem;margin-inline:auto}
+#tab-theory .notebook-toolbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:0 0 .75rem;padding:0 .25rem;color:#65584f;font-size:.88rem;line-height:1.5}
+#tab-theory .book-hint{font-size:.88rem;max-width:none;color:#6c5e55}
+#tab-theory .book-counter{font-size:.78rem;letter-spacing:.1em;font-weight:750;color:#6e1830;background:#f6e9ec;border:1px solid #e6cbd2;border-radius:999px;padding:.4rem .75rem;white-space:nowrap}
+html.dark #tab-theory .notebook-toolbar,html.dark #tab-theory .book-hint{color:#c9bdc2}
+html.dark #tab-theory .book-counter{color:#ffdce4;background:#3a202b;border-color:#68404e}
+#tab-theory .notebook-book{background:#e4d7c5;padding:1.05rem 1.05rem 1.05rem 1.35rem;border-radius:1rem 1.25rem 1.25rem 1rem;box-shadow:0 14px 34px rgba(50,35,25,.12),inset 5px 0 0 rgba(91,0,23,.1)}
+#tab-theory .notebook-page{grid-template-columns:3.8rem minmax(0,1fr);gap:.85rem;min-height:29rem}
+#tab-theory .notebook-page .nb-in{font-size:.72rem;line-height:1.65;font-weight:650;letter-spacing:.015em;color:#826a69;padding-top:1.6rem;overflow-wrap:anywhere}
+#tab-theory .notebook-page .nb-body{box-sizing:border-box;min-height:29rem;padding:clamp(1.35rem,3vw,2.25rem);border-radius:.35rem .8rem .8rem .35rem;border-color:#e5dacc;background-color:var(--nb-paper);background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,rgba(128,0,32,.035) 36px);box-shadow:0 4px 14px rgba(50,30,20,.055);font-size:1.1rem;line-height:1.85;color:var(--nb-ink);overflow-wrap:break-word}
+#tab-theory .notebook-page .nb-body h2{font-size:clamp(1.45rem,2.35vw,1.9rem);line-height:1.3;letter-spacing:-.025em;font-weight:700;color:#57172b;margin:0 0 1.15rem;padding:0 0 .7rem;border-bottom:1px solid #e8d9d5;max-width:100%}
+#tab-theory .notebook-page .nb-body p{margin:.75rem 0;max-width:70ch}
+#tab-theory .notebook-page .nb-body ul,#tab-theory .notebook-page .nb-body ol{padding-left:1.55rem;gap:.6rem}
+#tab-theory .notebook-page .nb-body li{padding-left:.12rem;margin:.22rem 0;max-width:72ch}
+#tab-theory .notebook-page .nb-body b{font-weight:750;color:#3f2630}
+#tab-theory .notebook-page .nb-body .nb-note{padding:.9rem 1.05rem;margin:1.2rem 0;background:#f8eef0;border:1px solid #ead5da;border-left:4px solid #8b334d;border-radius:.5rem;line-height:1.7}
+#tab-theory .notebook-page .nb-formula{margin:1.2rem 0;padding:1.15rem 1rem;text-align:center;font-size:clamp(1.3rem,2.6vw,1.8rem);line-height:1.8;background:#f6edf0;border:1px solid #e6d2d8;border-radius:.8rem;color:#4f1426;overflow-x:auto}
+#tab-theory .notebook-page .nb-vars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin-top:1rem}
+#tab-theory .notebook-page .nb-vars>div{padding:.8rem .9rem;border:1px solid #e7ded2;border-radius:.65rem;background:rgba(255,255,255,.72);font-size:1rem;line-height:1.65}
+#tab-theory .notebook-page .nb-table{width:100%;border-collapse:separate;border-spacing:0;margin:1rem 0;font-size:.98rem;line-height:1.65}
+#tab-theory .notebook-page .nb-table th{background:#f0e4e4;color:#4f1426;font-weight:750;text-align:left}
+#tab-theory .notebook-page .nb-table th,#tab-theory .notebook-page .nb-table td{padding:.8rem .85rem;border-right:1px solid #e8ddd2;border-bottom:1px solid #e8ddd2;vertical-align:top}
+#tab-theory .notebook-page .nb-table tr>*:first-child{border-left:1px solid #e8ddd2}
+#tab-theory .notebook-page .nb-table thead tr:first-child>*{border-top:1px solid #e8ddd2}
+#tab-theory .notebook-page .nb-table thead th:first-child{border-radius:.5rem 0 0 0}#tab-theory .notebook-page .nb-table thead th:last-child{border-radius:0 .5rem 0 0}
+#tab-theory .notebook-page .nb-q{padding:1rem 1.1rem;margin:.9rem 0;border:1px solid #e5d9ce;border-radius:.7rem;background:rgba(255,255,255,.62);line-height:1.8}
+#tab-theory .notebook-page details{margin:.8rem 0;padding:.8rem 1rem;border:1px solid #dfcbd0;border-radius:.65rem;background:#fbf3f4}
+#tab-theory .notebook-page details summary{cursor:pointer;color:#6e1830;font-weight:750;padding:.15rem 0;line-height:1.6}
+#tab-theory .notebook-page details[open] summary{margin-bottom:.65rem;padding-bottom:.55rem;border-bottom:1px solid #ead7dc}
+#tab-theory .notebook-page .nb-steps{gap:.55rem}
+/* Fix: reserve a dedicated gutter for numbered solution steps so the step badge never overlaps text. */
+#tab-theory .notebook-page ol.nb-steps li{padding-left:3.15rem}
+#tab-theory .notebook-page ol.nb-steps li::before{left:.7rem;top:.7rem}
+#tab-theory .notebook-page ol.nb-steps li.nb-ans{padding-left:3.15rem}
+@media(max-width:700px){
+ #tab-theory .notebook-page ol.nb-steps li{padding-left:2.8rem}
+ #tab-theory .notebook-page ol.nb-steps li::before{left:.55rem;top:.65rem}
+}
+
+#tab-theory .book-controls{gap:1rem;margin-top:1rem}
+#tab-theory .book-controls>button{min-height:2.9rem;padding:.7rem 1.05rem;font-size:.95rem;font-weight:700;transition:background .18s,border-color .18s,transform .18s}
+#tab-theory .book-dots{gap:.55rem;align-items:center}
+#tab-theory .book-dot{width:.65rem;height:.65rem;box-shadow:0 0 0 3px transparent}
+#tab-theory .book-dot[aria-current="page"]{box-shadow:0 0 0 3px rgba(128,0,32,.15);transform:scale(1.2)}
+html.dark #tab-theory .notebook-book{background:#29242c;box-shadow:0 14px 34px rgba(0,0,0,.28),inset 5px 0 0 rgba(253,164,175,.13)}
+html.dark #tab-theory .notebook-page .nb-in{color:#d0aeb8}
+html.dark #tab-theory .notebook-page .nb-body{background-color:#171922;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,rgba(253,164,175,.035) 36px);border-color:#37333b;color:#f1edf0}
+html.dark #tab-theory .notebook-page .nb-body h2{color:#f3c6d1;border-bottom-color:#44313a}
+html.dark #tab-theory .notebook-page .nb-body b{color:#fff0f4}
+html.dark #tab-theory .notebook-page .nb-body .nb-note,html.dark #tab-theory .notebook-page .nb-formula{background:#30212a;border-color:#63404c;color:#fff0f4}
+html.dark #tab-theory .notebook-page .nb-vars>div,html.dark #tab-theory .notebook-page .nb-q{background:#20212b;border-color:#3b3943}
+html.dark #tab-theory .notebook-page .nb-table th{background:#382631;color:#ffeaf0}
+html.dark #tab-theory .notebook-page .nb-table th,html.dark #tab-theory .notebook-page .nb-table td{border-color:#3d3740}
+html.dark #tab-theory .notebook-page details{background:#261d27;border-color:#563642}
+html.dark #tab-theory .notebook-page details summary{color:#f3b8c8}
+html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#563642}
+@media(max-width:700px){
+ #tab-theory .nb-title{padding:1.2rem 1rem}
+ #tab-theory .nb-toc{gap:.45rem;padding:.65rem}
+ #tab-theory .nb-toc button{font-size:.84rem;padding:.58rem .7rem}
+ #tab-theory .notebook-toolbar{align-items:flex-start;flex-direction:column;gap:.35rem}
+ #tab-theory .notebook-book{padding:.65rem .5rem .65rem .8rem}
+ #tab-theory .notebook-page{grid-template-columns:2.45rem minmax(0,1fr);gap:.4rem;min-height:0}
+ #tab-theory .notebook-page .nb-in{font-size:.64rem;padding-top:1.1rem;line-height:1.5}
+ #tab-theory .notebook-page .nb-body{padding:1.1rem .95rem;font-size:1rem;line-height:1.78;min-height:25rem}
+ #tab-theory .notebook-page .nb-body h2{font-size:1.4rem;margin-bottom:.9rem}
+ #tab-theory .notebook-page .nb-vars{grid-template-columns:1fr}
+ #tab-theory .notebook-page .nb-table{font-size:.86rem;display:block;overflow-x:auto;white-space:normal}
+ #tab-theory .notebook-page .nb-table th,#tab-theory .notebook-page .nb-table td{padding:.6rem .55rem;min-width:6rem}
+ #tab-theory .book-controls{gap:.5rem}
+ #tab-theory .book-controls>button{padding:.65rem .7rem;font-size:.84rem;min-height:2.75rem}
+ #tab-theory .book-dot{width:.55rem;height:.55rem}
+}
+@media(max-width:390px){#tab-theory .notebook-page{grid-template-columns:1fr}#tab-theory .notebook-page .nb-in{padding:0;text-align:left;font-size:.68rem}#tab-theory .notebook-page .nb-body{min-height:24rem}#tab-theory .book-controls>button{font-size:.78rem;padding:.6rem .55rem}}
+
+/* Full-site audit refinements: prevent the unit-conversion grid and page controls
+   from forcing horizontal overflow on narrow phones. */
+@media(max-width:640px){
+  #tab-theory .unit-conversion-grid{
+    grid-template-columns:minmax(0,1fr) minmax(4.4rem,.95fr) minmax(0,1fr);
+    font-size:.82rem;
+  }
+  #tab-theory .unit-conversion-grid>div{
+    min-width:0;
+    padding:.5rem .35rem;
+    overflow-wrap:anywhere;
+  }
+  #tab-theory .unit-conversion-grid .unit-conversion-head{
+    font-size:.68rem;
+    letter-spacing:.015em;
+  }
+  #tab-theory .unit-conversion-grid .conversion-factor{
+    font-size:.78rem;
+    white-space:nowrap;
+  }
+  #tab-theory .book-controls{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:.6rem;
+  }
+  #tab-theory #book-prev{grid-column:1;grid-row:1;width:100%}
+  #tab-theory #book-next{grid-column:2;grid-row:1;width:100%}
+  #tab-theory .book-dots{grid-column:1 / -1;grid-row:2;justify-content:center;min-width:0}
+}
+
+@media(max-width:640px){
+  #tab-theory .notebook-page .nb-body{min-width:0;width:100%;}
+  #tab-theory .notebook-page .nb-body h2,
+  #tab-theory .notebook-page .nb-body p,
+  #tab-theory .notebook-page .nb-body .nb-q{overflow-wrap:anywhere;}
+  #tab-theory .notebook-page .nb-body .nb-line{max-width:100%;}
+  #tab-theory .notebook-page .nb-body .math-frac{max-width:100%;}
+  #tab-theory .notebook-page .nb-body .math-num,
+  #tab-theory .notebook-page .nb-body .math-den{overflow-wrap:anywhere;}
+}
 </style>
 
 </head>
@@ -734,7 +965,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
             <!-- Navigation Tabs (Desktop) -->
             <nav aria-label="Main sections" class="hidden lg:flex space-x-1 bg-cream-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-cream-200 dark:border-slate-700">
                 <button onclick="switchTab('introduction')" id="nav-introduction" aria-current="page" class="px-4 py-2 text-sm font-bold rounded-xl transition-all bg-maroon-600 text-white shadow-sm">Introduction</button>
-                <button onclick="switchTab('theory')" id="nav-theory" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Theory</button>
+                <button onclick="switchTab('theory')" id="nav-theory" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Notebook</button>
                 <button onclick="switchTab('simulator')" id="nav-simulator" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">2D Simulator</button>
                 <button onclick="switchTab('quiz')" id="nav-quiz" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Question Bank</button>
                 <button onclick="switchTab('pastpapers')" id="nav-pastpapers" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Past-Paper-Style Practice</button>
@@ -742,8 +973,8 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
                 <button onclick="switchTab('videos')" id="nav-videos" class="px-4 py-2 text-sm font-bold rounded-xl transition-all text-cream-800 dark:text-slate-300 hover:bg-cream-200 dark:hover:bg-slate-700">Videos</button>
             </nav>
 
-            <button onclick="toggleMobileMenu()" class="lg:hidden text-maroon-700 dark:text-slate-200 p-3 rounded-2xl bg-cream-100 dark:bg-slate-800 border border-cream-200 dark:border-slate-700">
-                <i class="fa-solid fa-bars text-xl"></i>
+            <button id="mobile-menu-toggle" type="button" onclick="toggleMobileMenu()" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="lg:hidden text-maroon-700 dark:text-slate-200 p-3 rounded-2xl bg-cream-100 dark:bg-slate-800 border border-cream-200 dark:border-slate-700">
+                <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
             </button>
         </div>
     </div>
@@ -751,7 +982,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
     <!-- Mobile Navigation Menu -->
     <div id="mobile-menu" class="hidden lg:hidden px-4 pt-2 pb-6 space-y-2 bg-cream-100 dark:bg-slate-900 border-b border-cream-200 dark:border-slate-800">
         <button onclick="switchTab('introduction'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Introduction and User Guide</button>
-        <button onclick="switchTab('theory'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Theory and Formulae</button>
+        <button onclick="switchTab('theory'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Notebook</button>
         <button onclick="switchTab('simulator'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">2D Simulator</button>
         <button onclick="switchTab('quiz'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Question Bank (30 Questions)</button>
         <button onclick="switchTab('pastpapers'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-xl font-bold text-cream-900 dark:text-slate-200 hover:bg-cream-200">Past-Paper Practice (30 Questions)</button>
@@ -797,7 +1028,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
                     <p class="mt-1 text-cream-800 dark:text-slate-400">Choose a section based on what you need to learn or practise.</p>
                 </div>
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <a href="#tab-theory" onclick="event.preventDefault();switchTab('theory')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div><h3 class="font-extrabold">Theory and Formulae</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Review the principles, equations, constants, and key properties of electrostatic forces.</p></a>
+                    <a href="#tab-theory" onclick="event.preventDefault();switchTab('theory')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div><h3 class="font-extrabold">Notebook</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Review the principles, equations, constants, and key properties of electrostatic forces.</p></a>
                     <a href="#tab-simulator" onclick="event.preventDefault();switchTab('simulator')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-atom" aria-hidden="true"></i></div><h3 class="font-extrabold">2D Simulator</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Add and move charges to explore attraction, repulsion, and the resulting force vectors.</p></a>
                     <a href="#tab-quiz" onclick="event.preventDefault();switchTab('quiz')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div><h3 class="font-extrabold">Question Bank</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Test your understanding with questions arranged by difficulty and review your progress.</p></a>
                     <a href="#tab-pastpapers" onclick="event.preventDefault();switchTab('pastpapers')" class="tool-card rounded-2xl border border-cream-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"><div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-maroon-600/10 text-maroon-700 dark:text-rose-400"><i class="fa-solid fa-file-circle-check" aria-hidden="true"></i></div><h3 class="font-extrabold">Past-Paper Practice</h3><p class="mt-2 text-sm leading-relaxed text-cream-800 dark:text-slate-300">Attempt examination-style problems and reveal model answers or marking guidance when ready.</p></a>
@@ -807,7 +1038,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
             </div>
 
             <div class="grid gap-5 rounded-2xl border border-cream-200 bg-cream-100/70 p-6 dark:border-slate-800 dark:bg-slate-900/70 md:grid-cols-2">
-                <div><h2 class="flex items-center gap-2 font-extrabold"><i class="fa-solid fa-compass text-maroon-600 dark:text-rose-400" aria-hidden="true"></i> Quick start guide</h2><ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-cream-800 dark:text-slate-300"><li>Begin with <strong>Theory</strong> to review the core concepts and equations.</li><li>Open the <strong>2D Simulator</strong> and change the charges or their positions.</li><li>Complete the <strong>Question Bank</strong>, then review the explanations.</li><li>Finish with examination-style practice and the common-errors guide.</li></ol></div>
+                <div><h2 class="flex items-center gap-2 font-extrabold"><i class="fa-solid fa-compass text-maroon-600 dark:text-rose-400" aria-hidden="true"></i> Quick start guide</h2><ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-cream-800 dark:text-slate-300"><li>Begin with <strong>Notebook</strong> to review the core concepts and equations.</li><li>Open the <strong>2D Simulator</strong> and change the charges or their positions.</li><li>Complete the <strong>Question Bank</strong>, then review the explanations.</li><li>Finish with examination-style practice and the common-errors guide.</li></ol></div>
                 <div><h2 class="flex items-center gap-2 font-extrabold"><i class="fa-solid fa-lightbulb text-maroon-600 dark:text-rose-400" aria-hidden="true"></i> Helpful notes</h2><ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-cream-800 dark:text-slate-300"><li>Use the formula reference whenever you need to check constants or units.</li><li>Your quiz progress may be stored locally in this browser; it is not automatically synchronised across devices.</li><li>Use the theme control to switch between light and dark display modes.</li><li>For the best experience, open the site in a modern browser with an internet connection so its external libraries can load.</li></ul></div>
             </div>
             <p class="pb-2 text-center text-xs text-cream-700 dark:text-slate-500">Coulomb’s Law Masterclass · Grade 12 A-Level Physics</p>
@@ -816,147 +1047,168 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
 </section>
 
 
-    <!-- TAB 1: THEORY & OVERVIEW -->
-    <section id="tab-theory" class="hidden space-y-10">
-        <!-- Hero Banner -->
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-cream-100 via-cream-200 to-cream-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-maroon-600/20 dark:border-slate-700 p-8 sm:p-12 shadow-xl">
-            <div class="relative z-10 max-w-4xl space-y-6">
-                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-maroon-600/10 text-maroon-700 dark:bg-rose-500/20 dark:text-rose-300 border border-maroon-600/20">
-                    <i class="fa-solid fa-graduation-cap mr-2"></i> Grade 12 A-Level Physics Masterclass
-                </span>
-                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-maroon-800 dark:text-white leading-tight">
-                    Coulomb's Law & Electrostatic Interaction
-                </h1>
-                <p class="text-cream-800 dark:text-slate-300 text-lg sm:text-xl leading-relaxed">
-                    An intuitive physics learning portal built by <strong class="text-maroon-700 dark:text-rose-400">Leonardus Lintang Panji Utama</strong> and <strong class="text-maroon-700 dark:text-rose-400">Ahmad Syafiq</strong> featuring interactive 2D simulations, practice problems with step-by-step solutions, and exam tips.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <button onclick="switchTab('simulator')" class="px-6 py-3.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-2xl shadow-lg shadow-maroon-600/30 transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-play"></i><span>Open 2D Simulator</span>
-                    </button>
-                    <button onclick="switchTab('quiz')" class="px-6 py-3.5 bg-cream-200 dark:bg-slate-800 hover:bg-cream-300 text-maroon-800 dark:text-white font-bold rounded-2xl border border-cream-300 dark:border-slate-700 transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-pen-to-square"></i><span>Begin the 30-Question Quiz</span>
-                    </button>
-                </div>
-            </div>
+    <!-- TAB 1: THEORY NOTEBOOK -->
+    <section id="tab-theory" class="hidden space-y-6" aria-label="Theory notebook">
+      <header class="nb-title">
+        <h1>Coulomb's Law Notebook</h1>
+        <p>From the core idea to worked problems. Turn pages using swipe, drag, the page dots, or the arrow controls. Open each answer or full solution when you are ready.</p>
+      </header>
+
+      <nav class="nb nb-toc" aria-label="Notebook contents" style="margin-top:-.2rem">
+        <button type="button" onclick="goNotebookPage(0)">1 · Idea</button>
+        <button type="button" onclick="goNotebookPage(1)">2 · Formula</button>
+        <button type="button" onclick="goNotebookPage(2)">3 · Inverse-square</button>
+        <button type="button" onclick="goNotebookPage(3)">4 · Direction</button>
+        <button type="button" onclick="goNotebookPage(4)">5 · Method</button>
+        <button type="button" onclick="goNotebookPage(5)">6 · Concept questions</button>
+        <button type="button" onclick="goNotebookPage(6)">7a · Force calculation</button>
+        <button type="button" onclick="goNotebookPage(7)">7b · Net force</button>
+        <button type="button" onclick="goNotebookPage(8)">8 · Summary</button>
+      </nav>
+
+      <div class="notebook-shell" id="notebook-shell" aria-label="Interactive flip notebook">
+        <div class="notebook-toolbar">
+          <span class="book-hint"><i class="fa-solid fa-hand-pointer"></i> Drag a page, swipe, or use the arrows</span>
+          <span class="book-counter" id="book-counter">PAGE 1 OF 9</span>
         </div>
+        <div class="notebook-book" id="notebook-book" tabindex="0" aria-label="Coulomb's law notebook pages">
+        <div class="nb-cell notebook-page" id="nb-1"><div class="nb-in">In [1]:<br>markdown</div><div class="nb-body">
+          <h2>1. The big idea</h2>
+          <p>Charged objects push or pull each other <b>without touching</b>.</p>
+          <ul>
+            <li><b>Same signs repel:</b> (+ and +) or (− and −).</li>
+            <li><b>Opposite signs attract:</b> (+ and −).</li>
+          </ul>
+          <div class="nb-note"><b>Question to the class:</b> how strong is this force, and what does it depend on?</div>
+        </div></div>
 
-        <!-- Mathematical Formula Box -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-8 shadow-lg">
-                <h2 class="text-2xl font-bold text-maroon-800 dark:text-white flex items-center">
-                    <i class="fa-solid fa-square-root-variable text-maroon-600 dark:text-rose-400 mr-3 text-2xl"></i> Standard Formula & Constants
-                </h2>
-                
-                <!-- Vertical Stacked Equation Box -->
-                <div class="bg-cream-50 dark:bg-slate-950 rounded-2xl p-8 border border-maroon-600/30 text-center overflow-x-auto shadow-inner">
-                    <div class="text-2xl sm:text-4xl font-bold code-font text-maroon-800 dark:text-white py-4 inline-flex items-center justify-center gap-3">
-                        <span>F =</span>
-                        <div class="math-frac text-maroon-600 dark:text-rose-400">
-                            <span class="math-num">1</span>
-                            <span class="math-den">4πε₀</span>
-                        </div>
-                        <span>&middot;</span>
-                        <div class="math-frac text-indigo-700 dark:text-indigo-400">
-                            <span class="math-num">|q₁ q₂|</span>
-                            <span class="math-den text-amber-600 dark:text-amber-400">r²</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="nb-cell notebook-page" id="nb-2"><div class="nb-in">In [2]:<br>markdown</div><div class="nb-body">
+          <h2>2. Coulomb's law</h2>
+          <p>The size of the force between two point charges is:</p>
+          <div class="nb-formula">F = k <span class="math-frac"><span class="math-num">|q₁q₂|</span><span class="math-den">r²</span></span> &nbsp;where&nbsp; k = <span class="math-frac"><span class="math-num">1</span><span class="math-den">4πε₀</span></span></div>
+          <div class="nb-vars">
+            <div><b>F</b> : force, in newtons (N)</div>
+            <div><b>q₁, q₂</b> : charges, in coulombs (C)</div>
+            <div><b>r</b> : distance between centres, in metres (m)</div>
+            <div><b>k</b> = 8.99 × 10⁹ N m² C⁻²<br><small>ε₀ = 8.85 × 10⁻¹² F m⁻¹</small></div>
+          </div>
+        </div></div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-base">
-                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
-                        <div class="font-bold text-maroon-600 dark:text-rose-400 text-lg mb-1">F = Electrostatic Force</div>
-                        <div class="text-cream-800 dark:text-slate-300">Measured in Newtons (N). Vector quantity pointing along the straight line joining charges.</div>
-                    </div>
-                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
-                        <div class="font-bold text-amber-600 dark:text-amber-400 text-lg mb-1">ε₀ = Vacuum Permittivity</div>
-                        <div class="text-cream-800 dark:text-slate-300">
-                            &approx; 8.85 &times; 10⁻¹² F m⁻¹<br>
-                            (<div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">4πε₀</span></div> &approx; 8.99 &times; 10⁹ N m² C⁻²)
-                        </div>
-                    </div>
-                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
-                        <div class="font-bold text-indigo-700 dark:text-indigo-400 text-lg mb-1">q₁, q₂ = Point Charges</div>
-                        <div class="text-cream-800 dark:text-slate-300">Magnitudes in Coulombs (C). Opposite signs attract (+/-), identical signs repel (+/+ or -/-).</div>
-                    </div>
-                    <div class="bg-cream-50 dark:bg-slate-950 p-5 rounded-2xl border border-cream-200 dark:border-slate-800">
-                        <div class="font-bold text-emerald-700 dark:text-emerald-400 text-lg mb-1">r = Center Separation</div>
-                        <div class="text-cream-800 dark:text-slate-300">Distance between centers of spherical charges measured in meters (m).</div>
-                    </div>
-                </div>
-            </div>
+        <div class="nb-cell notebook-page" id="nb-3"><div class="nb-in">In [3]:<br>markdown</div><div class="nb-body">
+          <h2>3. Inverse-square law: what changes the force?</h2>
+          <table class="nb-table">
+            <thead><tr><th>If we change…</th><th>The force becomes…</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>Distance × 2</td><td><b>÷ 4</b></td><td>F ∝ <span class="math-frac"><span class="math-num">1</span><span class="math-den">r²</span></span>, and 2² = 4</td></tr>
+              <tr><td>Distance × 3</td><td><b>÷ 9</b></td><td>3² = 9</td></tr>
+              <tr><td>One charge × 2</td><td><b>× 2</b></td><td>F ∝ q₁q₂</td></tr>
+              <tr><td>Both charges × 2</td><td><b>× 4</b></td><td>2 × 2 = 4</td></tr>
+            </tbody>
+          </table>
+          <div class="nb-note">Distance has the strongest effect, because it is squared.</div>
+        </div></div>
 
-            <!-- Core Laws Card -->
-            <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-6 shadow-lg">
-                <h2 class="text-2xl font-bold text-maroon-800 dark:text-white flex items-center">
-                    <i class="fa-solid fa-shield-halved text-maroon-600 dark:text-rose-400 mr-3 text-2xl"></i> Key Characteristics
-                </h2>
-                <ul class="space-y-5 text-base text-cream-800 dark:text-slate-300">
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-circle-check text-maroon-600 dark:text-rose-400 mt-1 mr-3 text-lg flex-shrink-0"></i>
-                        <span><strong class="text-maroon-900 dark:text-white">Inverse-Square Law:</strong> Force is inversely proportional to r². Doubling distance reduces force to 
-                            <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">4</span></div>.
-                        </span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-circle-check text-maroon-600 dark:text-rose-400 mt-1 mr-3 text-lg flex-shrink-0"></i>
-                        <span><strong class="text-maroon-900 dark:text-white">Newton's Third Law:</strong> F₁₂ = -F₂₁. Force exerted on q₁ by q₂ is equal and opposite to force exerted on q₂ by q₁.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-circle-check text-maroon-600 dark:text-rose-400 mt-1 mr-3 text-lg flex-shrink-0"></i>
-                        <span><strong class="text-maroon-900 dark:text-white">Superposition Principle:</strong> Net force on any single charge is the vector sum of forces from all surrounding charges.</span>
-                    </li>
-                </ul>
-            </div>
+        <div class="nb-cell notebook-page" id="nb-4"><div class="nb-in">In [4]:<br>markdown</div><div class="nb-body">
+          <h2>4. Direction and superposition</h2>
+          <ul>
+            <li><b>Size</b> comes from the formula. <b>Direction</b> comes from the signs (attract or repel).</li>
+            <li><b>Newton's third law:</b> each charge pushes or pulls the other with the same size, in opposite directions (F₁₂ = −F₂₁).</li>
+            <li><b>Superposition:</b> with more than two charges, find each force separately, then add them as vectors.</li>
+            <li><b>On a straight line:</b> choose a positive direction (say right). Forces to the right are +, forces to the left are −.</li>
+          </ul>
+        </div></div>
+
+        <div class="nb-cell notebook-page" id="nb-5"><div class="nb-in">In [5]:<br>markdown</div><div class="nb-body">
+          <h2>5. A 4-step method for every problem</h2>
+          <ol class="nb-recipe">
+            <li><b>List</b> the data and what is asked.</li>
+            <li><b>Convert units to SI units.</b> Multiply by the conversion factor shown below before using Coulomb’s law.
+              <div class="unit-conversion-grid" role="table" aria-label="Unit conversion factors">
+                <div class="unit-conversion-head" role="columnheader">Given unit</div><div class="unit-conversion-head" role="columnheader">Multiply by</div><div class="unit-conversion-head" role="columnheader">Becomes</div>
+                <div role="cell"><b>µC</b> (microcoulomb)</div><div role="cell" class="conversion-factor">× 10⁻⁶</div><div role="cell">coulomb (C)</div>
+                <div role="cell"><b>nC</b> (nanocoulomb)</div><div role="cell" class="conversion-factor">× 10⁻⁹</div><div role="cell">coulomb (C)</div>
+                <div role="cell"><b>cm</b> (centimetre)</div><div role="cell" class="conversion-factor">× 10⁻²</div><div role="cell">metre (m)</div>
+                <div role="cell"><b>mm</b> (millimetre)</div><div role="cell" class="conversion-factor">× 10⁻³</div><div role="cell">metre (m)</div>
+              </div>
+              <div class="conversion-example"><b>Example:</b> 3.0 µC = 3.0 × 10⁻⁶ C; 20 cm = 20 × 10⁻² m = 0.20 m. Convert every charge to coulombs and every distance to metres.</div>
+            </li>
+            <li><b>Substitute</b> into Coulomb’s law. The fraction has the charge product in the <b>numerator</b> and the squared distance in the <b>denominator</b>: <span class="math-frac"><span class="math-num">k|q₁q₂|</span><span class="math-den">r²</span></span>. Square r first.</li>
+            <li><b>State the direction</b> (attract or repel) and the unit.</li>
+          </ol>
+        </div></div>
+
+        <div class="nb-cell nb-code notebook-page" id="nb-6"><div class="nb-in">In [6]:<br>concept check</div><div class="nb-body">
+          <h2>6. Two concept questions</h2>
+          <div class="nb-q"><b>Question 1.</b> A student says: "If I double the distance between two charges, the force is halved." Is the student correct? Explain.
+            <details><summary>Show answer</summary>
+              <p><b>No.</b> The force depends on <span class="math-frac"><span class="math-num">1</span><span class="math-den">r²</span></span>, not <span class="math-frac"><span class="math-num">1</span><span class="math-den">r</span></span>. Doubling r gives (2)² = 4, so the force becomes <b>one quarter</b> of the original (F ÷ 4), not one half.</p>
+            </details></div>
+          <div class="nb-q"><b>Question 2.</b> Charge A (+6.0 µC) pushes on charge B (+2.0 µC) with a force of 2.0 N. A student says A pushes harder because it has more charge. What is the force of B on A, and is the student right?
+            <details><summary>Show answer</summary>
+              <p>The student is <b>wrong</b>. By Newton's third law the force of B on A is also <b>2.0 N</b>, directed away from B. The two forces are an equal-and-opposite pair, even though the charges are different.</p>
+            </details></div>
+        </div></div>
+
+        <div class="nb-cell nb-code notebook-page" id="nb-7"><div class="nb-in">In [7]:<br>calculation 1</div><div class="nb-body">
+          <h2>7a. Calculation problem 1: force between two charges</h2>
+          <div class="nb-q">A <b>+3.0 µC</b> charge and a <b>−5.0 µC</b> charge are <b>0.50 m</b> apart in a vacuum.<br><b>(a)</b> Find the size and nature of the force between them.<br><b>(b)</b> What is the force if the distance is doubled to 1.0 m?</div>
+          <details><summary>Show full solution</summary>
+            <ol class="nb-steps">
+              <li><b>List the data.</b> q₁ = +3.0 µC, q₂ = −5.0 µC, r = 0.50 m, k = 8.99 × 10⁹ N m² C⁻². We need F.</li>
+              <li><b>Convert units.</b> 3.0 µC = 3.0 × 10⁻⁶ C and 5.0 µC = 5.0 × 10⁻⁶ C. The distance is already in metres, so no change is needed.</li>
+              <li><b>Choose the formula.</b> F = k × <span class="math-frac"><span class="math-num">|q₁q₂|</span><span class="math-den">r²</span></span>. The charge product is the numerator and r² is the denominator. We use the absolute value, so the minus sign does not enter the calculation. It only tells us the direction later.</li>
+              <li><b>Multiply the charges.</b> |q₁q₂| = (3.0 × 10⁻⁶)(5.0 × 10⁻⁶) = 15 × 10⁻¹² = 1.5 × 10⁻¹¹ C².</li>
+              <li><b>Square the distance.</b> r² = (0.50)² = 0.25 m².</li>
+              <li><b>Substitute.</b> F = <span class="math-frac"><span class="math-num">(8.99 × 10⁹)(1.5 × 10⁻¹¹)</span><span class="math-den">0.25</span></span>.</li>
+              <li><b>Calculate the top first.</b> (8.99 × 10⁹)(1.5 × 10⁻¹¹) = 0.13485. Then divide by 0.25: F = <span class="math-frac"><span class="math-num">0.13485</span><span class="math-den">0.25</span></span> = 0.5394 N.</li>
+              <li class="nb-ans"><b>Answer (a):</b> F ≈ <b>0.54 N</b>. The charges have opposite signs, so the force is <b>attractive</b>.</li>
+              <li><b>Part (b): use the inverse-square law.</b> Distance × 2 means force ÷ 4. New F = <span class="math-frac"><span class="math-num">0.5394</span><span class="math-den">4</span></span> = 0.135 N.</li>
+              <li class="nb-ans"><b>Check by direct calculation.</b> With r = 1.0 m, r² = 1.0, so F = <span class="math-frac"><span class="math-num">0.13485</span><span class="math-den">1.0</span></span> = 0.135 N. ✔ Answer (b): <b>≈ 0.13 N</b>, still attractive.</li>
+            </ol>
+          </details>
+        </div></div>
+
+        <div class="nb-cell nb-code notebook-page" id="nb-7b"><div class="nb-in">In [8]:<br>calculation 2</div><div class="nb-body">
+          <h2>7b. Calculation problem 2: net force from two charges</h2>
+          <div class="nb-q">On a straight line: <b>A = +4.0 µC</b> at x = 0, <b>C = +1.0 µC</b> at x = 0.10 m, and <b>B = −2.0 µC</b> at x = 0.30 m. Find the net force on <b>C</b>.</div>
+          <div class="nb-line" aria-hidden="true"><span>A (+4.0 µC)</span><i></i><span>C (+1.0 µC)</span><i class="long"></i><span>B (−2.0 µC)</span></div>
+          <details><summary>Show full solution</summary>
+            <ol class="nb-steps">
+              <li><b>Sketch and label distances.</b> A to C is 0.10 m. C to B is 0.30 − 0.10 = 0.20 m. Take <b>right as positive</b>.</li>
+              <li><b>Plan.</b> Find the force of A on C and the force of B on C separately, then add them with their directions (superposition).</li>
+              <li><b>Convert units.</b> q_A = 4.0 × 10⁻⁶ C, q_B = 2.0 × 10⁻⁶ C (magnitude), q_C = 1.0 × 10⁻⁶ C.</li>
+              <li><b>Force of A on C.</b> F_AC = k × <span class="math-frac"><span class="math-num">|q_A q_C|</span><span class="math-den">r²</span></span> = <span class="math-frac"><span class="math-num">(8.99 × 10⁹)(4.0 × 10⁻⁶)(1.0 × 10⁻⁶)</span><span class="math-den">(0.10)²</span></span>. Top: 0.03596. Bottom: 0.01. So F_AC = <b>3.596 N</b>.</li>
+              <li><b>Direction of F_AC.</b> A and C are both positive, so they repel. C is pushed away from A, which is to the <b>right (+)</b>.</li>
+              <li><b>Force of B on C.</b> F_BC = <span class="math-frac"><span class="math-num">(8.99 × 10⁹)(2.0 × 10⁻⁶)(1.0 × 10⁻⁶)</span><span class="math-den">(0.20)²</span></span>. Top: 0.01798. Bottom: 0.04. So F_BC = <b>0.4495 N</b>.</li>
+              <li><b>Direction of F_BC.</b> B is negative and C is positive, so they attract. C is pulled towards B, which is also to the <b>right (+)</b>.</li>
+              <li><b>Add the forces.</b> Both point right, so they add: F_net = 3.596 + 0.4495 = 4.0455 N.</li>
+              <li class="nb-ans"><b>Answer:</b> F_net ≈ <b>4.0 N, to the right</b> (towards B).</li>
+              <li><b>Sanity check.</b> A is closer and has the larger charge, so its force should dominate. ✔ If the two forces had pointed in opposite directions, we would subtract instead of add.</li>
+            </ol>
+          </details>
+        </div></div>
+
+        <div class="nb-cell notebook-page" id="nb-8"><div class="nb-in">In [9]:<br>markdown</div><div class="nb-body">
+          <h2>8. Summary</h2>
+          <ul>
+            <li>F = k <span class="math-frac"><span class="math-num">|q₁q₂|</span><span class="math-den">r²</span></span>. The force depends on both charges and on the <b>square</b> of the distance.</li>
+            <li>Same signs repel, opposite signs attract. The two forces are equal and opposite.</li>
+            <li>Always convert to coulombs and metres before substituting.</li>
+            <li>With several charges, find each force, then add as vectors.</li>
+          </ul>
+          <p style="margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap">
+            <button type="button" onclick="switchTab('simulator')" class="px-5 py-2.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-xl text-sm">Try the 2D Simulator</button>
+            <button type="button" onclick="switchTab('quiz')" class="px-5 py-2.5 bg-maroon-600 hover:bg-maroon-700 text-white font-bold rounded-xl text-sm">Open the Question Bank</button>
+          </p>
+        </div></div>
+
         </div>
-
-        <!-- Comparison Table -->
-        <div class="bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 rounded-3xl p-8 space-y-6 shadow-lg">
-            <h2 class="text-2xl font-bold text-maroon-800 dark:text-white flex items-center">
-                <i class="fa-solid fa-scale-balanced text-maroon-600 dark:text-rose-400 mr-3 text-2xl"></i> Coulomb's Law vs Newton's Gravitation
-            </h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse text-base">
-                    <thead>
-                        <tr class="border-b border-cream-300 dark:border-slate-800 text-maroon-700 dark:text-rose-400 font-bold">
-                            <th class="py-4 px-6">Feature</th>
-                            <th class="py-4 px-6">Coulomb's Law (Electric Force)</th>
-                            <th class="py-4 px-6">Newton's Law (Gravitational Force)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-cream-200 dark:divide-slate-800 text-cream-800 dark:text-slate-300">
-                        <tr>
-                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Equation</td>
-                            <td class="py-4 px-6 code-font">
-                                F = 
-                                <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">4πε₀</span></div>
-                                <div class="math-frac inline-flex text-xs"><span class="math-num">q₁q₂</span><span class="math-den">r²</span></div>
-                            </td>
-                            <td class="py-4 px-6 code-font">
-                                F = G
-                                <div class="math-frac inline-flex text-xs"><span class="math-num">m₁m₂</span><span class="math-den">r²</span></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Nature</td>
-                            <td class="py-4 px-6 font-semibold text-maroon-600 dark:text-rose-400">Attractive OR Repulsive</td>
-                            <td class="py-4 px-6 font-semibold text-amber-600 dark:text-amber-400">Always Attractive</td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Medium Dependence</td>
-                            <td class="py-4 px-6">Depends on dielectric permittivity (ε)</td>
-                            <td class="py-4 px-6">Independent of intervening medium</td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-6 font-bold text-maroon-900 dark:text-white">Relative Magnitude</td>
-                            <td class="py-4 px-6 font-bold text-emerald-700 dark:text-emerald-400">Far stronger (≈ 10³⁶ × for two protons)</td>
-                            <td class="py-4 px-6 text-cream-700 dark:text-slate-400">Extremely Weak on atomic scale</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="book-controls">
+          <button type="button" id="book-prev" onclick="turnNotebookPage(-1)" aria-label="Previous page"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+          <div class="book-dots" id="book-dots" aria-label="Choose notebook page"></div>
+          <button type="button" id="book-next" onclick="turnNotebookPage(1)" aria-label="Next page">Next <i class="fa-solid fa-arrow-right"></i></button>
         </div>
+      </div>
     </section>
 
     <!-- TAB 2: 2D PHYSICS SIMULATOR -->
@@ -1009,21 +1261,21 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
             <div id="charge-control-panel" class="bg-cream-50 dark:bg-slate-950 p-6 rounded-2xl border border-cream-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="space-y-2">
                     <div class="flex justify-between font-bold text-sm">
-                        <span class="text-maroon-700 dark:text-rose-400">Charge Magnitude (q)</span>
+                        <label for="slider-q" class="text-maroon-700 dark:text-rose-400">Charge Magnitude (q)</label>
                         <span id="slider-q-val" class="code-font text-maroon-800 dark:text-white">+3.0 µC</span>
                     </div>
                     <input type="range" id="slider-q" min="-10" max="10" step="0.5" value="3" class="w-full accent-maroon-600 cursor-pointer" oninput="updateSelectedCharge()">
                 </div>
                 <div class="space-y-2">
                     <div class="flex justify-between font-bold text-sm">
-                        <span class="text-maroon-700 dark:text-rose-400">Position X (meters)</span>
+                        <label for="slider-x" class="text-maroon-700 dark:text-rose-400">Position X (metres)</label>
                         <span id="slider-x-val" class="code-font text-maroon-800 dark:text-white">0.20 m</span>
                     </div>
                     <input type="range" id="slider-x" min="-1" max="1" step="0.05" value="0.2" class="w-full accent-maroon-600 cursor-pointer" oninput="updateSelectedCharge()">
                 </div>
                 <div class="space-y-2">
                     <div class="flex justify-between font-bold text-sm">
-                        <span class="text-maroon-700 dark:text-rose-400">Position Y (meters)</span>
+                        <label for="slider-y" class="text-maroon-700 dark:text-rose-400">Position Y (metres)</label>
                         <span id="slider-y-val" class="code-font text-maroon-800 dark:text-white">0.00 m</span>
                     </div>
                     <input type="range" id="slider-y" min="-1" max="1" step="0.05" value="0" class="w-full accent-maroon-600 cursor-pointer" oninput="updateSelectedCharge()">
@@ -1301,6 +1553,61 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
 </footer>
 
 <script>
+
+    // Flip-book controls: page buttons, dots, pointer dragging, touch swipes, and keyboard.
+    let notebookPageIndex = 0;
+    let notebookPointerStart = null;
+    function refreshNotebookBook(direction = 0) {
+        const book = document.getElementById('notebook-book');
+        if (!book) return;
+        const pages = Array.from(book.querySelectorAll('.notebook-page'));
+        pages.forEach((page, i) => {
+            page.classList.toggle('is-active', i === notebookPageIndex);
+            page.classList.remove('turn-forward', 'turn-backward');
+            page.setAttribute('aria-hidden', String(i !== notebookPageIndex));
+        });
+        const counter = document.getElementById('book-counter');
+        if (counter) counter.textContent = `PAGE ${notebookPageIndex + 1} OF ${pages.length}`;
+        const prev = document.getElementById('book-prev'), next = document.getElementById('book-next');
+        if (prev) prev.disabled = notebookPageIndex === 0;
+        if (next) next.disabled = notebookPageIndex === pages.length - 1;
+        const dots = document.getElementById('book-dots');
+        if (dots && dots.children.length !== pages.length) {
+            dots.innerHTML = '';
+            pages.forEach((page, i) => {
+                const dot = document.createElement('button'); dot.type = 'button'; dot.className = 'book-dot';
+                dot.setAttribute('aria-label', `Go to page ${i + 1}`); dot.addEventListener('click', () => goNotebookPage(i)); dots.appendChild(dot);
+            });
+        }
+        if (dots) Array.from(dots.children).forEach((dot, i) => { if (i === notebookPageIndex) dot.setAttribute('aria-current', 'page'); else dot.removeAttribute('aria-current'); });
+        const active = pages[notebookPageIndex];
+        if (active && direction) { const cls = direction > 0 ? 'turn-forward' : 'turn-backward'; active.classList.add(cls); }
+        if (window.MathJax?.typesetPromise && active) window.MathJax.typesetPromise([active]).catch(() => {});
+    }
+    function goNotebookPage(index) {
+        const pages = document.querySelectorAll('#notebook-book .notebook-page');
+        if (!pages.length) return;
+        const nextIndex = Math.max(0, Math.min(pages.length - 1, index));
+        const direction = Math.sign(nextIndex - notebookPageIndex);
+        notebookPageIndex = nextIndex;
+        refreshNotebookBook(direction);
+    }
+    function turnNotebookPage(direction) { goNotebookPage(notebookPageIndex + direction); }
+    function initNotebookBook() {
+        const book = document.getElementById('notebook-book'); if (!book || book.dataset.bookReady) return;
+        book.dataset.bookReady = 'true';
+        book.addEventListener('pointerdown', event => { notebookPointerStart = {x:event.clientX,y:event.clientY}; });
+        book.addEventListener('pointerup', event => {
+            if (!notebookPointerStart) return;
+            const dx = event.clientX - notebookPointerStart.x, dy = event.clientY - notebookPointerStart.y;
+            if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.2) turnNotebookPage(dx < 0 ? 1 : -1);
+            notebookPointerStart = null;
+        });
+        book.addEventListener('keydown', event => { if (event.key === 'ArrowRight') { event.preventDefault(); turnNotebookPage(1); } if (event.key === 'ArrowLeft') { event.preventDefault(); turnNotebookPage(-1); } });
+        refreshNotebookBook();
+    }
+    document.addEventListener('DOMContentLoaded', initNotebookBook);
+
     // Theme handling: keep the root class, data attribute, icons, labels, and
     // saved preference synchronised. Light mode is the default when no setting exists.
     function updateThemeControls() {
@@ -1380,13 +1687,22 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
             });
         });
 
+        if (tabId === 'theory') initNotebookBook();
         if (tabId === 'simulator') setTimeout(draw2DSimulation, 50);
         if (tabId === 'quiz' && currentQuizLevel === '') switchLevel('easy');
         if (tabId === 'pastpapers' && currentPastPaperLevel === '') switchPastPaperLevel('easy');
     }
 
     function toggleMobileMenu() {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
+        const menu = document.getElementById('mobile-menu');
+        const button = document.getElementById('mobile-menu-toggle');
+        if (!menu) return;
+        const willOpen = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !willOpen);
+        if (button) {
+            button.setAttribute('aria-expanded', String(willOpen));
+            button.setAttribute('aria-label', willOpen ? 'Close navigation menu' : 'Open navigation menu');
+        }
     }
 
     function toggleModal(modalId) {
@@ -1726,7 +2042,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
             { id: 'e6', q: "If charge magnitude q₁ is doubled while q₂ and r remain constant, what happens to F?", options: ["Doubles (2x)", "Quadruples (4x)", "Halves (<span class=math-frac><span class=math-num>1</span><span class=math-den>2</span></span>)", "Unchanged"], correct: 0, sol: "F is directly proportional to product of charges (F ∝ q₁ q₂)." },
             { id: 'e7', q: "Coulomb's Law is valid strictly for:", options: ["Static point charges", "High-speed moving currents", "Irregular macroscopic conductors", "Uncharged magnetic dipoles"], correct: 0, sol: "Coulomb’s law applies directly to stationary point charges." },
             { id: 'e8', q: "What is the magnitude of elementary charge e on a proton?", options: ["1.60 × 10⁻¹⁹ C", "9.11 × 10⁻³¹ C", "8.85 × 10⁻¹² C", "1.00 C"], correct: 0, sol: "Elementary charge e ≈ 1.602 × 10⁻¹⁹ C." },
-            { id: 'e9', q: "If two charges exert +15 N force on each other, what is the force exerted by charge 2 on charge 1?", options: ["-15 N", "+15 N", "0 N", "+30 N"], correct: 0, sol: "By Newton's Third Law (F₁₂ = -F₂₁), force is equal in magnitude and opposite in direction." },
+            { id: 'e9', q: "If the force of charge 1 on charge 2 is +15 N along the chosen axis, what is the force of charge 2 on charge 1?", options: ["-15 N", "+15 N", "0 N", "+30 N"], correct: 0, sol: "By Newton's Third Law (F₁₂ = -F₂₁), force is equal in magnitude and opposite in direction." },
             { id: 'e10', q: "Permittivity of free space ε₀ has SI unit of:", options: ["F m⁻¹ (or C² N⁻¹ m⁻²)", "N m² C⁻²", "Joules", "Volts per meter"], correct: 0, sol: "Vacuum permittivity ε₀ is measured in F m⁻¹." }
         ],
         medium: [
@@ -1734,7 +2050,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
             { id: 'm2', q: "Two point charges, each +3.0 µC, experience a repulsive force of 2.70 N. Determine their separation distance.", options: ["0.173 m", "0.150 m", "0.090 m", "0.300 m"], correct: 0, sol: "Using Coulomb’s law, r² = <span class=math-frac><span class=math-num>kq₁q₂</span><span class=math-den>F</span></span> = <span class=math-frac><span class=math-num>(8.99 × 10⁹)(3.0 × 10⁻⁶)²</span><span class=math-den>2.70</span></span> = 2.997 × 10⁻² m². Therefore, r ≈ 0.173 m." },
             { id: 'm3', q: "Three point charges are positioned along a straight line: +2µC at 0m, -3µC at 0.10m, +4µC at 0.25m. Net force on -3µC is:", options: ["0.60 N Left", "0.60 N Right", "10.2 N Left", "4.8 N Right"], correct: 0, sol: "F₁₂ = 5.39 N (Left), F₃₂ = 4.80 N (Right). Net ≈ 0.60 N Left (0.599 N unrounded)." },
             { id: 'm4', q: "If relative permittivity of medium εᵣ = 4, force between charges compared to vacuum is:", options: ["<span class=math-frac><span class=math-num>1</span><span class=math-den>4</span></span> of vacuum force", "4 times greater", "16 times greater", "Unchanged"], correct: 0, sol: "F_medium = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">F_vacuum</span><span class=\"math-den\">εᵣ</span></div>." },
-            { id: 'm5', q: "Two charges q and 4q are fixed at distance d. Where is net force on test charge zero?", options: ["<span class=math-frac><span class=math-num>d</span><span class=math-den>3</span></span> from q", "<span class=math-frac><span class=math-num>d</span><span class=math-den>2</span></span> from q", "<span class=math-frac><span class=math-num>2d</span><span class=math-den>3</span></span> from q", "<span class=math-frac><span class=math-num>d</span><span class=math-den>4</span></span> from q"], correct: 0, sol: "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">x²</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">4</span><span class=\"math-den\">(d - x)²</span></div> &rArr; 2x = d - x &rArr; x = <span class=math-frac><span class=math-num>d</span><span class=math-den>3</span></span> from q." },
+            { id: 'm5', q: "Two charges q and 4q of the same sign are fixed a distance d apart. Where is the net force on a test charge zero?", options: ["<span class=math-frac><span class=math-num>d</span><span class=math-den>3</span></span> from q", "<span class=math-frac><span class=math-num>d</span><span class=math-den>2</span></span> from q", "<span class=math-frac><span class=math-num>2d</span><span class=math-den>3</span></span> from q", "<span class=math-frac><span class=math-num>d</span><span class=math-den>4</span></span> from q"], correct: 0, sol: "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">x²</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">4</span><span class=\"math-den\">(d - x)²</span></div> &rArr; 2x = d - x &rArr; x = <span class=math-frac><span class=math-num>d</span><span class=math-den>3</span></span> from q." },
             { id: 'm6', q: "Ratio of force at distance r to force at distance 3r is:", options: ["9 : 1", "3 : 1", "1 : 9", "1 : 3"], correct: 0, sol: "<span class=math-frac><span class=math-num>F₁</span><span class=math-den>F₂</span></span> = <span class=math-frac><span class=math-num>(3r)²</span><span class=math-den>r²</span></span> = <span class=math-frac><span class=math-num>9</span><span class=math-den>1</span></span>." },
             { id: 'm7', q: "Equal charges q separated by 0.10 m repel with 0.90 N force. Determine the magnitude of q.", options: ["1.0 µC", "3.0 µC", "10.0 µC", "0.5 µC"], correct: 0, sol: "q² = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">(0.90)(0.10)²</span><span class=\"math-den\">8.99 × 10⁹</span></div> = 1 × 10⁻¹² C² &rArr; q = 1.0 µC." },
             { id: 'm8', q: "Force between two charges in air is 12 N. In oil with εᵣ = 2.5, force is:", options: ["4.8 N", "30 N", "12 N", "2.4 N"], correct: 0, sol: "F = <span class=math-frac><span class=math-num>12</span><span class=math-den>2.5</span></span> = 4.8 N." },
@@ -1743,11 +2059,11 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
         ],
         hard: [
             { id: 'h1', q: "Two identical spheres, each of mass 0.10 g, hang from strings of length 0.50 m. Each string makes an angle of 5° with the vertical, so the angle between the strings is 10°. If each sphere carries an equal charge Q, determine Q.", options: ["8.5 × 10⁻⁹ C", "1.1 × 10⁻⁸ C", "5.2 × 10⁻⁹ C", "8.9 × 10⁻⁷ C"], correct: 0, sol: "At equilibrium, Fₑ = mg tan 5° ≈ 8.58 × 10⁻⁵ N. The separation is r = 2(0.50) sin 5° ≈ 0.0872 m. From Fₑ = <span class=math-frac><span class=math-num>kQ²</span><span class=math-den>r²</span></span>, Q = √(<span class=math-frac><span class=math-num>Fₑr²</span><span class=math-den>k</span></span>) ≈ 8.5 × 10⁻⁹ C." },
-            { id: 'h2', q: "Three point charges Charges +Q, +Q, and −q are positioned at the vertices of equilateral triangle of side a. Net force magnitude on -q is:", options: ["<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k Q q √3</span><span class=\"math-den\">a²</span></div>", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">2 k Q q</span><span class=\"math-den\">a²</span></div>", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k Q q</span><span class=\"math-den\">a²</span></div>", "0"], correct: 0, sol: "Vector sum of forces at 60° angle: F_net = 2 F cos(30°) = √3 F." },
+            { id: 'h2', q: "Three point charges +Q, +Q, and −q are positioned at the vertices of equilateral triangle of side a. Net force magnitude on -q is:", options: ["<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k Q q √3</span><span class=\"math-den\">a²</span></div>", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">2 k Q q</span><span class=\"math-den\">a²</span></div>", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k Q q</span><span class=\"math-den\">a²</span></div>", "0"], correct: 0, sol: "Vector sum of forces at 60° angle: F_net = 2 F cos(30°) = √3 F." },
             { id: 'h3', q: "Four identical charges +q at corners of square of side L. Net force on one charge is:", options: ["(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)(√2 + <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">1</span><span class=\"math-den\">2</span></div>)", "2√2 (<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)", "√2 (<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)", "0"], correct: 0, sol: "F_net = √2 F_side + F_diagonal = (<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k q²</span><span class=\"math-den\">L²</span></div>)(√2 + <span class=math-frac><span class=math-num>1</span><span class=math-den>2</span></span>)." },
             { id: 'h4', q: "Electron orbits proton in circle of radius r. Orbital velocity v is:", options: ["√(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ m r</span></div>)", "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ m r</span></div>", "√(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">4πε₀ m r</span><span class=\"math-den\">e²</span></div>)", "0"], correct: 0, sol: "Centripetal force <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">m v²</span><span class=\"math-den\">r</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ r²</span></div> &rArr; v = √(<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">e²</span><span class=\"math-den\">4πε₀ m r</span></div>)." },
             { id: 'h5', q: "Zero electric field position for +16 µC at 0cm and -9 µC at 8cm is at:", options: ["24 cm from -9 µC charge", "12 cm from -9 µC charge", "4 cm between charges", "16 cm from +16 µC"], correct: 0, sol: "<div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">4</span><span class=\"math-den\">8 + x</span></div> = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">3</span><span class=\"math-den\">x</span></div> &rArr; 4x = 24 + 3x &rArr; x = 24 cm." },
-            { id: 'h6', q: "How much work must an external force do to bring a +2.0 nC charge from infinity to a point 0.10 m from a fixed +5.0 µC charge?", options: ["9.0 × 10⁻⁴ J", "9.0 × 10⁻⁵ J", "9.0 × 10⁻³ J", "0 J"], correct: 0, sol: "Work done = gain in electric potential energy = <span class=math-frac><span class=math-num>kQq</span><span class=math-den>r</span></span>. W = <span class=math-frac><span class=math-num>(8.99 × 10⁹)(5.0 × 10⁻⁶)(2.0 × 10⁻⁹)</span><span class=math-den>0.10</span></span> = 9.0 × 10⁻⁴ J. The work is positive because the two charges repel, so the external force must act against the field." },
+            { id: 'h6', q: "How much work must an external force do to bring a +2.0 nC charge from infinity to a point 0.10 m from a fixed +5.0 µC charge?", options: ["9.0 × 10⁻⁴ J", "9.0 × 10⁻⁵ J", "9.0 × 10⁻³ J", "0 J"], correct: 0, sol: "Work done = gain in electric potential energy = <span class=math-frac><span class=math-num>kQq</span><span class=math-den>r</span></span>. W = <span class=math-frac><span class=math-num>(8.99 × 10⁹)(5.0 × 10⁻⁶)(2.0 × 10⁻⁹)</span><span class=\"math-den\">0.10</span></span> = 9.0 × 10⁻⁴ J. The work is positive because the two charges repel, so the external force must act against the field." },
             { id: 'h7', q: "Closest approach of alpha particle (+2e, mass 6.64 × 10⁻²⁷ kg, v = 2 × 10⁷ m s⁻¹) to gold nucleus (+79e) is:", options: ["2.7 × 10⁻¹⁴ m", "1.4 × 10⁻¹³ m", "5.2 × 10⁻¹⁵ m", "9.1 × 10⁻¹² m"], correct: 0, sol: "Energy conservation <span class=math-frac><span class=math-num>1</span><span class=math-den>2</span></span> m v² = <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">k (2e)(79e)</span><span class=\"math-den\">r_min</span></div> &rArr; r_min ≈ 2.74 × 10⁻¹⁴ m." },
             { id: 'h8', q: "Charge at centroid of equilateral triangle for equilibrium of three vertex charges +Q must be:", options: ["- <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">Q</span><span class=\"math-den\">√3</span></div>", "- <div class=\"math-frac inline-flex text-xs\"><span class=\"math-num\">Q</span><span class=\"math-den\">3</span></div>", "- Q", "+ <span class=math-frac><span class=math-num>Q</span><span class=math-den>√3</span></span>"], correct: 0, sol: "Balancing forces gives q = − <span class=math-frac><span class=math-num>Q</span><span class=math-den>√3</span></span>." },
             { id: 'h9', q: "Two parallel plates 2.0 cm apart have a potential difference of 500 V across them. What is the electric field strength between the plates?", options: ["2.5 × 10⁴ V m⁻¹", "1.0 × 10⁴ V m⁻¹", "2.5 × 10² V m⁻¹", "1.0 × 10⁶ V m⁻¹"], correct: 0, sol: "The field between parallel plates is uniform, so E = <span class=math-frac><span class=math-num>V</span><span class=math-den>d</span></span>. Convert 2.0 cm to 0.020 m. E = <span class=math-frac><span class=math-num>500</span><span class=math-den>0.020</span></span> = 2.5 × 10⁴ V m⁻¹ (equivalent to N C⁻¹)." },
@@ -1838,7 +2154,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
             <div class="sol-title">Worked solution</div><ol class="sol-steps">${fmtSteps(q.sol)}</ol>`;
     }
     function fmtScheme(item) {
-        const chip = t => t.replace(/\[(\d+) marks?\]/g, (m, n) => `<span class="mark-chip">${n} mark${n > 1 ? 's' : ''}</span>`);
+        const chip = t => t.replace(/\[(\d+) marks?\]/g, (m, n) => `<button type="button" class="mark-chip" aria-pressed="false" aria-label="Award ${n} mark${n > 1 ? 's' : ''}">${n} mark${n > 1 ? 's' : ''}</button>`);
         const parts = item.scheme.split(/<br\s*\/?>/).map(x => x.trim()).filter(Boolean).map(l => {
             const m = l.match(/^<strong>\(([a-z])\)<\/strong>\s*([\s\S]*)$/);
             return `<div class="ms-part"><span class="ms-badge">${m ? m[1] : '\u2713'}</span><ol class="sol-steps">${fmtSteps(chip(m ? m[2] : l))}</ol></div>`;
@@ -1975,7 +2291,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
                 marks: 4,
                 paper: 'A-Level Physics · Core skills',
                 prompt: '<strong>(a)</strong> Define permittivity of free space $\\varepsilon_0$. [2 marks]<br><strong>(b)</strong> State its SI unit. [2 marks]',
-                scheme: '<strong>(a)</strong> Measure of resistance encountered when forming electric field in vacuum [2 marks].<br><strong>(b)</strong> F m⁻¹ or C² N⁻¹ m⁻² [2 marks].'
+                scheme: '<strong>(a)</strong> The permittivity of free space, ε₀, is the constant that characterises electrostatic interactions in a vacuum and appears in Coulomb’s law [2 marks].<br><strong>(b)</strong> F m⁻¹ or C² N⁻¹ m⁻² [2 marks].'
             },
             {
                 id: 'pp_e7',
@@ -2041,7 +2357,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
                 marks: 5,
                 paper: 'A-Level Physics · Structured',
                 prompt: '<strong>(a)</strong> Define Electric Field Strength E at a point. [2 marks]<br><strong>(b)</strong> Calculate force on an electron in uniform field E = 5.0 × 10⁴ N C⁻¹. [3 marks]',
-                scheme: '<strong>(a)</strong> Force per unit positive charge [2 marks].<br><strong>(b)</strong> F = qE = (1.602 × 10⁻¹⁹)(5.0 × 10⁴) = 8.01 × 10⁻¹⁵ N [3 marks].'
+                scheme: '<strong>(a)</strong> Force per unit positive charge [2 marks].<br><strong>(b)</strong> The magnitude is |F| = eE = (1.602 × 10⁻¹⁹)(5.0 × 10⁴) = 8.01 × 10⁻¹⁵ N. Because an electron is negatively charged, the force acts opposite to the electric field [3 marks].'
             },
             {
                 id: 'pp_m5',
@@ -2049,14 +2365,14 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
                 marks: 5,
                 paper: 'A-Level Physics · Structured',
                 prompt: 'Charge +q at origin and +q at (0, 0.30m). Determine the net force on a test charge +q at (0.40 m, 0).',
-                scheme: 'Calculate individual force magnitudes and resolve x and y vector components using right triangles [3 marks]. Sum components to find resultant magnitude and angle [2 marks].'
+                scheme: 'From the charge at the origin, F₁ = kq² × <span class=math-frac><span class=math-num>1</span><span class=math-den>(0.40 m)²</span></span> = 6.25kq² m⁻² along +x. From the charge at (0, 0.30 m), r = 0.50 m and the unit direction is (0.80, −0.60), so F₂ = kq² × <span class=math-frac><span class=math-num>1</span><span class=math-den>(0.50 m)²</span></span> = 4.00kq² m⁻² with components (3.20, −2.40)kq² m⁻² [3 marks]. Thus Fₓ = 9.45kq² m⁻² and Fᵧ = −2.40kq² m⁻². The resultant magnitude is 9.75kq² m⁻² and the direction is 14.3° below the +x-axis [2 marks].'
             },
             {
                 id: 'pp_m6',
                 title: 'Question 6: Inverse Square Law Graph Analysis',
                 marks: 5,
                 paper: 'A-Level Physics · Structured',
-                prompt: 'A student plots F against <div class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">r²</span></div>. Explain what the straight line gradient represents.',
+                prompt: 'A student plots F against <span class="math-frac inline-flex text-xs"><span class="math-num">1</span><span class="math-den">r²</span></span>. Explain what the straight line gradient represents.',
                 scheme: 'Gradient represents k q₁q₂ [3 marks]. Explain how to extract product of charges from gradient [2 marks].'
             },
             {
@@ -2339,7 +2655,7 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
   /* Past papers: tick the marks you earned */
   document.addEventListener('click',function(e){
     var c=e.target.closest('.ms-box .mark-chip:not(.total)');if(!c)return;
-    c.classList.toggle('got');var box=c.closest('.ms-box'),sum=0;
+    c.classList.toggle('got');c.setAttribute('aria-pressed',String(c.classList.contains('got')));var box=c.closest('.ms-box'),sum=0;
     box.querySelectorAll('.mark-chip.got').forEach(function(x){sum+=parseInt(x.textContent,10)||0});
     box.querySelector('.ms-score b').textContent=sum});
 
@@ -2355,10 +2671,10 @@ html.dark #force-table th,html.dark #force-table td{border-color:#1e293b}
   /* Simulator: presets and a live force table */
   var panel=document.getElementById('charge-control-panel');
   if(panel){
-    var P={'Attract pair':[[3,-.25,0],[-5,.25,0]],'Repel pair':[[3,-.25,0],[3,.25,0]],'Dipole':[[4,-.2,0],[-4,.2,0]],'Triangle':[[3,-.3,-.2],[3,.3,-.2],[-3,0,.3]],'Zero-force point':[[4,-.3,0],[1,.3,0],[1,0,0]]};
+    var P={'Attract pair':[[3,-.25,0],[-5,.25,0]],'Repel pair':[[3,-.25,0],[3,.25,0]],'Dipole':[[4,-.2,0],[-4,.2,0]],'Triangle':[[3,-.3,-.2],[3,.3,-.2],[-3,0,.3]],'Zero-force point':[[4,-.3,0],[1,.3,0],[1,.1,0]]};
     var pb=document.createElement('div');pb.id='preset-bar';pb.innerHTML='<b>Try an example:</b>';
     Object.keys(P).forEach(function(k){var x=document.createElement('button');x.type='button';x.textContent=k;x.onclick=function(){
-      charges=P[k].map(function(c,i){return{id:i+1,q:c[0],x:c[1],y:c[2],color:['#06b6d4','#ec4899','#f59e0b','#8b5cf6'][i]}});selectedChargeIdx=0;draw2DSimulation()};pb.appendChild(x)});
+      charges=P[k].map(function(c,i){return{id:i+1,q:c[0],x:c[1],y:c[2],color:['#06b6d4','#ec4899','#f59e0b','#8b5cf6'][i]}});selectedChargeIdx=k==='Zero-force point'?2:0;draw2DSimulation()};pb.appendChild(x)});
     var ft=document.createElement('div');ft.id='force-table';
     panel.parentNode.insertBefore(pb,panel);panel.parentNode.insertBefore(ft,panel.nextSibling);
     var base=window.draw2DSimulation;
