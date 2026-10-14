@@ -2149,8 +2149,44 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
         return html.replace(/([.!?])\s+(?=[A-Z\u221A(])/g, '$1\u0001').split('\u0001').map(t => t.trim()).filter(Boolean)
             .map(t => `<li class="${/[=\u21D2\u2248]/.test(t) ? 'has-eq' : ''}">${t}</li>`).join('');
     }
+    // Session-based seed: option positions are randomized for each new browser tab/session,
+    // but remain stable while the user reloads or navigates between difficulty levels.
+    // sessionStorage is tab-scoped and is cleared when that tab/session ends.
+    const QUIZ_OPTION_SEED_KEY = 'coulomb_quiz_option_seed_session_v2';
+    let quizVisitorSeed;
+    try {
+        quizVisitorSeed = sessionStorage.getItem(QUIZ_OPTION_SEED_KEY);
+        if (!quizVisitorSeed) {
+            quizVisitorSeed = `${Date.now()}_${Math.random().toString(36).slice(2)}_${Math.random().toString(36).slice(2)}`;
+            sessionStorage.setItem(QUIZ_OPTION_SEED_KEY, quizVisitorSeed);
+        }
+    } catch (error) {
+        quizVisitorSeed = `${Date.now()}_${Math.random().toString(36).slice(2)}_${Math.random().toString(36).slice(2)}`;
+    }
+
+    function stableOptionScore(value) {
+        let hash = 2166136261;
+        for (let i = 0; i < value.length; i++) {
+            hash ^= value.charCodeAt(i);
+            hash = Math.imul(hash, 16777619);
+        }
+        return hash >>> 0;
+    }
+
+    // Each session gets a deterministic, independently shuffled order for each question.
+    function getVisitorOptionOrder(q) {
+        return q.options.map((_, originalIndex) => originalIndex).sort((a, b) => {
+            const scoreA = stableOptionScore(`${quizVisitorSeed}|${q.id}|${a}`);
+            const scoreB = stableOptionScore(`${quizVisitorSeed}|${q.id}|${b}`);
+            return scoreA - scoreB;
+        });
+    }
+
+    const quizOptionOrders = Object.create(null);
     function formatSolution(q) {
-        const L = String.fromCharCode(65 + q.correct);
+        const order = quizOptionOrders[q.id] || q.options.map((_, i) => i);
+        const displayedCorrectIndex = order.indexOf(q.correct);
+        const L = String.fromCharCode(65 + displayedCorrectIndex);
         return `<div class="ans-banner"><span class="ans-label"><i class="fa-solid fa-key" aria-hidden="true"></i> Answer key</span><span class="ans-text"><b>${L}.</b> ${q.options[q.correct]}</span></div>
             <div class="sol-title">Worked solution</div><ol class="sol-steps">${fmtSteps(q.sol)}</ol>`;
     }
@@ -2172,15 +2208,19 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
         const shown = retryWrongOnly ? list.filter(q => scoreData.answeredIds.includes(q.id) && !scoreData.correctIds.includes(q.id)) : list;
 
         shown.forEach((q, idx) => {
+            // Keep this session's option order stable across re-renders and page reloads.
+            const optionOrder = getVisitorOptionOrder(q);
+            quizOptionOrders[q.id] = optionOrder;
             const card = document.createElement('div');
             card.className = "bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-200 dark:border-slate-800 p-8 space-y-6 shadow-md";
 
             let optionsHTML = '';
-            q.options.forEach((opt, optIdx) => {
+            optionOrder.forEach((originalIndex, displayedIndex) => {
+                const opt = q.options[originalIndex];
                 optionsHTML += `
                     <label class="flex items-center p-4 rounded-2xl bg-cream-100 dark:bg-slate-900 border border-cream-200 dark:border-slate-800 cursor-pointer hover:bg-cream-200 dark:hover:bg-slate-800 transition-all text-base text-cream-900 dark:text-slate-200">
-                        <input type="radio" name="q_${q.id}" value="${optIdx}" class="w-5 h-5 accent-maroon-600 mr-4 cursor-pointer">
-                        <span>${String.fromCharCode(65 + optIdx)}. ${opt}</span>
+                        <input type="radio" name="q_${q.id}" value="${displayedIndex}" class="w-5 h-5 accent-maroon-600 mr-4 cursor-pointer">
+                        <span>${String.fromCharCode(65 + displayedIndex)}. ${opt}</span>
                     </label>
                 `;
             });
@@ -2216,15 +2256,17 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
             return;
         }
 
-        const userAns = parseInt(selectedOpt.value);
+        const userAns = parseInt(selectedOpt.value, 10);
         const questionObj = fullQuizDatabase[currentQuizLevel].find(q => q.id === qId);
         if (!questionObj) return;
+        const optionOrder = quizOptionOrders[qId] || questionObj.options.map((_, i) => i);
+        const originalAnswerIndex = optionOrder[userAns];
         const submitButton = document.querySelector(`#res_${qId}`)?.previousElementSibling;
         const alreadyAnswered = scoreData.answeredIds.includes(qId);
 
         resBox.classList.remove('hidden');
 
-        if (userAns === questionObj.correct) {
+        if (originalAnswerIndex === questionObj.correct) {
             resBox.className = "p-6 rounded-2xl border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/20 space-y-3 shadow-md";
             statusBox.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-2xl mr-2"></i> <span class="text-emerald-800 dark:text-emerald-300">Correct. Well done.</span>`;
             if (!scoreData.correctIds.includes(qId)) scoreData.correctIds.push(qId);
