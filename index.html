@@ -2079,15 +2079,30 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
     try {
         const savedScore = JSON.parse(localStorage.getItem('coulomb_quiz_score'));
         scoreData = savedScore && Array.isArray(savedScore.answeredIds) && Array.isArray(savedScore.correctIds)
-            ? savedScore
-            : { answeredIds: [], correctIds: [] };
+            ? { answeredIds: savedScore.answeredIds, correctIds: savedScore.correctIds, responses: savedScore.responses || {} }
+            : { answeredIds: [], correctIds: [], responses: {} };
     } catch (error) {
-        scoreData = { answeredIds: [], correctIds: [] };
+        scoreData = { answeredIds: [], correctIds: [], responses: {} };
     }
 
     function saveQuizProgress() {
         try { localStorage.setItem('coulomb_quiz_score', JSON.stringify(scoreData)); }
         catch (error) { console.warn('Quiz progress could not be saved in this browser.', error); }
+    }
+
+    // Keep each question's option order stable for this browser tab session.
+    // A new session gets a new permutation; saved progress remains in localStorage.
+    let sessionOptionOrders = {};
+    try { sessionOptionOrders = JSON.parse(sessionStorage.getItem('coulomb_quiz_option_orders') || '{}') || {}; }
+    catch (error) { sessionOptionOrders = {}; }
+
+    function getSessionOptionOrder(q) {
+        const saved = sessionOptionOrders[q.id];
+        if (Array.isArray(saved) && saved.length === q.options.length && saved.every(i => Number.isInteger(i) && i >= 0 && i < q.options.length)) return saved;
+        const order = shuffleArray(q.options.map((_, originalIndex) => originalIndex));
+        sessionOptionOrders[q.id] = order;
+        try { sessionStorage.setItem('coulomb_quiz_option_orders', JSON.stringify(sessionOptionOrders)); } catch (error) {}
+        return order;
     }
 
     function shuffleArray(items) {
@@ -2112,7 +2127,7 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
     }
 
     function resetQuizProgress() {
-        scoreData = { answeredIds: [], correctIds: [] };
+        scoreData = { answeredIds: [], correctIds: [], responses: {} };
         saveQuizProgress();
         updateScoreDisplay();
         renderQuizQuestions();
@@ -2149,39 +2164,7 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
         return html.replace(/([.!?])\s+(?=[A-Z\u221A(])/g, '$1\u0001').split('\u0001').map(t => t.trim()).filter(Boolean)
             .map(t => `<li class="${/[=\u21D2\u2248]/.test(t) ? 'has-eq' : ''}">${t}</li>`).join('');
     }
-    // Session-based seed: option positions are randomized for each new browser tab/session,
-    // but remain stable while the user reloads or navigates between difficulty levels.
-    // sessionStorage is tab-scoped and is cleared when that tab/session ends.
-    const QUIZ_OPTION_SEED_KEY = 'coulomb_quiz_option_seed_session_v2';
-    let quizVisitorSeed;
-    try {
-        quizVisitorSeed = sessionStorage.getItem(QUIZ_OPTION_SEED_KEY);
-        if (!quizVisitorSeed) {
-            quizVisitorSeed = `${Date.now()}_${Math.random().toString(36).slice(2)}_${Math.random().toString(36).slice(2)}`;
-            sessionStorage.setItem(QUIZ_OPTION_SEED_KEY, quizVisitorSeed);
-        }
-    } catch (error) {
-        quizVisitorSeed = `${Date.now()}_${Math.random().toString(36).slice(2)}_${Math.random().toString(36).slice(2)}`;
-    }
-
-    function stableOptionScore(value) {
-        let hash = 2166136261;
-        for (let i = 0; i < value.length; i++) {
-            hash ^= value.charCodeAt(i);
-            hash = Math.imul(hash, 16777619);
-        }
-        return hash >>> 0;
-    }
-
-    // Each session gets a deterministic, independently shuffled order for each question.
-    function getVisitorOptionOrder(q) {
-        return q.options.map((_, originalIndex) => originalIndex).sort((a, b) => {
-            const scoreA = stableOptionScore(`${quizVisitorSeed}|${q.id}|${a}`);
-            const scoreB = stableOptionScore(`${quizVisitorSeed}|${q.id}|${b}`);
-            return scoreA - scoreB;
-        });
-    }
-
+    // Each question gets a session-stable shuffled order; grading uses original option indices.
     const quizOptionOrders = Object.create(null);
     function formatSolution(q) {
         const order = quizOptionOrders[q.id] || q.options.map((_, i) => i);
@@ -2208,8 +2191,7 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
         const shown = retryWrongOnly ? list.filter(q => scoreData.answeredIds.includes(q.id) && !scoreData.correctIds.includes(q.id)) : list;
 
         shown.forEach((q, idx) => {
-            // Keep this session's option order stable across re-renders and page reloads.
-            const optionOrder = getVisitorOptionOrder(q);
+            const optionOrder = getSessionOptionOrder(q);
             quizOptionOrders[q.id] = optionOrder;
             const card = document.createElement('div');
             card.className = "bg-cream-50 dark:bg-slate-950 rounded-3xl border border-cream-200 dark:border-slate-800 p-8 space-y-6 shadow-md";
@@ -2240,6 +2222,28 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
                 </div>
             `;
             container.appendChild(card);
+
+            // Restore the learner's last submitted response from localStorage.
+            if (Object.prototype.hasOwnProperty.call(scoreData.responses, q.id)) {
+                const savedOriginalIndex = scoreData.responses[q.id];
+                const savedDisplayedIndex = optionOrder.indexOf(savedOriginalIndex);
+                const savedRadio = card.querySelector(`input[name="q_${q.id}"][value="${savedDisplayedIndex}"]`);
+                if (savedRadio) savedRadio.checked = true;
+                if (scoreData.answeredIds.includes(q.id)) {
+                    const resBox = card.querySelector(`#res_${q.id}`);
+                    const statusBox = card.querySelector(`#status_${q.id}`);
+                    const submitButton = resBox?.previousElementSibling;
+                    resBox?.classList.remove('hidden');
+                    if (scoreData.correctIds.includes(q.id)) {
+                        if (resBox) resBox.className = "p-6 rounded-2xl border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/20 space-y-3 shadow-md";
+                        if (statusBox) statusBox.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-2xl mr-2"></i> <span class="text-emerald-800 dark:text-emerald-300">Correct. Well done.</span>`;
+                    } else {
+                        if (resBox) resBox.className = "p-6 rounded-2xl border border-rose-500/40 bg-rose-50 dark:bg-rose-950/20 space-y-3 shadow-md";
+                        if (statusBox) statusBox.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-2xl mr-2"></i> <span class="text-rose-800 dark:text-rose-300">Incorrect. Review the solution below.</span>`;
+                    }
+                    if (submitButton) submitButton.innerHTML = '<i class="fa-solid fa-rotate-right"></i><span>Update Response</span>';
+                }
+            }
         });
 
         updateScoreDisplay();
@@ -2261,6 +2265,8 @@ html.dark #tab-theory .notebook-page details[open] summary{border-bottom-color:#
         if (!questionObj) return;
         const optionOrder = quizOptionOrders[qId] || questionObj.options.map((_, i) => i);
         const originalAnswerIndex = optionOrder[userAns];
+        scoreData.responses = scoreData.responses || {};
+        scoreData.responses[qId] = originalAnswerIndex;
         const submitButton = document.querySelector(`#res_${qId}`)?.previousElementSibling;
         const alreadyAnswered = scoreData.answeredIds.includes(qId);
 
